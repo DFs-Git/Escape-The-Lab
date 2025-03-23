@@ -25,7 +25,7 @@ public class BackGroud: MonoBehaviour
     void UpdateImageSize()
     {
         // 获取当前屏幕尺寸
-        screenSize = new Vector2(Screen.width +100, Screen.height+100);
+        screenSize = new Vector2(Screen.width + 100, Screen.height + 100);
         rectTransform.sizeDelta = screenSize;
     }
 }
