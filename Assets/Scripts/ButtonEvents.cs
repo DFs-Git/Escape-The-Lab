@@ -1,29 +1,29 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ButtonEvents : MonoBehaviour
 {
-    // ¿ªÊ¼°´Å¥
+    // å¼€å§‹æŒ‰é’®
     public void StartEvent()
     {
         
     }
 
-    // ÉèÖÃ°´Å¥
+    // è®¾ç½®æŒ‰é’®
     public void SettingEvent()
     {
         SceneManager.LoadScene(1);
     }
 
-    // Í¼¼ø°´Å¥
+    // å›¾é‰´æŒ‰é’®
     public void CollectionEvent()
     {
 
     }
 
-    // ÍË³ö°´Å¥
+    // é€€å‡ºæŒ‰é’®
     public void ExitEvent()
     {
 #if UNITY_EDITOR

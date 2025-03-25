@@ -1,34 +1,36 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using UnityEngine;
 
-// Ê¹ÓÃNugetµ¼ÈëµÄCSV½âÎö°ü
+// ä½¿ç”¨Nugetå¯¼å…¥çš„CSVè§£æåŒ…
 using CsvHelper;
+using System.Linq;
 
+//ä½¿ç”¨æ–¹æ³•ï¼šåœ¨å…¶ä»–è„šæœ¬ä¸­å¼•ç”¨è¯¥ç±»åé€šè¿‡allChemicalsè·å¾—ç›¸å…³åŒ–å­¦ç‰©è´¨ä¿¡æ¯
 public class ChemicalDatabaseLoader : MonoBehaviour
 {
     /// <summary>
-    /// »¯Ñ§ÎïÖÊÊı¾İ½á¹¹£¬ÓÃÓÚ´æ´¢µ¥¸ö»¯Ñ§ÎïÖÊµÄÊôĞÔ
+    /// åŒ–å­¦ç‰©è´¨æ•°æ®ç»“æ„ï¼Œç”¨äºå­˜å‚¨å•ä¸ªåŒ–å­¦ç‰©è´¨çš„å±æ€§
     /// </summary>
     public struct Chemical
     {
-        // Î¨Ò»±êÊ¶·û
+        // å”¯ä¸€æ ‡è¯†ç¬¦
         public int ID { get; }
-        // »¯Ñ§ÎïÖÊÃû³Æ£¨ÖĞÎÄ£©
+        // åŒ–å­¦ç‰©è´¨åç§°ï¼ˆä¸­æ–‡ï¼‰
         public string Name { get; }
-        // »¯Ñ§·Ö×ÓÊ½£¨ÈçH2O£©
+        // åŒ–å­¦åˆ†å­å¼ï¼ˆå¦‚H2Oï¼‰
         public string Formula { get; }
-        // ·ÖÀàÀà±ğ£¨ÈçËá¡¢¼î¡¢ÓĞ»úÎïµÈ£©
+        // åˆ†ç±»ç±»åˆ«ï¼ˆå¦‚é…¸ã€ç¢±ã€æœ‰æœºç‰©ç­‰ï¼‰
         public string Category { get; }
 
         /// <summary>
-        /// ¹¹Ôìº¯Êı£¬ÓÃÓÚ´´½¨ĞÂµÄ»¯Ñ§ÎïÖÊÊµÀı
+        /// æ„é€ å‡½æ•°ï¼Œç”¨äºåˆ›å»ºæ–°çš„åŒ–å­¦ç‰©è´¨å®ä¾‹
         /// </summary>
-        /// <param name="id">Î¨Ò»ID</param>
-        /// <param name="name">ÖĞÎÄÃû³Æ</param>
-        /// <param name="formula">»¯Ñ§·Ö×ÓÊ½</param>
-        /// <param name="category">·ÖÀàÀà±ğ</param>
+        /// <param name="id">å”¯ä¸€ID</param>
+        /// <param name="name">ä¸­æ–‡åç§°</param>
+        /// <param name="formula">åŒ–å­¦åˆ†å­å¼</param>
+        /// <param name="category">åˆ†ç±»ç±»åˆ«</param>
         public Chemical(int id, string name, string formula, string category)
         {
             ID = id;
@@ -38,68 +40,155 @@ public class ChemicalDatabaseLoader : MonoBehaviour
         }
     }
 
-    // ´æ´¢ËùÓĞ»¯Ñ§ÎïÖÊÊı¾İµÄ¾²Ì¬ÁĞ±í
+    // å­˜å‚¨æ‰€æœ‰åŒ–å­¦ç‰©è´¨æ•°æ®çš„é™æ€åˆ—è¡¨
     private static List<Chemical> allChemicals = new List<Chemical>();
 
     /// <summary>
-    /// UnityÆô¶¯Ê±µÄÈë¿Ú·½·¨
+    /// Unityå¯åŠ¨æ—¶çš„å…¥å£æ–¹æ³•
     /// </summary>
-    void Start()
+    
+    void Awake()
     {
-        // ¼ÓÔØCSVÎÄ¼şÖĞµÄ»¯Ñ§ÎïÖÊÊı¾İ
+        // åŠ è½½CSVæ–‡ä»¶ä¸­çš„åŒ–å­¦ç‰©è´¨æ•°æ®
         LoadChemicals();
-        // ´òÓ¡¼ÓÔØ½á¹ûµ½¿ØÖÆÌ¨
-        PrintChemicals();
+        // æ‰“å°åŠ è½½ç»“æœåˆ°æ§åˆ¶å°
+        //PrintChemicals();
+        //æŸ¥è¯¢æµ‹è¯•
+        DemonstrateQuery();
     }
 
     /// <summary>
-    /// ´ÓCSVÎÄ¼ş¼ÓÔØ»¯Ñ§ÎïÖÊÊı¾İ
+    /// ä»CSVæ–‡ä»¶åŠ è½½åŒ–å­¦ç‰©è´¨æ•°æ®
     /// </summary>
-    private void LoadChemicals()
+    public void LoadChemicals()
     {
-        // ´ÓResourcesÎÄ¼ş¼Ğ¼ÓÔØCSVÎÄ¼ş
+        // ä»Resourcesæ–‡ä»¶å¤¹åŠ è½½CSVæ–‡ä»¶
         TextAsset csvFile = Resources.Load<TextAsset>("chemicals.csv");
 
-        // ¼ì²éÎÄ¼şÊÇ·ñ´æÔÚ
+        // æ£€æŸ¥æ–‡ä»¶æ˜¯å¦å­˜åœ¨
         if (csvFile == null)
         {
-            Debug.LogError("Î´ÕÒµ½chemicals.csvÎÄ¼ş£¡ÇëÈ·ÈÏÎÄ¼şÎ»ÓÚResourcesÎÄ¼ş¼Ğ");
+            Debug.LogError("æœªæ‰¾åˆ°chemicals.csvæ–‡ä»¶ï¼è¯·ç¡®è®¤æ–‡ä»¶ä½äºResourcesæ–‡ä»¶å¤¹");
             return;
         }
 
-        // Ê¹ÓÃStringReaderºÍCsvReader½âÎöCSVÎÄ¼ş
+        // ä½¿ç”¨StringReaderå’ŒCsvReaderè§£æCSVæ–‡ä»¶
         using var reader = new StringReader(csvFile.text);
         using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
 
-        // Ìø¹ı±êÌâĞĞ£¨¼ÙÉèµÚÒ»ĞĞÎª±êÌâ£©
+        // è·³è¿‡æ ‡é¢˜è¡Œï¼ˆç¬¬ä¸€è¡Œä¸ºæ ‡é¢˜ï¼‰
         csv.Read();
         csv.ReadHeader();
 
-        // ÖğĞĞ¶ÁÈ¡CSVÊı¾İ
+        // é€è¡Œè¯»å–CSVæ•°æ®
         while (csv.Read())
         {
-            // ´´½¨ĞÂµÄ»¯Ñ§ÎïÖÊÊµÀı²¢Ìí¼Óµ½ÁĞ±í
+            // åˆ›å»ºæ–°çš„åŒ–å­¦ç‰©è´¨å®ä¾‹å¹¶æ·»åŠ åˆ°åˆ—è¡¨
             allChemicals.Add(new Chemical(
-                csv.GetField<int>("ID"),            // »ñÈ¡ID×Ö¶Î£¨×Ô¶¯×ª»»Îªint£©
-                csv.GetField("Ãû³Æ"),                // »ñÈ¡ÖĞÎÄÃû³Æ×Ö¶Î
-                csv.GetField("»¯Ñ§Ê½"),              // »ñÈ¡»¯Ñ§·Ö×ÓÊ½×Ö¶Î
-                csv.GetField("Àà±ğ")                 // »ñÈ¡·ÖÀàÀà±ğ×Ö¶Î
+                csv.GetField<int>("ID"),            // è·å–IDå­—æ®µï¼ˆè‡ªåŠ¨è½¬æ¢ä¸ºintï¼‰
+                csv.GetField("åç§°"),                // è·å–ä¸­æ–‡åç§°å­—æ®µ
+                csv.GetField("åŒ–å­¦å¼"),              // è·å–åŒ–å­¦åˆ†å­å¼å­—æ®µ
+                csv.GetField("ç±»åˆ«")                 // è·å–åˆ†ç±»ç±»åˆ«å­—æ®µ
             ));
         }
     }
 
     /// <summary>
-    /// ´òÓ¡ËùÓĞ¼ÓÔØµÄ»¯Ñ§ÎïÖÊĞÅÏ¢µ½Unity¿ØÖÆÌ¨
+    /// æ‰“å°æ‰€æœ‰åŠ è½½çš„åŒ–å­¦ç‰©è´¨ä¿¡æ¯åˆ°Unityæ§åˆ¶å°
     /// </summary>
-    private void PrintChemicals()
+    public void PrintChemicals()
     {
-        // Êä³ö¼ÓÔØ×ÜÊı
-        Debug.Log($"¹²¼ÓÔØ {allChemicals.Count} Ìõ»¯Ñ§Êı¾İ");
+        // è¾“å‡ºåŠ è½½æ€»æ•°
+        Debug.Log($"å…±åŠ è½½ {allChemicals.Count} æ¡åŒ–å­¦æ•°æ®");
 
-        // ±éÀúËùÓĞ»¯Ñ§ÎïÖÊ²¢´òÓ¡ÏêÏ¸ĞÅÏ¢
+        // éå†æ‰€æœ‰åŒ–å­¦ç‰©è´¨å¹¶æ‰“å°è¯¦ç»†ä¿¡æ¯
         foreach (var chemical in allChemicals)
         {
-            Debug.Log($"ID: {chemical.ID} | Ãû³Æ: {chemical.Name} | »¯Ñ§Ê½: {chemical.Formula} | Àà±ğ: {chemical.Category}");
+            Debug.Log($"ID: {chemical.ID} | åç§°: {chemical.Name} | åŒ–å­¦å¼: {chemical.Formula} | ç±»åˆ«: {chemical.Category}");
         }
+    }
+
+    /// <summary>
+    /// æ‰“å°æŒ‡å®šåŒ–å­¦ç‰©è´¨åˆ—è¡¨
+    /// </summary>
+    /// <param name="chemicals">è¦æ‰“å°çš„åŒ–å­¦ç‰©è´¨åˆ—è¡¨</param>
+    private void PrintChemicals(List<Chemical> chemicals)
+    {
+        Debug.Log($"æ‰¾åˆ° {chemicals.Count} æ¡ç»“æœ");
+        foreach (var chemical in chemicals)
+        {
+            Debug.Log($"ID: {chemical.ID} | åç§°: {chemical.Name} | åŒ–å­¦å¼: {chemical.Formula} | ç±»åˆ«: {chemical.Category}");
+        }
+    }
+
+    /// <summary>
+    /// æŸ¥è¯¢åŒ–å­¦ç‰©è´¨æ•°æ®
+    /// </summary>
+    /// <param name="id">å¯é€‰ï¼šæŒ‰IDæŸ¥è¯¢</param>
+    /// <param name="name">å¯é€‰ï¼šæŒ‰åç§°æŸ¥è¯¢ï¼ˆæ”¯æŒæ¨¡ç³ŠåŒ¹é…ï¼‰</param>
+    /// <param name="formula">å¯é€‰ï¼šæŒ‰åŒ–å­¦å¼æŸ¥è¯¢</param>
+    /// <param name="category">å¯é€‰ï¼šæŒ‰ç±»åˆ«æŸ¥è¯¢</param>
+    /// <returns>åŒ¹é…çš„åŒ–å­¦ç‰©è´¨åˆ—è¡¨</returns>
+    public List<Chemical> FindChemicals(
+        int? id = null,
+        string name = null,
+        string formula = null,
+        string category = null)
+    {
+        // ä½¿ç”¨LINQè¿›è¡ŒæŸ¥è¯¢
+        var query = allChemicals.AsQueryable();
+
+        // æŒ‰IDç­›é€‰
+        if (id.HasValue)
+        {
+            query = query.Where(c => c.ID == id.Value);
+        }
+
+        // æŒ‰åç§°æ¨¡ç³ŠåŒ¹é…
+        if (!string.IsNullOrEmpty(name))
+        {
+            query = query.Where(c => c.Name.Contains(name));
+        }
+
+        // æŒ‰åŒ–å­¦å¼ç²¾ç¡®åŒ¹é…
+        if (!string.IsNullOrEmpty(formula))
+        {
+            query = query.Where(c => c.Formula == formula);
+        }
+
+        // æŒ‰ç±»åˆ«ç²¾ç¡®åŒ¹é…
+        if (!string.IsNullOrEmpty(category))
+        {
+            query = query.Where(c => c.Category == category);
+        }
+
+        // è¿”å›æŸ¥è¯¢ç»“æœ
+        return query.ToList();
+    }
+
+    /// <summary>
+    /// æ¼”ç¤ºæŸ¥è¯¢åŠŸèƒ½çš„ä½¿ç”¨
+    /// </summary>
+    private void DemonstrateQuery()
+    {
+        // ç¤ºä¾‹1ï¼šæŒ‰IDæŸ¥è¯¢
+        var result1 = FindChemicals(id: 100);
+        Debug.Log("\n=== æŒ‰IDæŸ¥è¯¢ç»“æœ ===");
+        PrintChemicals(result1);
+
+        // ç¤ºä¾‹2ï¼šæŒ‰åç§°æ¨¡ç³ŠæŸ¥è¯¢
+        var result2 = FindChemicals(name: "é…¸");
+        Debug.Log("\n=== æŒ‰åç§°æŸ¥è¯¢ç»“æœ ===");
+        PrintChemicals(result2);
+
+        // ç¤ºä¾‹3ï¼šæŒ‰åŒ–å­¦å¼ç²¾ç¡®æŸ¥è¯¢
+        var result3 = FindChemicals(formula: "Hâ‚‚O");
+        Debug.Log("\n=== æŒ‰åŒ–å­¦å¼æŸ¥è¯¢ç»“æœ ===");
+        PrintChemicals(result3);
+
+        // ç¤ºä¾‹4ï¼šç»„åˆæŸ¥è¯¢ï¼ˆç±»åˆ«ä¸ºæœ‰æœºç‰©ä¸”åç§°åŒ…å«"é†‡"ï¼‰
+        var result4 = FindChemicals(category: "æœ‰æœºç‰©", name: "é†‡");
+        Debug.Log("\n=== ç»„åˆæŸ¥è¯¢ç»“æœ ===");
+        PrintChemicals(result4);
     }
 }
