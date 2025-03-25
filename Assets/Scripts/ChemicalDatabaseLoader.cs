@@ -52,9 +52,9 @@ public class ChemicalDatabaseLoader : MonoBehaviour
         // 加载CSV文件中的化学物质数据
         LoadChemicals();
         // 打印加载结果到控制台
-        //PrintChemicals();
+        PrintChemicals();
         //查询测试
-        DemonstrateQuery();
+        //DemonstrateQuery();
     }
 
     /// <summary>
