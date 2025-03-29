@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using TMPro;
@@ -13,12 +13,12 @@ public class SettingsButton : MonoBehaviour
     public TMP_Dropdown screen;
     public Toggle fullsc;
 
-    // ½¨Á¢´ÓDropdownË÷Òýµ½ÆÁÄ»·Ö±æÂÊµÄÓ³Éä
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Dropdownï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½Ö±ï¿½ï¿½Êµï¿½Ó³ï¿½ï¿½
     private Vector2[] indexToScreenSize;
 
     private void Start()
     {
-        // ´ò±í
+        // ï¿½ï¿½ï¿½
         indexToScreenSize = new Vector2[5];
 
         indexToScreenSize[0] = new Vector2(1920, 1080);
@@ -27,7 +27,7 @@ public class SettingsButton : MonoBehaviour
         indexToScreenSize[3] = new Vector2(1024, 768);
         indexToScreenSize[4] = new Vector2(800, 600);
 
-        // ÐÞ¸Ä¸÷Ñ¡ÏîÎªÉè¶¨µÄÑ¡Ïî
+        // ï¿½Þ¸Ä¸ï¿½Ñ¡ï¿½ï¿½Îªï¿½è¶¨ï¿½ï¿½Ñ¡ï¿½ï¿½
         fullsc.isOn = PlayerPrefs.GetInt("fullscreen") == 1 ? true : false;
         int width = PlayerPrefs.GetInt("width");
         if (width == 1920) screen.value = 0;
@@ -37,29 +37,29 @@ public class SettingsButton : MonoBehaviour
         if (width == 800) screen.value = 4;
     }
 
-    // ·µ»Ø°´Å¥
+    // ï¿½ï¿½ï¿½Ø°ï¿½Å¥
     public void Back()
     {
         SceneManager.LoadScene(0);
     }
 
-    // Ó¦ÓÃÉèÖÃ°´Å¥
+    // Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½Å¥
     public void Apply()
     {
-        // ¶ÁÈ¡Dropdown/ToggleÊäÈë
+        // ï¿½ï¿½È¡Dropdown/Toggleï¿½ï¿½ï¿½ï¿½
         int screenSizeIndex = screen.value;
         bool fullScreen = fullsc.isOn;
 
-        // ½«ÊäÈëÐ´ÈëPlayerPrefs
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½PlayerPrefs
         Vector2 screenSize = indexToScreenSize[screenSizeIndex];
         PlayerPrefs.SetInt("fullscreen", fullScreen ? 1 : 0);
         PlayerPrefs.SetInt("width", (int)screenSize.x);
         PlayerPrefs.SetInt("height", (int)screenSize.y);
 
-        // ±£´æµ½´ÅÅÌ
+        // ï¿½ï¿½ï¿½æµ½ï¿½ï¿½ï¿½ï¿½
         PlayerPrefs.Save();
 
-        // Ó¦ÓÃ´°¿Ú¸ü¸Ä
+        // Ó¦ï¿½Ã´ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½
         Screen.SetResolution((int)screenSize.x, (int)screenSize.y, fullScreen);
     }
 }
