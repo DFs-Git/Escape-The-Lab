@@ -14,7 +14,7 @@ using System.Linq;
 namespace ChemicalDatabaseLoader
 {
     // 数据库加载器类：负责加载和处理化学物质数据
-    public class ChemicalDatabaseLoader : MonoBehaviour
+    public static class ChemicalDatabaseLoader
     {
         /// <summary>
         /// 化学物质数据结构，用于存储单个化学物质的属性
@@ -56,19 +56,6 @@ namespace ChemicalDatabaseLoader
 
         // 存储所有化学物质数据的静态列表（内存数据库）
         public static List<Chemical> allChemicals = new List<Chemical>();
-
-        /// <summary>
-        /// Unity初始化方法：在对象创建时立即执行数据加载
-        /// </summary>
-        void Awake()
-        {
-            // 加载CSV文件中的化学物质数据
-            //LoadChemicals();
-            // 打印加载结果到控制台（调试用）
-            //PrintChemicals();
-            // 查询功能测试演示
-            //DemonstrateQuery();
-        }
 
 
         /// <summary>
@@ -165,32 +152,6 @@ namespace ChemicalDatabaseLoader
             if (!string.IsNullOrEmpty(category)) query = query.Where(c => c.Category == category);
 
             return query.ToList();
-        }
-
-        /// <summary>
-        /// 查询功能演示方法：展示不同查询条件的使用方式
-        /// </summary>
-        private void DemonstrateQuery()
-        {
-            // 精确ID查询演示
-            var result1 = FindChemicals(id: 100);
-            Debug.Log("\n=== 按ID查询结果 ===");
-            PrintChemicals(result1);
-
-            // 名称模糊查询演示（包含"酸"字的物质）
-            var result2 = FindChemicals(name: "酸");
-            Debug.Log("\n=== 按名称查询结果 ===");
-            PrintChemicals(result2);
-
-            // 化学式精确匹配演示
-            var result3 = FindChemicals(formula: "H₂O");
-            Debug.Log("\n=== 按化学式查询结果 ===");
-            PrintChemicals(result3);
-
-            // 多条件组合查询演示（有机物类别且名称含"醇"）
-            var result4 = FindChemicals(category: "有机物", name: "醇");
-            Debug.Log("\n=== 组合查询结果 ===");
-            PrintChemicals(result4);
         }
     }
 }
