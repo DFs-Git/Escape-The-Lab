@@ -13,16 +13,19 @@ public class CollectionsLoader : MonoBehaviour
     public Button Item;
     void Start()
     {
+
+        TextMeshProUGUI Name = GameObject.Find("Shower/Name").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI Formula = GameObject.Find("Shower/Formula").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI Content = GameObject.Find("Shower/Content").GetComponent<TextMeshProUGUI>();
+
+
+        CDL.allChemicals.Clear();
+        CDL.LoadChemicals();
         List<Chemical> allChemicals = CDL.allChemicals;
         void OnButtonClick(int ID) {
             Chemical Che = CDL.FindChemicals(ID)[0];
-            TextMeshProUGUI Name = GameObject.Find("Shower/Name").GetComponent<TextMeshProUGUI>();
-            TextMeshProUGUI Formula = GameObject.Find("Shower/Formula").GetComponent<TextMeshProUGUI>();
-            TextMeshProUGUI Category = GameObject.Find("Shower/Category").GetComponent<TextMeshProUGUI>();
-            TextMeshProUGUI Content = GameObject.Find("Shower/Content").GetComponent<TextMeshProUGUI>();
-            Name.text=Che.Name;
+            Name.text=$"{Che.Name} {Che.Category}";
             Formula.text = Che.Formula;
-            Category.text = Che.Category;
             Content.text = $"物理性质：{Che.PhysicaProperty}\n化学性质：{Che.ChemicalProperty}";
         }
 
@@ -39,8 +42,4 @@ public class CollectionsLoader : MonoBehaviour
         OnButtonClick(1);
     }
 
-    void Update()
-    {
-        
-    }
 }
