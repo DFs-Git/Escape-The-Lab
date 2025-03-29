@@ -8,7 +8,7 @@ public class ButtonEvents : MonoBehaviour
     // 开始按钮
     public void StartEvent()
     {
-        
+        SceneManager.LoadScene(3);
     }
 
     // 设置按钮
