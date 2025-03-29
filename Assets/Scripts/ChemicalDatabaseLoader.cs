@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿// 使用必要的命名空间
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine;
 using CsvHelper;
 using System.Linq;
 
-//使用方法：在其他脚本中引用该类后通过allChemicals获得相关化学物质信息
+// 数据库加载器类：负责加载和处理化学物质数据
 public class ChemicalDatabaseLoader : MonoBehaviour
 {
     /// <summary>
@@ -23,6 +24,10 @@ public class ChemicalDatabaseLoader : MonoBehaviour
         public string Formula { get; }
         // 分类类别（如酸、碱、有机物等）
         public string Category { get; }
+        // 化学性质描述
+        public string ChemicalProperty { get; }
+        // 物理性质描述
+        public string PhysicaProperty { get; }
 
         /// <summary>
         /// 构造函数，用于创建新的化学物质实例
@@ -31,162 +36,145 @@ public class ChemicalDatabaseLoader : MonoBehaviour
         /// <param name="name">中文名称</param>
         /// <param name="formula">化学分子式</param>
         /// <param name="category">分类类别</param>
-        public Chemical(int id, string name, string formula, string category)
+        /// <param name="chemicalProperty">化学性质描述</param>
+        /// <param name="physicaProperty">物理性质描述</param>
+        public Chemical(int id, string name, string formula, string category, string chemicalProperty, string physicaProperty)
         {
             ID = id;
             Name = name;
             Formula = formula;
             Category = category;
+            ChemicalProperty = chemicalProperty;
+            PhysicaProperty = physicaProperty;
         }
     }
 
-    // 存储所有化学物质数据的静态列表
+    // 存储所有化学物质数据的静态列表（内存数据库）
     private static List<Chemical> allChemicals = new List<Chemical>();
 
     /// <summary>
-    /// Unity启动时的入口方法
+    /// Unity初始化方法：在对象创建时立即执行数据加载
     /// </summary>
-    
     void Awake()
     {
         // 加载CSV文件中的化学物质数据
         LoadChemicals();
-        // 打印加载结果到控制台
+        // 打印加载结果到控制台（调试用）
         PrintChemicals();
-        //查询测试
+        // 查询功能测试演示
         //DemonstrateQuery();
     }
 
     /// <summary>
-    /// 从CSV文件加载化学物质数据
+    /// CSV数据加载核心方法：从Resources/chemicals.csv读取并解析数据
     /// </summary>
     public void LoadChemicals()
     {
-        // 从Resources文件夹加载CSV文件
-        TextAsset csvFile = Resources.Load<TextAsset>("chemicals.csv");
+        // 从Unity资源系统加载CSV文本文件
+        TextAsset csvFile = Resources.Load<TextAsset>("chemicals");
 
-        // 检查文件是否存在
+        // 空文件检查
         if (csvFile == null)
         {
             Debug.LogError("未找到chemicals.csv文件！请确认文件位于Resources文件夹");
             return;
         }
 
-        // 使用StringReader和CsvReader解析CSV文件
+        // 创建CSV阅读器并配置解析规则
         using var reader = new StringReader(csvFile.text);
         using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
 
-        // 跳过标题行（第一行为标题）
+        // 跳过标题行（第一行为字段名称）
         csv.Read();
         csv.ReadHeader();
 
-        // 逐行读取CSV数据
+        // 逐行解析CSV数据
         while (csv.Read())
         {
-            // 创建新的化学物质实例并添加到列表
+            // 构造Chemical对象并添加到列表
             allChemicals.Add(new Chemical(
-                csv.GetField<int>("ID"),            // 获取ID字段（自动转换为int）
-                csv.GetField("名称"),                // 获取中文名称字段
-                csv.GetField("化学式"),              // 获取化学分子式字段
-                csv.GetField("类别")                 // 获取分类类别字段
+                csv.GetField<int>("ID"),            // 解析整型ID字段
+                csv.GetField("名称"),               // 解析中文名称
+                csv.GetField("化学式"),             // 解析化学分子式
+                csv.GetField("类别"),               // 解析分类类别
+                csv.GetField("化学性质"),           // 解析化学性质描述
+                csv.GetField("物理性质")            // 解析物理性质描述
             ));
         }
     }
 
     /// <summary>
-    /// 打印所有加载的化学物质信息到Unity控制台
+    /// 调试输出方法：在控制台打印所有加载的化学物质信息
     /// </summary>
     public void PrintChemicals()
     {
-        // 输出加载总数
         Debug.Log($"共加载 {allChemicals.Count} 条化学数据");
-
-        // 遍历所有化学物质并打印详细信息
         foreach (var chemical in allChemicals)
         {
-            Debug.Log($"ID: {chemical.ID} | 名称: {chemical.Name} | 化学式: {chemical.Formula} | 类别: {chemical.Category}");
+            Debug.Log($"ID: {chemical.ID} | 名称: {chemical.Name} | 化学式: {chemical.Formula} | 类别: {chemical.Category}|化学性质: {chemical.ChemicalProperty} | 物理性质: {chemical.PhysicaProperty}");
         }
     }
 
     /// <summary>
-    /// 打印指定化学物质列表
+    /// 重载打印方法：输出指定化学物质列表的详细信息
     /// </summary>
-    /// <param name="chemicals">要打印的化学物质列表</param>
+    /// <param name="chemicals">需要打印的化学物质集合</param>
     private void PrintChemicals(List<Chemical> chemicals)
     {
         Debug.Log($"找到 {chemicals.Count} 条结果");
         foreach (var chemical in chemicals)
         {
-            Debug.Log($"ID: {chemical.ID} | 名称: {chemical.Name} | 化学式: {chemical.Formula} | 类别: {chemical.Category}");
+            Debug.Log($"ID: {chemical.ID} | 名称: {chemical.Name} | 化学式: {chemical.Formula} | 类别: {chemical.Category}|化学性质: {chemical.ChemicalProperty} | 物理性质: {chemical.PhysicaProperty}");
         }
     }
 
     /// <summary>
-    /// 查询化学物质数据
+    /// 高级查询方法：支持多条件组合检索化学物质
     /// </summary>
-    /// <param name="id">可选：按ID查询</param>
-    /// <param name="name">可选：按名称查询（支持模糊匹配）</param>
-    /// <param name="formula">可选：按化学式查询</param>
-    /// <param name="category">可选：按类别查询</param>
-    /// <returns>匹配的化学物质列表</returns>
+    /// <param name="id">精确ID查询</param>
+    /// <param name="name">名称模糊查询（包含匹配）</param>
+    /// <param name="formula">化学式精确匹配</param>
+    /// <param name="category">类别精确匹配</param>
+    /// <returns>满足条件的化学物质集合</returns>
     public List<Chemical> FindChemicals(
         int? id = null,
         string name = null,
         string formula = null,
         string category = null)
     {
-        // 使用LINQ进行查询
+        // 初始化LINQ查询
         var query = allChemicals.AsQueryable();
 
-        // 按ID筛选
-        if (id.HasValue)
-        {
-            query = query.Where(c => c.ID == id.Value);
-        }
+        // 构建动态查询条件
+        if (id.HasValue) query = query.Where(c => c.ID == id.Value);
+        if (!string.IsNullOrEmpty(name)) query = query.Where(c => c.Name.Contains(name));
+        if (!string.IsNullOrEmpty(formula)) query = query.Where(c => c.Formula == formula);
+        if (!string.IsNullOrEmpty(category)) query = query.Where(c => c.Category == category);
 
-        // 按名称模糊匹配
-        if (!string.IsNullOrEmpty(name))
-        {
-            query = query.Where(c => c.Name.Contains(name));
-        }
-
-        // 按化学式精确匹配
-        if (!string.IsNullOrEmpty(formula))
-        {
-            query = query.Where(c => c.Formula == formula);
-        }
-
-        // 按类别精确匹配
-        if (!string.IsNullOrEmpty(category))
-        {
-            query = query.Where(c => c.Category == category);
-        }
-
-        // 返回查询结果
         return query.ToList();
     }
 
     /// <summary>
-    /// 演示查询功能的使用
+    /// 查询功能演示方法：展示不同查询条件的使用方式
     /// </summary>
     private void DemonstrateQuery()
     {
-        // 示例1：按ID查询
+        // 精确ID查询演示
         var result1 = FindChemicals(id: 100);
         Debug.Log("\n=== 按ID查询结果 ===");
         PrintChemicals(result1);
 
-        // 示例2：按名称模糊查询
+        // 名称模糊查询演示（包含"酸"字的物质）
         var result2 = FindChemicals(name: "酸");
         Debug.Log("\n=== 按名称查询结果 ===");
         PrintChemicals(result2);
 
-        // 示例3：按化学式精确查询
+        // 化学式精确匹配演示
         var result3 = FindChemicals(formula: "H₂O");
         Debug.Log("\n=== 按化学式查询结果 ===");
         PrintChemicals(result3);
 
-        // 示例4：组合查询（类别为有机物且名称包含"醇"）
+        // 多条件组合查询演示（有机物类别且名称含"醇"）
         var result4 = FindChemicals(category: "有机物", name: "醇");
         Debug.Log("\n=== 组合查询结果 ===");
         PrintChemicals(result4);
