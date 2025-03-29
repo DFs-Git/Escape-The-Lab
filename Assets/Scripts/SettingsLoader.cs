@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -7,41 +7,41 @@ public class SettingsLoader : MonoBehaviour
 {
     void Awake()
     {
-        // Èç¹ûÃ»ÓĞ´æ´¢Êı¾İµ½PlayerPrefs£¬Ôò´æ´¢Ä¬ÈÏÖµ
+        // å¦‚æœæ²¡æœ‰å­˜å‚¨æ•°æ®åˆ°PlayerPrefsï¼Œåˆ™å­˜å‚¨é»˜è®¤å€¼
         LoadSettings();
     }
 
-    // ¼ÓÔØËùÓĞÉèÖÃµ½settings
+    // åŠ è½½æ‰€æœ‰è®¾ç½®åˆ°settings
     public void LoadSettings()
     {
         /*
-        // ÉèÖÃÎÄ¼şµÄÂ·¾¶
+        // è®¾ç½®æ–‡ä»¶çš„è·¯å¾„
         string path = "Assets/Resources/settings.json.json";
         string settingsJson;
 
-        // Èç¹ûÂ·¾¶´æÔÚ¾Í¶Á
+        // å¦‚æœè·¯å¾„å­˜åœ¨å°±è¯»
         if (File.Exists(path))
         {
             settingsJson = File.ReadAllText(path);
         }
-        else return; // »òÕß·µ»ØÒ»¸ö´íÎóĞÅÏ¢»òÄ¬ÈÏÖµ
+        else return; // æˆ–è€…è¿”å›ä¸€ä¸ªé”™è¯¯ä¿¡æ¯æˆ–é»˜è®¤å€¼
 
         Debug.Log(settingsJson);
-        // ½âÎö
+        // è§£æ
         saving = JsonUtility.FromJson<Savings>(settingsJson);
         */
 
-        // Ã»ÓĞ´æ´¢Êı¾İ
+        // æ²¡æœ‰å­˜å‚¨æ•°æ®
         if (!PlayerPrefs.HasKey("lang"))
         {
-            // ´æÄ¬ÈÏÊı¾İ
+            // å­˜é»˜è®¤æ•°æ®
             PlayerPrefs.SetString("lang", "zh-cn");
             PlayerPrefs.SetInt("width", 1920);
             PlayerPrefs.SetInt("height", 1080);
             PlayerPrefs.SetInt("fullscreen", 1);
             PlayerPrefs.SetInt("chapter", 0);
             PlayerPrefs.SetInt("topic", 0);
-            // ±£´æµ½´ÅÅÌ
+            // ä¿å­˜åˆ°ç£ç›˜
             PlayerPrefs.Save();
         }
     }

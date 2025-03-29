@@ -76,7 +76,4 @@ crashlytics-build.properties
 .vsconfig
 
 # /[Aa]ssets/[Rr]esources/
-/[Aa]ssets/[Rr]esources/Fonts/
 /[Aa]ssets/[Tt]extMesh Pro/
-
-.assetAssets/Resources/Fonts/BB4171 SDF 1.asset

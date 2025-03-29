@@ -20,7 +20,7 @@ public class ButtonEvents : MonoBehaviour
     // 图鉴按钮
     public void CollectionEvent()
     {
-
+        SceneManager.LoadScene(2);
     }
 
     // 退出按钮
