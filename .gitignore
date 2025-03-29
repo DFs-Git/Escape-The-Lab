@@ -76,5 +76,5 @@ crashlytics-build.properties
 .vsconfig
 
 # /[Aa]ssets/[Rr]esources/
-/[Aa]seets/[Rr]esources/[Ff]onts/
+/[Aa]ssets/[Rr]esources/[Ff]onts/
 /[Aa]ssets/[Tt]extMesh Pro/
