@@ -3,10 +3,73 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class LevelButtons : MonoBehaviour
 {
+    public List<GameObject> AllChapters;
+    public List<GameObject> AllChaptersButtons;
+
+    void Start()
+    {
+        // 如果列表中没有
+        if (AllChapters.Count == 0 && AllChaptersButtons.Count == 0)
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                GameObject[] allGameOBJ = GameObject.FindObjectsOfType<GameObject>();
+                foreach (GameObject each in allGameOBJ)
+                {
+                    if (each.name == "C" + (char)(i + '0'))
+                    {
+                        AllChapters.Add(each);
+                    }
+                }
+
+                AllChaptersButtons.Add(GameObject.Find("Chapter " + (char)(i + '0')));
+            }
+        }
+
+        // 确保是关卡按钮，调整关卡按钮颜色
+        if (gameObject.tag == "levelbtn")
+        {
+            // 获取当前按钮对应的关卡
+            string levelIndex = gameObject.GetComponentInChildren<TMP_Text>().text;
+            int chapter = (int)levelIndex[0] - '0';
+            int topic = (int)levelIndex[2] - '0';
+
+            UnityEngine.UI.Image img = gameObject.GetComponent<UnityEngine.UI.Image>();
+
+            // 获取玩家进度信息
+            int completedChapter = PlayerPrefs.GetInt("chapter");
+            int completedTopic = PlayerPrefs.GetInt("topic");
+
+            // 已完成的关卡
+            if (completedChapter > chapter ||
+                (completedChapter == chapter && completedTopic > topic))
+            {
+                // 调整为绿色
+                img.color = new Color(0F, 255F, 0F);
+            }
+
+            // 当前关卡
+            else if (completedChapter == chapter && completedTopic == topic)
+            {
+                // 调整为黄色
+                img.color = new Color(255F, 180F, 0F);
+            }
+
+            // 未解锁关卡
+            else if (completedChapter < chapter ||
+                (completedChapter == chapter && completedTopic < topic))
+            {
+                // 调整为红色
+                img.color = new Color(255F, 0F, 0F);
+            }
+        }
+    }
+
     // 返回主菜单
     public void BackEvent()
     {
@@ -22,6 +85,24 @@ public class LevelButtons : MonoBehaviour
         int chapter = (int)levelIndex[0] - '0';
         Debug.Log(chapter);
         int topic = (int)levelIndex[2] - '0';
+        if (levelIndex[2] == 'X') topic = 10;
         Debug.Log(topic);
+    }
+
+    public void EnterChapter()
+    {
+        string chapterIndex = gameObject.GetComponentInChildren<TMP_Text>().text;
+        Debug.Log(chapterIndex[1]);
+
+        for (int i = 0; i < AllChapters.Count; i++)
+        {
+            string index = AllChaptersButtons[i].GetComponentInChildren<TMP_Text>().text;
+            if (index[1] != chapterIndex[1])
+            {
+                // 隐藏不是当前章节的章节
+                AllChapters[i].SetActive(false);
+            }
+            else AllChapters[i].SetActive(true);
+        }
     }
 }
