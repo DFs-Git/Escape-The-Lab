@@ -63,9 +63,9 @@ namespace ChemicalDatabaseLoader
         void Awake()
         {
             // 加载CSV文件中的化学物质数据
-            LoadChemicals();
+            //LoadChemicals();
             // 打印加载结果到控制台（调试用）
-            PrintChemicals();
+            //PrintChemicals();
             // 查询功能测试演示
             //DemonstrateQuery();
         }
@@ -74,7 +74,7 @@ namespace ChemicalDatabaseLoader
         /// <summary>
         /// CSV数据加载核心方法：从Resources/chemicals.csv读取并解析数据
         /// </summary>
-        public void LoadChemicals()
+        public static void LoadChemicals()
         {
             // 从Unity资源系统加载CSV文本文件
             TextAsset csvFile = Resources.Load<TextAsset>("chemicals");
