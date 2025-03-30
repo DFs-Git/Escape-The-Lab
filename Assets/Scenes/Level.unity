@@ -416,12 +416,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2360830096b6a14eac8fd1eda31294c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 50
-  Name: 
-  Formula: 
-  Count: 0
-  State: 
-  Form: 
+  ID: 101
+  Count: 1
+  State: "\u6C14\u4F53"
+  Form: "\u5206\u5B50"
+  NameText: {fileID: 395159192}
+  FormulaText: {fileID: 1934765356}
+  CountText: {fileID: 175338821}
+  CategoryText: {fileID: 1242619266}
+  StateText: {fileID: 241437970}
+  FormText: {fileID: 1234990683}
 --- !u!1 &170895052
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,7 +630,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00000095367, y: 15}
+  m_AnchoredPosition: {x: 0.00000095367, y: -0.00000095367}
   m_SizeDelta: {x: 62.9799, y: 16.9639}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &241437970
@@ -1102,8 +1106,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 10
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3452,8 +3456,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 5
-  m_fontSizeBase: 5
+  m_fontSize: 7
+  m_fontSizeBase: 7
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3586,8 +3590,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 5
-  m_fontSizeBase: 5
+  m_fontSize: 7
+  m_fontSizeBase: 7
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4794,8 +4798,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00000095367, y: -0.0000038146973}
-  m_SizeDelta: {x: 62.9799, y: 16.9639}
+  m_AnchoredPosition: {x: -0.000011921, y: 13.5}
+  m_SizeDelta: {x: 67.306, y: 16.9639}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1934765356
 MonoBehaviour:
@@ -4844,8 +4848,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 10
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
