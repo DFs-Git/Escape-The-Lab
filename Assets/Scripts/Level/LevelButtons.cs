@@ -13,24 +13,6 @@ public class LevelButtons : MonoBehaviour
 
     void Start()
     {
-        // 如果列表中没有
-        if (AllChapters.Count == 0 && AllChaptersButtons.Count == 0)
-        {
-            for (int i = 0; i < 7; i++)
-            {
-                GameObject[] allGameOBJ = GameObject.FindObjectsOfType<GameObject>();
-                foreach (GameObject each in allGameOBJ)
-                {
-                    if (each.name == "C" + (char)(i + '0'))
-                    {
-                        AllChapters.Add(each);
-                    }
-                }
-
-                AllChaptersButtons.Add(GameObject.Find("Chapter " + (char)(i + '0')));
-            }
-        }
-
         // 确保是关卡按钮，调整关卡按钮颜色
         if (gameObject.tag == "levelbtn")
         {
@@ -91,6 +73,7 @@ public class LevelButtons : MonoBehaviour
 
     public void EnterChapter()
     {
+        // 获取当前按钮文本的第二个（中文）字符
         string chapterIndex = gameObject.GetComponentInChildren<TMP_Text>().text;
         Debug.Log(chapterIndex[1]);
 
@@ -100,9 +83,14 @@ public class LevelButtons : MonoBehaviour
             if (index[1] != chapterIndex[1])
             {
                 // 隐藏不是当前章节的章节
+                Debug.Log(AllChapters[i].name);
                 AllChapters[i].SetActive(false);
             }
-            else AllChapters[i].SetActive(true);
+            else
+            {
+                Debug.Log(AllChapters[i].name + " Active");
+                AllChapters[i].SetActive(true);
+            }
         }
     }
 }
