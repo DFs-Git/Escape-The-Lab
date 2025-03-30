@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.U2D.Animation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,8 +12,18 @@ public class LevelButtons : MonoBehaviour
     public List<GameObject> AllChapters;
     public List<GameObject> AllChaptersButtons;
 
+    public LevelLoader Loader;
+    public GameObject Attention;
+
+    void Awake()
+    {
+        Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
+    }
+
     void Start()
     {
+        Attention.SetActive(false);
+
         // 确保是关卡按钮，调整关卡按钮颜色
         if (gameObject.tag == "levelbtn")
         {
@@ -69,6 +80,17 @@ public class LevelButtons : MonoBehaviour
         int topic = (int)levelIndex[2] - '0';
         if (levelIndex[2] == 'X') topic = 10;
         Debug.Log(topic);
+
+        // 确保是已完成关卡或者进行中关卡
+        if (chapter <= PlayerPrefs.GetInt("chapter") && topic <= PlayerPrefs.GetInt("topic"))
+        {
+            Loader.LoadLevel(chapter, topic);
+        }
+        else
+        {
+            // 显示警告信息
+            Attention.SetActive(true);
+        }
     }
 
     public void EnterChapter()
@@ -83,14 +105,17 @@ public class LevelButtons : MonoBehaviour
             if (index[1] != chapterIndex[1])
             {
                 // 隐藏不是当前章节的章节
-                Debug.Log(AllChapters[i].name);
                 AllChapters[i].SetActive(false);
             }
             else
             {
-                Debug.Log(AllChapters[i].name + " Active");
                 AllChapters[i].SetActive(true);
             }
         }
+    }
+
+    public void Alright()
+    {
+        Attention.SetActive(false);
     }
 }
