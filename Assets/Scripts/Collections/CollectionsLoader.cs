@@ -2,25 +2,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using static ChemicalDatabaseLoader.ChemicalDatabaseLoader;
-using CDL = ChemicalDatabaseLoader.ChemicalDatabaseLoader; // Ê¹ÓÃ±ğÃû¼ò»¯ÀàÃûÒıÓÃ
+using CDL = ChemicalDatabaseLoader.ChemicalDatabaseLoader; // ä½¿ç”¨åˆ«åç®€åŒ–ç±»åå¼•ç”¨
 using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// »¯Ñ§ÎïÖÊ¼¯ºÏ½çÃæ¼ÓÔØÆ÷£¬¸ºÔğ¶¯Ì¬Éú³É»¯Ñ§ÎïÖÊ°´Å¥²¢ÏÔÊ¾ÏêÏ¸ĞÅÏ¢
+/// åŒ–å­¦ç‰©è´¨é›†åˆç•Œé¢åŠ è½½å™¨ï¼Œè´Ÿè´£åŠ¨æ€ç”ŸæˆåŒ–å­¦ç‰©è´¨æŒ‰é’®å¹¶æ˜¾ç¤ºè¯¦ç»†ä¿¡æ¯
 /// </summary>
 public class CollectionsLoader : MonoBehaviour
 {
-    [Header("UIÅäÖÃ")]
-    [SerializeField] private Button itemPrefab;        // °´Å¥Ô¤ÖÆÌå£¬ÓÃÓÚÉú³ÉÃ¿¸ö»¯Ñ§ÎïÖÊÏî
-    [SerializeField] private TextMeshProUGUI nameDisplay;     // »¯Ñ§ÎïÖÊÃû³ÆÏÔÊ¾ÇøÓò
-    [SerializeField] private TextMeshProUGUI formulaDisplay;  // »¯Ñ§Ê½ÏÔÊ¾ÇøÓò
-    [SerializeField] private TextMeshProUGUI contentDisplay;  // ÏêÏ¸ĞÅÏ¢ÏÔÊ¾ÇøÓò
+    [Header("UIé…ç½®")]
+    [SerializeField] private Button itemPrefab;        // æŒ‰é’®é¢„åˆ¶ä½“ï¼Œç”¨äºç”Ÿæˆæ¯ä¸ªåŒ–å­¦ç‰©è´¨é¡¹
+    [SerializeField] private TextMeshProUGUI nameDisplay;     // åŒ–å­¦ç‰©è´¨åç§°æ˜¾ç¤ºåŒºåŸŸ
+    [SerializeField] private TextMeshProUGUI formulaDisplay;  // åŒ–å­¦å¼æ˜¾ç¤ºåŒºåŸŸ
+    [SerializeField] private TextMeshProUGUI contentDisplay;  // è¯¦ç»†ä¿¡æ¯æ˜¾ç¤ºåŒºåŸŸ
 
     private void Awake()
     {
-        // È·±£ÔÚ³¡¾°¼ÓÔØÊ±³õÊ¼»¯»¯Ñ§Êı¾İ¿â
-        // ±ÜÃâÔÚÊı¾İÎ´¼ÓÔØÊ±½øĞĞºóĞø²Ù×÷
+        // ç¡®ä¿åœ¨åœºæ™¯åŠ è½½æ—¶åˆå§‹åŒ–åŒ–å­¦æ•°æ®åº“
+        // é¿å…åœ¨æ•°æ®æœªåŠ è½½æ—¶è¿›è¡Œåç»­æ“ä½œ
         if (CDL.allChemicals.Count == 0)
         {
             CDL.LoadChemicals();
@@ -30,9 +30,9 @@ public class CollectionsLoader : MonoBehaviour
     void Start()
     {
         if (nameDisplay == null || formulaDisplay == null || contentDisplay == null) {
-            Debug.Log("×é¼şÎª¿Õ");
+            Debug.Log("ç»„ä»¶ä¸ºç©º");
         }
-        // Çå¿ÕÏÖÓĞ×Ó¶ÔÏó£¬·ÀÖ¹ÖØ¸´Éú³É
+        // æ¸…ç©ºç°æœ‰å­å¯¹è±¡ï¼Œé˜²æ­¢é‡å¤ç”Ÿæˆ
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
@@ -40,7 +40,7 @@ public class CollectionsLoader : MonoBehaviour
 
         StartCoroutine(GenerateButtons());
 
-        // Ä¬ÈÏÕ¹Ê¾µÚÒ»¸ö»¯Ñ§ÎïÖÊĞÅÏ¢£¬Ìá¹©³õÊ¼½çÃæ×´Ì¬
+        // é»˜è®¤å±•ç¤ºç¬¬ä¸€ä¸ªåŒ–å­¦ç‰©è´¨ä¿¡æ¯ï¼Œæä¾›åˆå§‹ç•Œé¢çŠ¶æ€
         if (CDL.allChemicals.Count > 0)
         {
             OnButtonClick(CDL.allChemicals[0].ID);
@@ -48,47 +48,47 @@ public class CollectionsLoader : MonoBehaviour
     }
 
     /// <summary>
-    /// Ğ­³ÌÉú³É»¯Ñ§ÎïÖÊ°´Å¥£¬Ã¿Éú³É5¸öµÈ´ıÒ»Ö¡ÓÅ»¯ĞÔÄÜ
+    /// åç¨‹ç”ŸæˆåŒ–å­¦ç‰©è´¨æŒ‰é’®ï¼Œæ¯ç”Ÿæˆ5ä¸ªç­‰å¾…ä¸€å¸§ä¼˜åŒ–æ€§èƒ½
     /// </summary>
     IEnumerator GenerateButtons()
     {
         foreach (Chemical che in CDL.allChemicals)
         {
-            // ÊµÀı»¯°´Å¥²¢ÉèÖÃÏÔÊ¾ÎÄ±¾
+            // å®ä¾‹åŒ–æŒ‰é’®å¹¶è®¾ç½®æ˜¾ç¤ºæ–‡æœ¬
             Button btn = Instantiate(itemPrefab, transform);
             btn.GetComponentInChildren<TextMeshProUGUI>().text = che.Name;
 
-            // Ê¹ÓÃ¾Ö²¿±äÁ¿±ÜÃâ±Õ°üÎÊÌâ
+            // ä½¿ç”¨å±€éƒ¨å˜é‡é¿å…é—­åŒ…é—®é¢˜
             int currentID = che.ID;
             btn.onClick.AddListener(() => OnButtonClick(currentID));
 
-            // ·ÖÖ¡´¦ÀíÓÅ»¯ĞÔÄÜ£ºÃ¿Éú³É5¸ö°´Å¥µÈ´ıÒ»Ö¡
+            // åˆ†å¸§å¤„ç†ä¼˜åŒ–æ€§èƒ½ï¼šæ¯ç”Ÿæˆ5ä¸ªæŒ‰é’®ç­‰å¾…ä¸€å¸§
             if (CDL.allChemicals.IndexOf(che) % 5 == 0)
                 yield return null;
         }
     }
 
     /// <summary>
-    /// °´Å¥µã»÷ÊÂ¼ş´¦Àí£¬¸üĞÂÓÒ²àÏêÏ¸ĞÅÏ¢ÏÔÊ¾
+    /// æŒ‰é’®ç‚¹å‡»äº‹ä»¶å¤„ç†ï¼Œæ›´æ–°å³ä¾§è¯¦ç»†ä¿¡æ¯æ˜¾ç¤º
     /// </summary>
-    /// <param name="id">»¯Ñ§ÎïÖÊÎ¨Ò»±êÊ¶·û</param>
+    /// <param name="id">åŒ–å­¦ç‰©è´¨å”¯ä¸€æ ‡è¯†ç¬¦</param>
     void OnButtonClick(int id)
     {
         List<Chemical> result = CDL.FindChemicals(id);
 
-        // °²È«¼ì²éËÑË÷½á¹ûÓĞĞ§ĞÔ
+        // å®‰å…¨æ£€æŸ¥æœç´¢ç»“æœæœ‰æ•ˆæ€§
         if (result != null && result.Count > 0)
         {
             Chemical che = result[0];
-            // ¸ñÊ½»¯ÏÔÊ¾»¯Ñ§ÎïÖÊĞÅÏ¢
+            // æ ¼å¼åŒ–æ˜¾ç¤ºåŒ–å­¦ç‰©è´¨ä¿¡æ¯
             nameDisplay.text = $"{che.Name} {che.Category}";
             formulaDisplay.text = che.Formula;
-            contentDisplay.text = $"ÎïÀíĞÔÖÊ£º{che.PhysicalProperty}\n»¯Ñ§ĞÔÖÊ£º{che.ChemicalProperty}";
+            contentDisplay.text = $"ç‰©ç†æ€§è´¨ï¼š{che.PhysicalProperty}\nåŒ–å­¦æ€§è´¨ï¼š{che.ChemicalProperty}";
         }
         else
         {
-            Debug.LogWarning($"Î´ÕÒµ½IDÎª{id}µÄ»¯Ñ§ÎïÖÊ");
-            // ¿ÉÒÔÔÚ´Ë´¦Ìí¼ÓUI´íÎóÌáÊ¾£¬ÀıÈçÇå¿ÕÏÔÊ¾ÇøÓò»òÏÔÊ¾´íÎóĞÅÏ¢
+            Debug.LogWarning($"æœªæ‰¾åˆ°IDä¸º{id}çš„åŒ–å­¦ç‰©è´¨");
+            // å¯ä»¥åœ¨æ­¤å¤„æ·»åŠ UIé”™è¯¯æç¤ºï¼Œä¾‹å¦‚æ¸…ç©ºæ˜¾ç¤ºåŒºåŸŸæˆ–æ˜¾ç¤ºé”™è¯¯ä¿¡æ¯
         }
     }
 }

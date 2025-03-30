@@ -1,4 +1,4 @@
-﻿// 使用必要的命名空间
+// 使用必要的命名空间
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
