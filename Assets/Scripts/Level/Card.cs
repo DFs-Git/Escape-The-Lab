@@ -2,7 +2,7 @@ using ChemicalDatabaseLoader;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using CDL = ChemicalDatabaseLoader.ChemicalDatabaseLoader;
 public class Card : MonoBehaviour
 {
     public int ID;
@@ -13,11 +13,16 @@ public class Card : MonoBehaviour
     public string State;
     public string Form;
 
+    private void Awake()
+    {
+        CDL.LoadChemicals();
+    }
     void Start()
     {
         // Initialize the chemical loader if needed
-        List<ChemicalDatabaseLoader.ChemicalDatabaseLoader.Chemical> Results;
-        Results = ChemicalDatabaseLoader.ChemicalDatabaseLoader.FindChemicals(ID);
+        List<CDL.Chemical> Results;
+        Results = CDL.FindChemicals(ID);
+        CDL.PrintChemicals(Results);
     }
 
     // Update is called once per frame
