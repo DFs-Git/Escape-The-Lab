@@ -18,7 +18,6 @@ public class LevelBuilder : MonoBehaviour
 
     void Start()
     {
-        ;
         string titleContext = (char)(LevelLoader.Instance.Chap + '0') + "-" + 
             (char)(LevelLoader.Instance.Top + '0') + " " + LevelLoader.Instance.TitleText;
         Title.text = titleContext;

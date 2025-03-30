@@ -8,9 +8,9 @@ public class LevelLoader : MonoBehaviour
 {
     public static LevelLoader Instance;
 
-    public int Chap, Top;
-    public string TitleText;
-    public string TaskDescription;
+    public int Chap, Top; // 当前关卡的章节和题目
+    public string TitleText; // 当前关卡的标题
+    public string TaskDescription; // 当前关卡的任务描述
 
     void Awake()
     {
@@ -32,8 +32,8 @@ public class LevelLoader : MonoBehaviour
         // (测试用例)
         Chap = 0;
         Top = 0;
-        TitleText = "Turtorial";
-        TaskDescription = "Make CO<sub>2</sub> by using the offered chemicals.";
+        TitleText = "模拟关卡"; //"Turtorial";
+        TaskDescription = "使用所提供的物质制取二氧化碳"; //"Make CO<sub>2</sub> by using the offered chemicals.";
 
         // 跳转到Level场景
         SceneManager.LoadScene(4);
