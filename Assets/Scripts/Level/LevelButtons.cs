@@ -24,55 +24,55 @@ public class LevelButtons : MonoBehaviour
     {
         Attention.SetActive(false);
 
-        // È·±£ÊÇ¹Ø¿¨°´Å¥£¬µ÷Õû¹Ø¿¨°´Å¥ÑÕÉ«
+        // ç¡®ä¿æ˜¯å…³å¡æŒ‰é’®ï¼Œè°ƒæ•´å…³å¡æŒ‰é’®é¢œè‰²
         if (gameObject.tag == "levelbtn")
         {
-            // »ñÈ¡µ±Ç°°´Å¥¶ÔÓ¦µÄ¹Ø¿¨
+            // è·å–å½“å‰æŒ‰é’®å¯¹åº”çš„å…³å¡
             string levelIndex = gameObject.GetComponentInChildren<TMP_Text>().text;
             int chapter = (int)levelIndex[0] - '0';
             int topic = (int)levelIndex[2] - '0';
 
             UnityEngine.UI.Image img = gameObject.GetComponent<UnityEngine.UI.Image>();
 
-            // »ñÈ¡Íæ¼Ò½ø¶ÈĞÅÏ¢
+            // è·å–ç©å®¶è¿›åº¦ä¿¡æ¯
             int completedChapter = PlayerPrefs.GetInt("chapter");
             int completedTopic = PlayerPrefs.GetInt("topic");
 
-            // ÒÑÍê³ÉµÄ¹Ø¿¨
+            // å·²å®Œæˆçš„å…³å¡
             if (completedChapter > chapter ||
                 (completedChapter == chapter && completedTopic > topic))
             {
-                // µ÷ÕûÎªÂÌÉ«
+                // è°ƒæ•´ä¸ºç»¿è‰²
                 img.color = new Color(0F, 255F, 0F);
             }
 
-            // µ±Ç°¹Ø¿¨
+            // å½“å‰å…³å¡
             else if (completedChapter == chapter && completedTopic == topic)
             {
-                // µ÷ÕûÎª»ÆÉ«
+                // è°ƒæ•´ä¸ºé»„è‰²
                 img.color = new Color(255F, 180F, 0F);
             }
 
-            // Î´½âËø¹Ø¿¨
+            // æœªè§£é”å…³å¡
             else if (completedChapter < chapter ||
                 (completedChapter == chapter && completedTopic < topic))
             {
-                // µ÷ÕûÎªºìÉ«
+                // è°ƒæ•´ä¸ºçº¢è‰²
                 img.color = new Color(255F, 0F, 0F);
             }
         }
     }
 
-    // ·µ»ØÖ÷²Ëµ¥
+    // è¿”å›ä¸»èœå•
     public void BackEvent()
     {
         SceneManager.LoadScene(0);
     }
 
-    // ½øÈëÄ³¸ö¹Ø¿¨
+    // è¿›å…¥æŸä¸ªå…³å¡
     public void EnterLevel()
     {
-        // ¼ì²é°´Å¥
+        // æ£€æŸ¥æŒ‰é’®
         string levelIndex = gameObject.GetComponentInChildren<TMP_Text>().text;
         Debug.Log(levelIndex);
         int chapter = (int)levelIndex[0] - '0';
@@ -81,21 +81,21 @@ public class LevelButtons : MonoBehaviour
         if (levelIndex[2] == 'X') topic = 10;
         Debug.Log(topic);
 
-        // È·±£ÊÇÒÑÍê³É¹Ø¿¨»òÕß½øĞĞÖĞ¹Ø¿¨
+        // ç¡®ä¿æ˜¯å·²å®Œæˆå…³å¡æˆ–è€…è¿›è¡Œä¸­å…³å¡
         if (chapter <= PlayerPrefs.GetInt("chapter") && topic <= PlayerPrefs.GetInt("topic"))
         {
             Loader.LoadLevel(chapter, topic);
         }
         else
         {
-            // ÏÔÊ¾¾¯¸æĞÅÏ¢
+            // æ˜¾ç¤ºè­¦å‘Šä¿¡æ¯
             Attention.SetActive(true);
         }
     }
 
     public void EnterChapter()
     {
-        // »ñÈ¡µ±Ç°°´Å¥ÎÄ±¾µÄµÚ¶ş¸ö£¨ÖĞÎÄ£©×Ö·û
+        // è·å–å½“å‰æŒ‰é’®æ–‡æœ¬çš„ç¬¬äºŒä¸ªï¼ˆä¸­æ–‡ï¼‰å­—ç¬¦
         string chapterIndex = gameObject.GetComponentInChildren<TMP_Text>().text;
         Debug.Log(chapterIndex[1]);
 
@@ -104,7 +104,7 @@ public class LevelButtons : MonoBehaviour
             string index = AllChaptersButtons[i].GetComponentInChildren<TMP_Text>().text;
             if (index[1] != chapterIndex[1])
             {
-                // Òş²Ø²»ÊÇµ±Ç°ÕÂ½ÚµÄÕÂ½Ú
+                // éšè—ä¸æ˜¯å½“å‰ç« èŠ‚çš„ç« èŠ‚
                 AllChapters[i].SetActive(false);
             }
             else
