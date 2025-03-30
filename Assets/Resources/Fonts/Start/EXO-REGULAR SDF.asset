@@ -661,24 +661,6 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-<<<<<<< HEAD:Assets/Resources/Fonts/EXO-REGULAR SDF.asset
-  - m_Index: 58
-    m_Metrics:
-      m_Width: 47.34375
-      m_Height: 65.875
-      m_HorizontalBearingX: 4.046875
-      m_HorizontalBearingY: 65.875
-      m_HorizontalAdvance: 53.640625
-    m_GlyphRect:
-      m_X: 384
-      m_Y: 182
-      m_Width: 48
-      m_Height: 66
-    m_Scale: 1
-    m_AtlasIndex: 0
-    m_ClassDefinitionType: 0
-=======
->>>>>>> 73c99b9e512c3638f7762cb3b8e71f5d36952c13:Assets/Resources/Fonts/Start/EXO-REGULAR SDF.asset
   - m_Index: 23
     m_Metrics:
       m_Width: 42.109375
@@ -848,13 +830,6 @@ MonoBehaviour:
     m_GlyphIndex: 15
     m_Scale: 1
   - m_ElementType: 1
-<<<<<<< HEAD:Assets/Resources/Fonts/EXO-REGULAR SDF.asset
-    m_Unicode: 88
-    m_GlyphIndex: 58
-    m_Scale: 1
-  - m_ElementType: 1
-=======
->>>>>>> 73c99b9e512c3638f7762cb3b8e71f5d36952c13:Assets/Resources/Fonts/Start/EXO-REGULAR SDF.asset
     m_Unicode: 53
     m_GlyphIndex: 23
     m_Scale: 1
@@ -1012,13 +987,6 @@ MonoBehaviour:
     m_Y: 259
     m_Width: 49
     m_Height: 27
-<<<<<<< HEAD:Assets/Resources/Fonts/EXO-REGULAR SDF.asset
-  - m_X: 374
-    m_Y: 172
-    m_Width: 67
-    m_Height: 85
-=======
->>>>>>> 73c99b9e512c3638f7762cb3b8e71f5d36952c13:Assets/Resources/Fonts/Start/EXO-REGULAR SDF.asset
   - m_X: 487
     m_Y: 171
     m_Width: 62
@@ -1136,44 +1104,18 @@ MonoBehaviour:
     m_Y: 259
     m_Width: 4
     m_Height: 764
-<<<<<<< HEAD:Assets/Resources/Fonts/EXO-REGULAR SDF.asset
-  - m_X: 374
-    m_Y: 166
-    m_Width: 5
-    m_Height: 6
-=======
->>>>>>> 73c99b9e512c3638f7762cb3b8e71f5d36952c13:Assets/Resources/Fonts/Start/EXO-REGULAR SDF.asset
   - m_X: 303
     m_Y: 257
     m_Width: 720
     m_Height: 766
   - m_X: 303
     m_Y: 251
-<<<<<<< HEAD:Assets/Resources/Fonts/EXO-REGULAR SDF.asset
-    m_Width: 71
-    m_Height: 772
-  - m_X: 374
-    m_Y: 168
-    m_Width: 48
-    m_Height: 4
-  - m_X: 549
-    m_Y: 171
-    m_Width: 4
-    m_Height: 852
-=======
     m_Width: 184
     m_Height: 772
->>>>>>> 73c99b9e512c3638f7762cb3b8e71f5d36952c13:Assets/Resources/Fonts/Start/EXO-REGULAR SDF.asset
   - m_X: 549
     m_Y: 174
     m_Width: 474
     m_Height: 849
-<<<<<<< HEAD:Assets/Resources/Fonts/EXO-REGULAR SDF.asset
-  - m_X: 441
-    m_Y: 172
-    m_Width: 46
-    m_Height: 851
-=======
   - m_X: 374
     m_Y: 172
     m_Width: 113
@@ -1182,7 +1124,6 @@ MonoBehaviour:
     m_Y: 171
     m_Width: 4
     m_Height: 852
->>>>>>> 73c99b9e512c3638f7762cb3b8e71f5d36952c13:Assets/Resources/Fonts/Start/EXO-REGULAR SDF.asset
   m_fontInfo:
     Name: 
     PointSize: 0
