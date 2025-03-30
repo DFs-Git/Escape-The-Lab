@@ -17,25 +17,25 @@ public class LevelLoader : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // È·±£¸Ã¶ÔÏóÔÚÇĞ»»³¡¾°Ê±²»»á±»Ïú»Ù
+            DontDestroyOnLoad(gameObject); // ç¡®ä¿è¯¥å¯¹è±¡åœ¨åˆ‡æ¢åœºæ™¯æ—¶ä¸ä¼šè¢«é”€æ¯
         }
         else
         {
-            Destroy(gameObject); // Ïú»ÙÖØ¸´µÄÊµÀı
+            Destroy(gameObject); // é”€æ¯é‡å¤çš„å®ä¾‹
         }
     }
 
-    // ¼ÓÔØÄ³¸ö¹Ø¿¨
+    // åŠ è½½æŸä¸ªå…³å¡
     public void LoadLevel(int chapter, int topic)
     {
-        // ¶ÁÈ¡Ïà¹Ø¹Ø¿¨µÄjsonÎÄ¼ş
-        // (²âÊÔÓÃÀı)
+        // è¯»å–ç›¸å…³å…³å¡çš„jsonæ–‡ä»¶
+        // (æµ‹è¯•ç”¨ä¾‹)
         Chap = 0;
         Top = 0;
         TitleText = "Turtorial";
         TaskDescription = "Make CO<sub>2</sub> by using the offered chemicals.";
 
-        // Ìø×ªµ½Level³¡¾°
+        // è·³è½¬åˆ°Levelåœºæ™¯
         SceneManager.LoadScene(4);
     }
 }
