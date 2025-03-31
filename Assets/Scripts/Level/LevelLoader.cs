@@ -7,14 +7,14 @@ using Newtonsoft.Json;
 
 public class Level
 {
-    public int Chap, Top; // 当前关卡的章节和课题
-    public string TitleText; // 当前关卡的标题
-    public string TaskDescription; // 当前关卡的任务描述
-    public List<string> Dialog; // 当前关卡的对话
-    public List<string> Tips; // 当前关卡的提示
-    public List<int> Offered; // 当前关卡的提供物质
-    public List<int> Commit; // 当前关卡的提交物质
-    public List<int> ReactionCondition; // 当前关卡的反应条件
+    public int chapter, topic; // 当前关卡的章节和课题
+    public string title; // 当前关卡的标题
+    public string task_description; // 当前关卡的任务描述
+    public List<string> dialog; // 当前关卡的对话
+    public List<string> tips; // 当前关卡的提示
+    public List<List<int>> offered; // 当前关卡的提供物质
+    public List<int> commit; // 当前关卡的提交物质
+    public List<int> reaction_condition; // 当前关卡的反应条件
 }
 
 public class LevelLoader : MonoBehaviour
@@ -39,9 +39,18 @@ public class LevelLoader : MonoBehaviour
     // 加载某个关卡
     public void LoadLevel(int chapter, int topic)
     {
-        // 读取相关关卡的json文件，并存入level对象
+        // 读取相关关卡的json文件，并存入
         TextAsset jsonLevel = Resources.Load<TextAsset>("Levels/level" + chapter.ToString() + "-" + topic.ToString());
         level = JsonConvert.DeserializeObject<Level>(jsonLevel.text);
+
+        Debug.Log(level.chapter.ToString() + "-" + level.topic.ToString());
+        Debug.Log(level.title);
+        Debug.Log(level.task_description);
+        Debug.Log(level.dialog);
+        Debug.Log(level.tips);
+        Debug.Log(level.offered);
+        Debug.Log(level.commit);
+        Debug.Log(level.reaction_condition);
 
         // 跳转到Level场景
         SceneManager.LoadScene(4);

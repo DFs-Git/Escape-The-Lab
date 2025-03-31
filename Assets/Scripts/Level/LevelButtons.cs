@@ -14,6 +14,7 @@ public class LevelButtons : MonoBehaviour
 
     public LevelLoader Loader;
     public GameObject Attention;
+    public GameObject Loading;
 
     void Awake()
     {
@@ -23,6 +24,7 @@ public class LevelButtons : MonoBehaviour
     void Start()
     {
         Attention.SetActive(false);
+        Loading.SetActive(false);
 
         // 确保是关卡按钮，调整关卡按钮颜色
         if (gameObject.tag == "levelbtn")
@@ -84,6 +86,7 @@ public class LevelButtons : MonoBehaviour
         // 确保是已完成关卡或者进行中关卡
         if (chapter <= PlayerPrefs.GetInt("chapter") && topic <= PlayerPrefs.GetInt("topic"))
         {
+            Loading.SetActive(true);
             Loader.LoadLevel(chapter, topic);
         }
         else
