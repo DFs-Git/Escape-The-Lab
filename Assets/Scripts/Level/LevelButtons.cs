@@ -74,6 +74,8 @@ public class LevelButtons : MonoBehaviour
     // 进入某个关卡
     public void EnterLevel()
     {
+        Loading.SetActive(true);
+
         // 检查按钮
         string levelIndex = gameObject.GetComponentInChildren<TMP_Text>().text;
         Debug.Log(levelIndex);
@@ -86,7 +88,6 @@ public class LevelButtons : MonoBehaviour
         // 确保是已完成关卡或者进行中关卡
         if (chapter <= PlayerPrefs.GetInt("chapter") && topic <= PlayerPrefs.GetInt("topic"))
         {
-            Loading.SetActive(true);
             Loader.LoadLevel(chapter, topic);
         }
         else

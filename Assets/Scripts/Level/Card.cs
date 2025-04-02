@@ -7,11 +7,10 @@ using CDL = ChemicalDatabaseLoader.ChemicalDatabaseLoader;
 
 public class Card : MonoBehaviour
 {
-    // 化学物质ID，用于查找化学物质
-    public int ID;
-
     // 化学物质属性
-    public CDL.Chemical Chemical;
+    // public CDL.Chemical Chemical;
+    public List<CDL.Chemical> Chemicals;
+    public List<int> CheCount;
     public int Count;
     public string State;
     public string Form;
@@ -27,24 +26,30 @@ public class Card : MonoBehaviour
     private void Awake()
     {
         // 加载化学物质列表
-        CDL.LoadChemicals();
+        // CDL.LoadChemicals();
     }
 
     void Start()
     {
-        // 根据ID查找化学物质
-        List<CDL.Chemical> Results;
-        Results = CDL.FindChemicals(ID);
+        ShowChemicalInformation();
+    }
 
-        if (Results.Count > 0)
-        {
-            Chemical = Results[0];
-        }
+    public void ShowChemicalInformation()
+    {
         // 显示化学物质信息
-        NameText.text = Chemical.Name;
-        FormulaText.text = Chemical.Formula;
+        if (Chemicals.Count > 1) NameText.text = "未知";
+        else NameText.text = Chemicals[0].Name;
+        FormulaText.text = "[";
+        for (int i = 0; i < Chemicals.Count; i++)
+        {
+            FormulaText.text +=
+                Chemicals[i].Formula + "*" + CheCount[i].ToString() + ";";
+        }
+        FormulaText.text += "]";
         CountText.text = "*" + Count.ToString();
-        CategoryText.text = Chemical.Category;
+        if (Chemicals.Count > 1) CategoryText.text = "混合物";
+        else
+            CategoryText.text = Chemicals[0].Category;
         StateText.text = State;
         FormText.text = Form;
     }
