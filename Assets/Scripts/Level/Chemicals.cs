@@ -8,11 +8,11 @@ using CDL = ChemicalDatabaseLoader.ChemicalDatabaseLoader;
 
 public struct CardData
 {
-    public List<CDL.Chemical> Chemicals;
-    public List<int> CheCount;
-    public int Count;
-    public string State;
-    public string Form;
+    public List<CDL.Chemical> Chemicals;// 每一种纯净物
+    public List<int> CheCount;          // 每一种纯净物的分子数
+    public int Count;                   // 卡牌数量
+    public string State;                // 物质状态
+    public string Form;                 // 物质存在形式
 }
 
 public class Chemicals : MonoBehaviour

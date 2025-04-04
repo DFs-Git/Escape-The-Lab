@@ -2012,7 +2012,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 67
     y: 70
-    width: 106
+    width: 105.2
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -2047,10 +2047,8 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlocks:
-  - {fileID: 472299155}
-  selectedCommands:
-  - {fileID: 472299158}
+  selectedBlocks: []
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -2093,7 +2091,7 @@ MonoBehaviour:
   indentLevel: 0
   storyText: "\u4F60\u8FD8\u6CA1\u6709\u89E3\u9501\u8FD9\u4E2A\u5173\u5361\u3002\u8981\u89E3\u9501\u8FD9\u4E2A\u5173\u5361\uFF0C\u4F60\u9700\u8981\u5148\u901A\u8FC7\u524D\u9762\u7684\u5173\u5361\u3002"
   description: 
-  character: {fileID: 2080023807}
+  character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
