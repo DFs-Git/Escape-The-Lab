@@ -63,6 +63,7 @@ namespace ChemicalDatabaseLoader
         /// </summary>
         public static void LoadChemicals()
         {
+            allChemicals.Clear();
             // 从Unity资源系统加载CSV文本文件
             TextAsset csvFile = Resources.Load<TextAsset>("chemicals");
 
@@ -101,6 +102,10 @@ namespace ChemicalDatabaseLoader
         /// </summary>
         public static void PrintChemicals()
         {
+            if (allChemicals.Count == 0)
+            {
+                LoadChemicals();
+            }
             Debug.Log($"共加载 {allChemicals.Count} 条化学数据");
             foreach (var chemical in allChemicals)
             {
@@ -142,6 +147,11 @@ namespace ChemicalDatabaseLoader
             string formula = null,
             string category = null)
         {
+            if (allChemicals.Count == 0)
+            {
+                LoadChemicals();
+            }
+
             // 初始化LINQ查询
             var query = allChemicals.AsQueryable();
 

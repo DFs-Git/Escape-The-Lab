@@ -1,3 +1,4 @@
+using Fungus;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,8 +13,10 @@ public class LevelButtons : MonoBehaviour
     public List<GameObject> AllChaptersButtons;
 
     public LevelLoader Loader;
-    public GameObject Attention;
     public GameObject Loading;
+
+    [HideInInspector]
+    public Flowchart flowchart;
 
     void Awake()
     {
@@ -22,7 +25,7 @@ public class LevelButtons : MonoBehaviour
 
     void Start()
     {
-        Attention.SetActive(false);
+        flowchart = GameObject.Find("Attention").GetComponent<Flowchart>();
         Loading.SetActive(false);
 
         // 确保是关卡按钮，调整关卡按钮颜色
@@ -73,7 +76,6 @@ public class LevelButtons : MonoBehaviour
     // 进入某个关卡
     public void EnterLevel()
     {
-        Loading.SetActive(true);
 
         // 检查按钮
         string levelIndex = gameObject.GetComponentInChildren<TMP_Text>().text;
@@ -87,12 +89,13 @@ public class LevelButtons : MonoBehaviour
         // 确保是已完成关卡或者进行中关卡
         if (chapter <= PlayerPrefs.GetInt("chapter") && topic <= PlayerPrefs.GetInt("topic"))
         {
+            Loading.SetActive(true);
             Loader.LoadLevel(chapter, topic);
         }
         else
         {
             // 显示警告信息
-            Attention.SetActive(true);
+            flowchart.ExecuteBlock("Unlocked");
         }
     }
 
@@ -117,10 +120,6 @@ public class LevelButtons : MonoBehaviour
         }
     }
 
-    public void Alright()
-    {
-        Attention.SetActive(false);
-    }
 
     public void ResetSaves()
     {
