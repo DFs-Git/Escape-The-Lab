@@ -57,7 +57,7 @@ public class Card : MonoBehaviour
                 Chemicals[i].Formula + "*" + CheCount[i].ToString() + ";";
         }
         FormulaText.text += "]";
-        CountText.text = "*" + Count.ToString();
+        CountText.text = Count.ToString();
         if (Chemicals.Count > 1) CategoryText.text = "混合物";
         else
             CategoryText.text = Chemicals[0].Category;
