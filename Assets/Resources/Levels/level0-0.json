@@ -4,7 +4,7 @@
     "title": "教程",
     "task_description": "使用提供的化学物质卡牌，制取2个一氧化碳(CO)分子并提交。",
     "tips": ["C+O<sub>2</sub>=点燃=CO<sub>2</sub>", "CO<sub>2</sub>+C=高温=2CO"],
-    "offered": [[1, 1, 1, 1, 3, 1], [1, 9, 1, 2, 1, 2], [1, 101, 1, 2, 3, 1]],
+    "offered": [[1, 1, 1, 1, 3, 1], [1, 9, 1, 2, 1, 2]],
     "commit": [101, 2],
     "reaction_condition": [1, 3, 4]
 }

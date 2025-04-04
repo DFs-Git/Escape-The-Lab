@@ -76,6 +76,6 @@ public class LevelBuilder : MonoBehaviour
         }
 
         // 执行对话
-        // flowchart.ExecuteBlock(level.chapter.ToString() + "-" + level.topic.ToString());
+        flowchart.ExecuteBlock(level.chapter.ToString() + "-" + level.topic.ToString());
     }
 }
