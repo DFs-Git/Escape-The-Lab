@@ -13,6 +13,16 @@ public struct CardData
     public int Count;                   // 卡牌数量
     public string State;                // 物质状态
     public string Form;                 // 物质存在形式
+    public List<CDL.MolChemicals> To_MolChemicals()
+    {
+        List<CDL.MolChemicals> re = new();
+        for (int i = 0; i < Chemicals.Count; i++)
+        {
+            CDL.MolChemicals temp = new CDL.MolChemicals(Chemicals[i], CheCount[i]);
+            re.Add(temp);
+        }
+        return re;
+    }
 }
 
 public class Chemicals : MonoBehaviour
@@ -123,9 +133,12 @@ public class Chemicals : MonoBehaviour
 
     public void Clicked()
     {
+        if(reactionPool==null) reactionPool = GameObject.Find("Reaction").GetComponent<ReactionPool>();
+
         // 仍在跟随鼠标
         if (entering && following)
         {
+            reactionPool.AddData(ParentCardData.To_MolChemicals());
             // 物质在反应池中是否存在
             foreach (GameObject che in reactionPool.Chemicals)
             {
@@ -175,6 +188,7 @@ public class Chemicals : MonoBehaviour
         // 点击将其退回卡牌区
         else if (!following)
         {
+            reactionPool.ReduceData(ParentCardData.To_MolChemicals());
             // 其对应的卡牌仍在手牌区中存在
             if (ParentCard != null)
             {

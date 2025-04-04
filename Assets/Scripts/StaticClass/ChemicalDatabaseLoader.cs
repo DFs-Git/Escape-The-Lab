@@ -53,6 +53,20 @@ namespace ChemicalDatabaseLoader
                 PhysicalProperty = physicaProperty;
             }
         }
+        public struct MolChemicals
+        {
+            public Chemical Chemicals;//纯净物
+            public int MolNum;  //摩尔数
+            public MolChemicals(Chemical _Chemicals, int _MolNum)
+            {
+                Chemicals = _Chemicals;
+                MolNum = _MolNum;
+            }
+            override public string ToString()
+            {
+                return $"{Chemicals.Name}*{MolNum}";
+            }
+        }
 
         // 存储所有化学物质数据的静态列表（内存数据库）
         public static List<Chemical> allChemicals = new List<Chemical>();
