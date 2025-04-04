@@ -9,7 +9,7 @@ using CDL = ChemicalDatabaseLoader.ChemicalDatabaseLoader;
 
 public class Card : MonoBehaviour
 {
-    // »¯Ñ§ÎïÖÊÊôĞÔ
+    // åŒ–å­¦ç‰©è´¨å±æ€§
     // public CDL.Chemical Chemical;
     public List<CDL.Chemical> Chemicals;
     public List<int> CheCount;
@@ -17,7 +17,7 @@ public class Card : MonoBehaviour
     public string State;
     public string Form;
     
-    // ËùÓĞÏÔÊ¾ÎÄ±¾
+    // æ‰€æœ‰æ˜¾ç¤ºæ–‡æœ¬
     public TMP_Text NameText;
     public TMP_Text FormulaText;
     public TMP_Text CountText;
@@ -30,10 +30,11 @@ public class Card : MonoBehaviour
 
     public CardPool Pool;
     public ReactionPool reactionPool;
+    public LevelBuilder Builder;
 
     private void Awake()
     {
-        // ¼ÓÔØ»¯Ñ§ÎïÖÊÁĞ±í
+        // åŠ è½½åŒ–å­¦ç‰©è´¨åˆ—è¡¨
         // CDL.LoadChemicals();
     }
 
@@ -41,14 +42,14 @@ public class Card : MonoBehaviour
     {
         ShowChemicalInformation();
         Canva = GameObject.Find("Canvas");
-        Pool = GameObject.Find("CardArea").GetComponent<CardPool>();
         reactionPool = GameObject.Find("Reaction").GetComponent<ReactionPool>();
+        Builder = Camera.main.GetComponent<LevelBuilder>();
     }
 
     public void ShowChemicalInformation()
     {
-        // ÏÔÊ¾»¯Ñ§ÎïÖÊĞÅÏ¢
-        if (Chemicals.Count > 1) NameText.text = "»ìºÏ";
+        // æ˜¾ç¤ºåŒ–å­¦ç‰©è´¨ä¿¡æ¯
+        if (Chemicals.Count > 1) NameText.text = "æ··åˆ";
         else NameText.text = Chemicals[0].Name;
         FormulaText.text = "[";
         for (int i = 0; i < Chemicals.Count; i++)
@@ -58,7 +59,7 @@ public class Card : MonoBehaviour
         }
         FormulaText.text += "]";
         CountText.text = "*" + Count.ToString();
-        if (Chemicals.Count > 1) CategoryText.text = "»ìºÏÎï";
+        if (Chemicals.Count > 1) CategoryText.text = "æ··åˆç‰©";
         else
             CategoryText.text = Chemicals[0].Category;
         StateText.text = State;
@@ -70,35 +71,44 @@ public class Card : MonoBehaviour
         GameObject newChemical = Instantiate(ChemicalPrefab, Canva.transform);
         newChemical.GetComponent<Chemicals>().ChemicalsInclude = Chemicals;
         newChemical.GetComponent<Chemicals>().ParentCard = gameObject;
+        // è®¾ç½®å…³äºè¿™å¼ å¡ç‰Œçš„å±æ€§ï¼Œä¾¿äºé‡æ–°ç”Ÿæˆ
+        newChemical.GetComponent<Chemicals>().ParentCardData.Chemicals = Chemicals;
+        newChemical.GetComponent<Chemicals>().ParentCardData.Count = Count;
+        newChemical.GetComponent<Chemicals>().ParentCardData.State = State;
+        newChemical.GetComponent<Chemicals>().ParentCardData.CheCount = CheCount;
+        newChemical.GetComponent<Chemicals>().ParentCardData.Form = Form;
+
 
         Count--;
         ShowChemicalInformation();
         if (Count == 0)
         {
-            newChemical.GetComponent<Chemicals>().parentExist = false;
+            Builder.Cards.Remove(gameObject);
             Destroy(gameObject);
         }
     }
 
     public void GetChemical()
     {
-        // ÎïÖÊÔÚ·´Ó¦³ØÖĞÊÇ·ñ´æÔÚ
+        // ç‰©è´¨åœ¨ååº”æ± ä¸­æ˜¯å¦å­˜åœ¨
         foreach (GameObject che in reactionPool.Chemicals)
         {
-            // ´æÔÚ£¬Õı³£Éú³É
+            // å­˜åœ¨ï¼Œæ­£å¸¸ç”Ÿæˆ
             if (Equals(che.GetComponent<Chemicals>().ChemicalsInclude, Chemicals))
             {
                 InstantiateChemical();
+                return;
             }
         }
 
-        // ÎïÖÊÔÚ·´Ó¦³ØÖĞ²»´æÔÚ£¬¶øÇÒ·´Ó¦³ØÖĞµÄÎïÖÊÊıÁ¿ÒÑ¾­´ïµ½ÉÏÏŞ
+        // ç‰©è´¨åœ¨ååº”æ± ä¸­ä¸å­˜åœ¨ï¼Œè€Œä¸”ååº”æ± ä¸­çš„ç‰©è´¨ç§ç±»å·²ç»è¾¾åˆ°ä¸Šé™
+        // ä¸å†ç”Ÿæˆ
         if (reactionPool.Chemicals.Count >= 2)
         {
             return;
         }
-        // ÎïÖÊÔÚ·´Ó¦³ØÖĞ²»´æÔÚ£¬ÇÒ·´Ó¦³ØÖĞµÄÎïÖÊÊıÁ¿Ã»ÓĞ´ïµ½ÉÏÏŞ
-        // Õı³£Éú³É
+        // ç‰©è´¨åœ¨ååº”æ± ä¸­ä¸å­˜åœ¨ï¼Œä¸”ååº”æ± ä¸­çš„ç‰©è´¨ç§ç±»æ²¡æœ‰è¾¾åˆ°ä¸Šé™
+        // æ­£å¸¸ç”Ÿæˆ
         InstantiateChemical();
     }
 }

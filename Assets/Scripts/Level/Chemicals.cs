@@ -1,9 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
 using CDL = ChemicalDatabaseLoader.ChemicalDatabaseLoader;
+
+public struct CardData
+{
+    public List<CDL.Chemical> Chemicals;
+    public List<int> CheCount;
+    public int Count;
+    public string State;
+    public string Form;
+}
 
 public class Chemicals : MonoBehaviour
 {
@@ -16,19 +26,22 @@ public class Chemicals : MonoBehaviour
 
     public bool following = true;
     public bool entering = false;
-    public bool parentExist = true;
-    public int Count = 1; // ÎïÖÊÊıÁ¿
+    public int Count = 1; // ç‰©è´¨æ•°é‡
     public GameObject ParentCard;
+    public CardData ParentCardData;
+    public GameObject CardPrefab; // ç‰©è´¨å¯¹åº”çš„å¡ç‰Œé¢„åˆ¶ä½“
+    public GameObject Content;
 
     public CanvasScaler canvasScaler;
-    public CardPool cardPool;
     public ReactionPool reactionPool;
+    public LevelBuilder Builder;
 
     void Start()
     {
         canvasScaler = GameObject.Find("Canvas").GetComponent<CanvasScaler>();
-        cardPool = GameObject.Find("CardArea").GetComponent<CardPool>();
         reactionPool = GameObject.Find("Reaction").GetComponent<ReactionPool>();
+        Content = GameObject.Find("Content");
+        Builder = Camera.main.GetComponent<LevelBuilder>();
 
         FormulaText.text = "[";
         for (int i = 0; i < ChemicalsInclude.Count; i++)
@@ -45,7 +58,7 @@ public class Chemicals : MonoBehaviour
     {
         CheckEntering();
         CountText.text = Count.ToString();
-        // ÈÃ¶ÔÏó¸úËæÊó±ê
+        // è®©å¯¹è±¡è·Ÿéšé¼ æ ‡
         if (following)
         {
             Vector2 screenPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -61,7 +74,7 @@ public class Chemicals : MonoBehaviour
         }
     }
 
-    // ¼ì²âÊÇ·ñ½øÈë·´Ó¦²ã
+    // æ£€æµ‹æ˜¯å¦è¿›å…¥ååº”å±‚
     public void CheckEntering()
     {
         RectTransform rectReaction = ReactionLayer.GetComponent<RectTransform>();
@@ -72,11 +85,11 @@ public class Chemicals : MonoBehaviour
         posO = Camera.main.WorldToScreenPoint(posO);
         posR = Camera.main.WorldToScreenPoint(posR);
 
-        float referenceResolutionWidth = canvasScaler.referenceResolution.x; // ²Î¿¼·Ö±æÂÊµÄ¿í¶È
-        float referenceResolutionHeight = canvasScaler.referenceResolution.y; // ²Î¿¼·Ö±æÂÊµÄ¸ß¶È
-        float currentCanvasScale = Screen.width / referenceResolutionWidth; // µ±Ç°CanvasÏà¶ÔÓÚ²Î¿¼·Ö±æÂÊµÄËõ·Å±ÈÀı
-        float widthInScreenPixels = rectReaction.rect.width * currentCanvasScale; // ¼ÆËã¿í¶È¶ÔÓ¦µÄÆÁÄ»ÏñËØÖµ
-        float heightInScreenPixels = rectReaction.rect.height * currentCanvasScale; // ¼ÆËã¸ß¶È¶ÔÓ¦µÄÆÁÄ»ÏñËØÖµ
+        float referenceResolutionWidth = canvasScaler.referenceResolution.x; // å‚è€ƒåˆ†è¾¨ç‡çš„å®½åº¦
+        float referenceResolutionHeight = canvasScaler.referenceResolution.y; // å‚è€ƒåˆ†è¾¨ç‡çš„é«˜åº¦
+        float currentCanvasScale = Screen.width / referenceResolutionWidth; // å½“å‰Canvasç›¸å¯¹äºå‚è€ƒåˆ†è¾¨ç‡çš„ç¼©æ”¾æ¯”ä¾‹
+        float widthInScreenPixels = rectReaction.rect.width * currentCanvasScale; // è®¡ç®—å®½åº¦å¯¹åº”çš„å±å¹•åƒç´ å€¼
+        float heightInScreenPixels = rectReaction.rect.height * currentCanvasScale; // è®¡ç®—é«˜åº¦å¯¹åº”çš„å±å¹•åƒç´ å€¼
 
         // Debug.Log("Success");
         // Debug.Log(posO.x.ToString() + ", " + posO.y.ToString() + "; " + posR.x.ToString() + "," + posR.y.ToString());
@@ -102,32 +115,59 @@ public class Chemicals : MonoBehaviour
 
     public void Clicked()
     {
+        // ä»åœ¨è·Ÿéšé¼ æ ‡
         if (entering && following)
         {
-            // ÎïÖÊÔÚ·´Ó¦³ØÖĞÊÇ·ñ´æÔÚ
+            // ç‰©è´¨åœ¨ååº”æ± ä¸­æ˜¯å¦å­˜åœ¨
             foreach (GameObject che in reactionPool.Chemicals)
             {
                 if (Equals(che.GetComponent<Chemicals>().ChemicalsInclude, ChemicalsInclude))
                 {
-                    Debug.Log("Found");
+                    // åªå¢åŠ æ•°é‡
                     che.GetComponent<Chemicals>().Count++;
-                    following = false;
                     Destroy(gameObject);
-
                     return;
                 }
             }
 
-            // ²»´æÔÚ
-            ReactionLayer.GetComponent<ReactionPool>().Chemicals.Add(gameObject);
-            gameObject.transform.SetParent(ReactionLayer.transform);
-            Notice.SetActive(false);
-            following = false;
+            if (following)
+            {
+                // ä¸å­˜åœ¨
+                ReactionLayer.GetComponent<ReactionPool>().Chemicals.Add(gameObject);
+                gameObject.transform.SetParent(ReactionLayer.transform);
+                Notice.SetActive(false);
+                following = false;
+            }
         }
 
-        if (!following)
+        // åœ¨ååº”æ± ä¸­ï¼Œç‚¹å‡»å°†å…¶é€€å›å¡ç‰ŒåŒº
+        else if (!following)
         {
+            // å…¶å¯¹åº”çš„å¡ç‰Œä»åœ¨æ‰‹ç‰ŒåŒºä¸­å­˜åœ¨
+            if (ParentCard != null)
+            {
+                ParentCard.GetComponent<Card>().Count += Count;
+                ParentCard.GetComponent<Card>().ShowChemicalInformation();
+                reactionPool.Chemicals.Remove(gameObject);
+                Destroy(gameObject);
+            }
 
+            // å…¶å¯¹åº”çš„å¡ç‰Œå·²ç»è¢«é”€æ¯
+            else
+            {
+                GameObject parentCard = Instantiate(CardPrefab, Content.transform);
+                Builder.Cards.Add(parentCard);
+                parentCard.GetComponent<Card>().Chemicals = ParentCardData.Chemicals;
+                parentCard.GetComponent<Card>().CheCount = ParentCardData.CheCount;
+                parentCard.GetComponent<Card>().State = ParentCardData.State;
+                parentCard.GetComponent<Card>().Form = ParentCardData.Form;
+                parentCard.GetComponent<Card>().Count = Count;
+
+                parentCard.GetComponent<Card>().ShowChemicalInformation();
+
+                reactionPool.Chemicals.Remove(gameObject);
+                Destroy(gameObject);
+            }
         }
     }
 }

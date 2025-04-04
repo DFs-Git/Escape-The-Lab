@@ -19,17 +19,17 @@ public class InsideButtons : MonoBehaviour
         Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
     }
 
-    // »ñÈ¡ÌáÊ¾
+    // è·å–æç¤º
     public void GetTips()
     {
         if (TipsGotten < Loader.level.tips.Count)
         {
-            if (TipsGotten == 0) TipsText.text = "ÌáÊ¾£º";
+            if (TipsGotten == 0) TipsText.text = "æç¤ºï¼š";
             TipsText.text += '\n';
             TipsText.text += (TipsGotten + 1).ToString() + ". ";
             TipsText.text += Loader.level.tips[TipsGotten];
             TipsGotten++;
-            if (TipsGotten == Loader.level.tips.Count) TipsText.text += '\n' + "Ã»ÓĞ¸ü¶àÌáÊ¾ÁË¡£";
+            if (TipsGotten == Loader.level.tips.Count) TipsText.text += '\n' + "æ²¡æœ‰æ›´å¤šæç¤ºäº†ã€‚";
         }
     }
 
@@ -40,7 +40,7 @@ public class InsideButtons : MonoBehaviour
 
     public void ShowDialogs()
     {
-        // Ö´ĞĞ¶Ô»°
+        // æ‰§è¡Œå¯¹è¯
         flowchart.ExecuteBlock(Loader.level.chapter.ToString() + "-" + Loader.level.topic.ToString());
     }
 }

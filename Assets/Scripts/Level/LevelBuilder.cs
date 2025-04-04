@@ -18,14 +18,13 @@ public class LevelBuilder : MonoBehaviour
 
     public GameObject CardPrefab;
     public GameObject Content;
+    // å…¶ä»–è„šæœ¬å¯ä»¥å¼•ç”¨è¯¥å¡ç‰Œåˆ—è¡¨ï¼Œå‡ä¸ºå¼•ç”¨ç±»å‹
     public List<GameObject> Cards;
 
-    // ¶ÔÓ¦ÁËÎïÖÊ×´Ì¬¡¢´æÔÚĞÎÊ½¡¢·´Ó¦Ìõ¼şµÄÊı×Ö->¿ÉÊÓ×Ö·û´®Ó³Éä±í£¬¾ßÌå¼û´ú±íº¬Òå¼ûResources/Levels/Readme.txt
+    // å¯¹åº”äº†ç‰©è´¨çŠ¶æ€ã€å­˜åœ¨å½¢å¼ã€ååº”æ¡ä»¶çš„æ•°å­—->å¯è§†å­—ç¬¦ä¸²æ˜ å°„è¡¨ï¼Œå…·ä½“è§ä»£è¡¨å«ä¹‰è§Resources/Levels/Readme.txt
     public List<string> ChemicalStatesMap;
     public List<string> ExistFormMap;
     public List<string> ConditionMap;
-
-    public CardPool Pool;
 
     void Awake()
     {
@@ -35,22 +34,22 @@ public class LevelBuilder : MonoBehaviour
 
     void Start()
     {
-        // ÏÈ»ñÈ¡¹Ø¿¨ĞÅÏ¢
+        // å…ˆè·å–å…³å¡ä¿¡æ¯
         Level level = Loader.level;
 
         Title.text = level.chapter.ToString() + "-" + level.topic.ToString() + " " + level.title;
         TaskDescription.text = level.task_description;
-        Tips.text = "Ïë²»µ½ÁËÂğ£¿µã»÷ÏÂÃæµÄ°´Å¥»ñÈ¡ÌáÊ¾¡£";
+        Tips.text = "æƒ³ä¸åˆ°äº†å—ï¼Ÿç‚¹å‡»ä¸‹é¢çš„æŒ‰é’®è·å–æç¤ºã€‚";
 
-        // Éú³É¿¨Æ¬
-        // offer ±íÊ¾Ã¿Ò»Ìõ»¯Ñ§ÎïÖÊ
+        // ç”Ÿæˆå¡ç‰‡
+        // offer è¡¨ç¤ºæ¯ä¸€æ¡åŒ–å­¦ç‰©è´¨
         foreach (List<int> offer in level.offered)
         {
-            // Éú³É¿¨Æ¬
+            // ç”Ÿæˆå¡ç‰‡
             GameObject newCard = Instantiate(CardPrefab, Content.transform);
             Cards.Add(newCard);
 
-            // ÉèÖÃ¿¨Æ¬»¯Ñ§ÎïÖÊĞÅÏ¢
+            // è®¾ç½®å¡ç‰‡åŒ–å­¦ç‰©è´¨ä¿¡æ¯
             int count = offer[0];
             List<CDL.Chemical> cheInclude = new List<CDL.Chemical>();
             int i = 0;
@@ -61,24 +60,22 @@ public class LevelBuilder : MonoBehaviour
             }
             Cards[Cards.Count - 1].GetComponent<Card>().Chemicals = cheInclude;
 
-            // ÉèÖÃ¿¨Æ¬ÆäËûÊôĞÔ
+            // è®¾ç½®å¡ç‰‡å…¶ä»–å±æ€§
             Cards[Cards.Count - 1].GetComponent<Card>().Count = offer[i];
             Cards[Cards.Count - 1].GetComponent<Card>().State = ChemicalStatesMap[offer[i + 1]];
             Cards[Cards.Count - 1].GetComponent<Card>().Form = ExistFormMap[offer[i + 2]];
 
-            // ÏÔÊ¾»¯Ñ§ÎïÖÊĞÅÏ¢
+            // æ˜¾ç¤ºåŒ–å­¦ç‰©è´¨ä¿¡æ¯
             Cards[Cards.Count - 1].GetComponent<Card>().ShowChemicalInformation();
         }
-        // ÉèÖÃ·´Ó¦Ìõ¼ş
+        // è®¾ç½®ååº”æ¡ä»¶
         Condition.ClearOptions();
         foreach (int condition in level.reaction_condition)
         {
             Condition.options.Add(new TMP_Dropdown.OptionData() { text = ConditionMap[condition] });
         }
 
-        Pool.GetComponent<CardPool>().Cards = Cards;
-
-        // Ö´ĞĞ¶Ô»°
+        // æ‰§è¡Œå¯¹è¯
         // flowchart.ExecuteBlock(level.chapter.ToString() + "-" + level.topic.ToString());
     }
 }

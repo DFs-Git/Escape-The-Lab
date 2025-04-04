@@ -231,11 +231,13 @@ MonoBehaviour:
   Notice: {fileID: 6577098547652627252}
   following: 1
   entering: 0
-  parentExist: 1
   Count: 1
   ParentCard: {fileID: 0}
+  CardPrefab: {fileID: 2275547320523109941, guid: 509c963604e945d42a84848835165380, type: 3}
+  Content: {fileID: 0}
   canvasScaler: {fileID: 0}
-  Pool: {fileID: 0}
+  reactionPool: {fileID: 0}
+  Builder: {fileID: 0}
 --- !u!61 &1942330714602470156
 BoxCollider2D:
   m_ObjectHideFlags: 0

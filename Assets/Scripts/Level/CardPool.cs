@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class CardPool : MonoBehaviour
 {
-    public List<GameObject> Cards;
+    
 }
