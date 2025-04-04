@@ -1,3 +1,4 @@
+using Fungus;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,6 +11,8 @@ public class InsideButtons : MonoBehaviour
 
     public TMP_Text TipsText;
     public int TipsGotten;
+
+    public Flowchart flowchart;
 
     void Awake()
     {
@@ -33,5 +36,11 @@ public class InsideButtons : MonoBehaviour
     public void Back()
     {
         SceneManager.LoadScene(3);
+    }
+
+    public void ShowDialogs()
+    {
+        // Ö´ÐÐ¶Ô»°
+        flowchart.ExecuteBlock(Loader.level.chapter.ToString() + "-" + Loader.level.topic.ToString());
     }
 }

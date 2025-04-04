@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.U2D.Animation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -121,5 +120,12 @@ public class LevelButtons : MonoBehaviour
     public void Alright()
     {
         Attention.SetActive(false);
+    }
+
+    public void ResetSaves()
+    {
+        PlayerPrefs.SetInt("chapter", 0);
+        PlayerPrefs.SetInt("topic", 0);
+        PlayerPrefs.Save();
     }
 }
