@@ -47,7 +47,7 @@ public class LevelLoader : MonoBehaviour
         Debug.Log(level.task_description);
         Debug.Log(level.tips);
         Debug.Log(level.offered);
-        Debug.Log(level.commit);
+        Debug.Log(level.commit.Count);
         Debug.Log(level.reaction_condition);
 
         // 跳转到Level场景

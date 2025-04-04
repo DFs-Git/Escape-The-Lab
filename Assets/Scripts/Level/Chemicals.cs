@@ -22,25 +22,31 @@ public class Chemicals : MonoBehaviour
     public TMP_Text FormulaText;
     public TMP_Text CountText;
     public GameObject ReactionLayer;
+    public GameObject CommitLayer;
     public GameObject Notice;
 
     public bool following = true;
     public bool entering = false;
+    public bool commiting = false;
     public int Count = 1; // 物质数量
     public GameObject ParentCard;
     public CardData ParentCardData;
     public GameObject CardPrefab; // 物质对应的卡牌预制体
-    public GameObject Content;
+    public GameObject Content;      // 这里指卡牌
+    public GameObject CommitContent;// 这里指提交
 
     public CanvasScaler canvasScaler;
     public ReactionPool reactionPool;
+    public CommitController commitPool;
     public LevelBuilder Builder;
 
     void Start()
     {
         canvasScaler = GameObject.Find("Canvas").GetComponent<CanvasScaler>();
         reactionPool = GameObject.Find("Reaction").GetComponent<ReactionPool>();
-        Content = GameObject.Find("Content");
+        commitPool = GameObject.Find("CommitArea").GetComponent<CommitController>();
+        Content = GameObject.Find("CardContent");
+        CommitContent = GameObject.Find("CommitContent");
         Builder = Camera.main.GetComponent<LevelBuilder>();
 
         FormulaText.text = "[";
@@ -52,11 +58,13 @@ public class Chemicals : MonoBehaviour
         FormulaText.text += "]";
 
         ReactionLayer = GameObject.Find("Reaction");
+        CommitLayer = GameObject.Find("CommitLayer");
     }
 
     void Update()
     {
-        CheckEntering();
+        entering = CheckEntering(ReactionLayer);
+        commiting = CheckEntering(CommitLayer);
         CountText.text = Count.ToString();
         // 让对象跟随鼠标
         if (following)
@@ -64,7 +72,7 @@ public class Chemicals : MonoBehaviour
             Vector2 screenPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             gameObject.transform.position = screenPos;
         }
-        if (entering && following)
+        if ((entering || commiting) && following)
         {
             Notice.SetActive(true);
         }
@@ -74,10 +82,10 @@ public class Chemicals : MonoBehaviour
         }
     }
 
-    // 检测是否进入反应层
-    public void CheckEntering()
+    // 检测是否进入某层
+    public bool CheckEntering(GameObject touch)
     {
-        RectTransform rectReaction = ReactionLayer.GetComponent<RectTransform>();
+        RectTransform rectReaction = touch.GetComponent<RectTransform>();
         RectTransform rectObj = GetComponent<RectTransform>();
 
         Vector2 posO = rectObj.position;
@@ -100,16 +108,16 @@ public class Chemicals : MonoBehaviour
             if (posO.y >= (posR.y - (heightInScreenPixels / 2)) &&
                 posO.y <= (posR.y + (heightInScreenPixels / 2)))
             {
-                entering = true;
+                return true;
             }
             else
             {
-                entering = false;
+                return false;
             }
         }
         else
         {
-            entering = false;
+            return false;
         }
     }
 
@@ -139,8 +147,32 @@ public class Chemicals : MonoBehaviour
                 following = false;
             }
         }
+        // 在提交区中
+        else if (commiting && following)
+        {
+            // 物质在提交池中是否存在
+            foreach (GameObject che in commitPool.CommitChemicals)
+            {
+                if (Equals(che.GetComponent<Chemicals>().ChemicalsInclude, ChemicalsInclude))
+                {
+                    // 只增加数量
+                    che.GetComponent<Chemicals>().Count++;
+                    Destroy(gameObject);
+                    return;
+                }
+            }
 
-        // 在反应池中，点击将其退回卡牌区
+            if (following)
+            {
+                // 不存在
+                commitPool.CommitChemicals.Add(gameObject);
+                gameObject.transform.SetParent(CommitContent.transform);
+                Notice.SetActive(false);
+                following = false;
+            }
+        }
+
+        // 点击将其退回卡牌区
         else if (!following)
         {
             // 其对应的卡牌仍在手牌区中存在
@@ -148,7 +180,10 @@ public class Chemicals : MonoBehaviour
             {
                 ParentCard.GetComponent<Card>().Count += Count;
                 ParentCard.GetComponent<Card>().ShowChemicalInformation();
-                reactionPool.Chemicals.Remove(gameObject);
+                if (entering)
+                    reactionPool.Chemicals.Remove(gameObject);
+                else if (commiting)
+                    commitPool.CommitChemicals.Remove(gameObject);
                 Destroy(gameObject);
             }
 
@@ -165,7 +200,10 @@ public class Chemicals : MonoBehaviour
 
                 parentCard.GetComponent<Card>().ShowChemicalInformation();
 
-                reactionPool.Chemicals.Remove(gameObject);
+                if (entering)
+                    reactionPool.Chemicals.Remove(gameObject);
+                else if (commiting)
+                    commitPool.CommitChemicals.Remove(gameObject);
                 Destroy(gameObject);
             }
         }

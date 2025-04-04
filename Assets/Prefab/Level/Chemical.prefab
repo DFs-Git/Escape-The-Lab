@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -49.3, y: 34.1}
-  m_SizeDelta: {x: 27.6228, y: 27.6228}
+  m_AnchoredPosition: {x: -38.9987, y: 23.1737}
+  m_SizeDelta: {x: 22.0034, y: 22.0034}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3753223151530542297
 CanvasRenderer:
@@ -228,15 +228,19 @@ MonoBehaviour:
   FormulaText: {fileID: 8127936587184340816}
   CountText: {fileID: 3289599932747310532}
   ReactionLayer: {fileID: 0}
+  CommitLayer: {fileID: 0}
   Notice: {fileID: 6577098547652627252}
   following: 1
   entering: 0
+  commiting: 0
   Count: 1
   ParentCard: {fileID: 0}
   CardPrefab: {fileID: 2275547320523109941, guid: 509c963604e945d42a84848835165380, type: 3}
   Content: {fileID: 0}
+  CommitContent: {fileID: 0}
   canvasScaler: {fileID: 0}
   reactionPool: {fileID: 0}
+  commitPool: {fileID: 0}
   Builder: {fileID: 0}
 --- !u!61 &1942330714602470156
 BoxCollider2D:
@@ -661,7 +665,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.000002861}
+  m_AnchoredPosition: {x: 0, y: 0.000002861023}
   m_SizeDelta: {x: 24.2269, y: 22.5776}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2622545427143146895
@@ -694,8 +698,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: n
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ef8f258e9b3986549b8aad13e2b97dc9, type: 2}
-  m_sharedMaterial: {fileID: 1970378537357027744, guid: ef8f258e9b3986549b8aad13e2b97dc9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 935b37ee5a281c543b9447b6be7ce69a, type: 2}
+  m_sharedMaterial: {fileID: 3210851030499821394, guid: 935b37ee5a281c543b9447b6be7ce69a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
