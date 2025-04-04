@@ -884,7 +884,6 @@ MonoBehaviour:
   - "\u52A0\u70ED+\u50AC\u5316\u5242"
   - "\u9AD8\u538B"
   - "\u9AD8\u6E29+\u9AD8\u538B"
-  Pool: {fileID: 1650824848}
 --- !u!1 &584004202
 GameObject:
   m_ObjectHideFlags: 0
@@ -4071,7 +4070,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6009290f9361d4db5dfb3b3d15a9a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cards: []
 --- !u!1 &1659154726
 GameObject:
   m_ObjectHideFlags: 0
@@ -5003,6 +5001,7 @@ GameObject:
   - component: {fileID: 2092102565}
   - component: {fileID: 2092102564}
   - component: {fileID: 2092102563}
+  - component: {fileID: 2092102568}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -5049,6 +5048,7 @@ MonoBehaviour:
   - {fileID: 2092102559}
   - {fileID: 2092102567}
   - {fileID: 2092102566}
+  - {fileID: 2092102568}
   - {fileID: 2092102565}
   - {fileID: 2092102564}
   - {fileID: 2092102563}
@@ -5552,6 +5552,33 @@ MonoBehaviour:
   itemId: 13
   indentLevel: 0
   storyText: "\u9009\u62E9\u5408\u9002\u7684\u53CD\u5E94\u6761\u4EF6\uFF0C\u70B9\u51FB\u53CD\u5E94\u6309\u94AE\u5C31\u53EF\u4EE5\u5F00\u59CB\u53CD\u5E94\u3002"
+  description: 
+  character: {fileID: 381301190}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &2092102568
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092102546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 18
+  indentLevel: 0
+  storyText: "\u4F60\u9700\u8981\u4E25\u683C\u6309\u7167\u5316\u5B66\u65B9\u7A0B\u5F0F\u4E2D\u5404\u53CD\u5E94\u7269\u524D\u5316\u5B66\u8BA1\u91CF\u6570\u4E4B\u6BD4\u6765\u5C06\u76F8\u5E94\u6BD4\u4F8B\u7684\u5361\u724C\u653E\u5165\u53CD\u5E94\u533A\u3002"
   description: 
   character: {fileID: 381301190}
   portrait: {fileID: 0}

@@ -28,7 +28,6 @@ public class Card : MonoBehaviour
     public GameObject ChemicalPrefab;
     public GameObject Canva;
 
-    public CardPool Pool;
     public ReactionPool reactionPool;
     public LevelBuilder Builder;
 

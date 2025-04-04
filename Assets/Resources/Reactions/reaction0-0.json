@@ -1,0 +1,28 @@
+{
+    "reactions": [
+        {
+            "reactants": {
+                "9": 1,
+                "1": 1
+            },
+            "condition": 3,
+            "products": [12, 1]
+        },
+        {
+            "reactants": {
+                "9": 1,
+                "12": 1
+            },
+            "condition": 4,
+            "products": [101, 2]
+        },
+        {
+            "reactants": {
+                "9": 2,
+                "1": 1
+            },
+            "condition": 3,
+            "products": [101, 2]
+        }
+    ]
+}
