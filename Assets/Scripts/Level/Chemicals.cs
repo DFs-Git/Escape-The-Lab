@@ -4,21 +4,21 @@ using TMPro;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
-using CDL = ChemicalDatabaseLoader.ChemicalDatabaseLoader;
+using CL = ChemicalLoader;
 
 public struct CardData
 {
-    public List<CDL.Chemical> Chemicals;// 每一种纯净物
+    public List<CL.Chemical> Chemicals;// 每一种纯净物
     public List<int> CheCount;          // 每一种纯净物的分子数
     public int Count;                   // 卡牌数量
     public string State;                // 物质状态
     public string Form;                 // 物质存在形式
-    public List<CDL.MolChemicals> To_MolChemicals()
+    public List<CL.MolChemicals> To_MolChemicals()
     {
-        List<CDL.MolChemicals> re = new();
+        List<CL.MolChemicals> re = new();
         for (int i = 0; i < Chemicals.Count; i++)
         {
-            CDL.MolChemicals temp = new CDL.MolChemicals(Chemicals[i], CheCount[i]);
+            CL.MolChemicals temp = new CL.MolChemicals(Chemicals[i], CheCount[i]);
             re.Add(temp);
         }
         return re;
@@ -27,7 +27,7 @@ public struct CardData
 
 public class Chemicals : MonoBehaviour
 {
-    public List<CDL.Chemical> ChemicalsInclude;
+    public List<CL.Chemical> ChemicalsInclude;
 
     public TMP_Text FormulaText;
     public TMP_Text CountText;

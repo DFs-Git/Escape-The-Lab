@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
-using CDL = ChemicalDatabaseLoader.ChemicalDatabaseLoader;
+using CL = ChemicalLoader;
 using Fungus;
 
 public class LevelBuilder : MonoBehaviour
@@ -29,7 +29,7 @@ public class LevelBuilder : MonoBehaviour
     void Awake()
     {
         Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
-        CDL.LoadChemicals();
+        CL.LoadChemicals();
     }
 
     void Start()
@@ -51,11 +51,11 @@ public class LevelBuilder : MonoBehaviour
 
             // 设置卡片化学物质信息
             int count = offer[0];
-            List<CDL.Chemical> cheInclude = new List<CDL.Chemical>();
+            List<CL.Chemical> cheInclude = new List<CL.Chemical>();
             int i = 0;
             for (i = 1; i <= count * 2; i += 2)
             {
-                cheInclude.Add(CDL.allChemicals[offer[i] - 1]);
+                cheInclude.Add(CL.allChemicals[offer[i] - 1]);
                 Cards[Cards.Count - 1].GetComponent<Card>().CheCount.Add(offer[i + 1]);
             }
             Cards[Cards.Count - 1].GetComponent<Card>().Chemicals = cheInclude;

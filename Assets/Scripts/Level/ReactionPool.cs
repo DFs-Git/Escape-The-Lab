@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CDL = ChemicalDatabaseLoader.ChemicalDatabaseLoader;
+using CL = ChemicalLoader;
 
 public class ReactionPool : MonoBehaviour
 {
     public List<GameObject> Chemicals;
-    public List<CDL.MolChemicals> MolChemicalsInReactionPool=new();
+    public List<CL.MolChemicals> MolChemicalsInReactionPool=new();
 
     [SerializeField, SetProperty("ÄÚÈÝ")]
     public string content;
@@ -15,7 +15,7 @@ public class ReactionPool : MonoBehaviour
     {
         if (content != ToString()) content = ToString();
     }
-    public void AddData(List<CDL.MolChemicals> data)
+    public void AddData(List<CL.MolChemicals> data)
     {
         foreach (var c in data)
         {
@@ -23,7 +23,7 @@ public class ReactionPool : MonoBehaviour
             {
                 if (MolChemicalsInReactionPool[i].Chemicals.ID == c.Chemicals.ID)
                 {
-                    MolChemicalsInReactionPool[i] = new CDL.MolChemicals(c.Chemicals, c.MolNum + MolChemicalsInReactionPool[i].MolNum);
+                    MolChemicalsInReactionPool[i] = new CL.MolChemicals(c.Chemicals, c.MolNum + MolChemicalsInReactionPool[i].MolNum);
                     return;
                 }
             }
@@ -31,7 +31,7 @@ public class ReactionPool : MonoBehaviour
             MolChemicalsInReactionPool.Add(c);
         }
     }
-    public void ReduceData(List<CDL.MolChemicals> data)
+    public void ReduceData(List<CL.MolChemicals> data)
     {
         foreach (var c in data)
         {
@@ -41,7 +41,7 @@ public class ReactionPool : MonoBehaviour
     override public string ToString()
     {
         string s = "";
-        foreach (CDL.MolChemicals t in MolChemicalsInReactionPool)
+        foreach (CL.MolChemicals t in MolChemicalsInReactionPool)
         {
             s += $"{t.ToString()},";
         }

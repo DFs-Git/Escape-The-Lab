@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using CDL = ChemicalDatabaseLoader.ChemicalDatabaseLoader;
+using CL = ChemicalLoader;
 using UnityEngine.SceneManagement;
 
 public class CommitController : MonoBehaviour
@@ -18,7 +18,7 @@ public class CommitController : MonoBehaviour
 
     void Awake()
     {
-        CDL.LoadChemicals();
+        CL.LoadChemicals();
         Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
     }
 
@@ -28,7 +28,7 @@ public class CommitController : MonoBehaviour
         CommitDescription.text = "提交";
         for (int i = 0; i < Loader.level.commit.Count; i += 2)
         {
-            CDL.Chemical che = CDL.FindChemicals(Loader.level.commit[i])[0];
+            CL.Chemical che = CL.FindChemicals(Loader.level.commit[i])[0];
             CommitDescription.text += che.Formula;
             CommitDescription.text += "*" + Loader.level.commit[i + 1].ToString();
             CommitDescription.text += ",";
@@ -54,7 +54,7 @@ public class CommitController : MonoBehaviour
 
         for (int i = 0; i < Loader.level.commit.Count; i += 2)
         {
-            CDL.Chemical chem = CDL.FindChemicals(Loader.level.commit[i])[0];
+            CL.Chemical chem = CL.FindChemicals(Loader.level.commit[i])[0];
             Debug.Log(chem.ID.ToString() + " " + Loader.level.commit[i + 1].ToString());
             bool found = false;
             foreach (GameObject che in CommitChemicals)

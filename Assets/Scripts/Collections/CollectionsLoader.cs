@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using static ChemicalDatabaseLoader.ChemicalDatabaseLoader;
-using CDL = ChemicalDatabaseLoader.ChemicalDatabaseLoader; // 使用别名简化类名引用
+using static ChemicalLoader;
+using CL = ChemicalLoader; // 使用别名简化类名引用
 using System.Collections;
 using System.Collections.Generic;
 
@@ -21,9 +21,9 @@ public class CollectionsLoader : MonoBehaviour
     {
         // 确保在场景加载时初始化化学数据库
         // 避免在数据未加载时进行后续操作
-        if (CDL.allChemicals.Count == 0)
+        if (CL.allChemicals.Count == 0)
         {
-            CDL.LoadChemicals();
+            CL.LoadChemicals();
         }
     }
 
@@ -41,9 +41,9 @@ public class CollectionsLoader : MonoBehaviour
         StartCoroutine(GenerateButtons());
 
         // 默认展示第一个化学物质信息，提供初始界面状态
-        if (CDL.allChemicals.Count > 0)
+        if (CL.allChemicals.Count > 0)
         {
-            OnButtonClick(CDL.allChemicals[0].ID);
+            OnButtonClick(CL.allChemicals[0].ID);
         }
     }
 
@@ -52,7 +52,7 @@ public class CollectionsLoader : MonoBehaviour
     /// </summary>
     IEnumerator GenerateButtons()
     {
-        foreach (Chemical che in CDL.allChemicals)
+        foreach (Chemical che in CL.allChemicals)
         {
             // 实例化按钮并设置显示文本
             Button btn = Instantiate(itemPrefab, transform);
@@ -63,7 +63,7 @@ public class CollectionsLoader : MonoBehaviour
             btn.onClick.AddListener(() => OnButtonClick(currentID));
 
             // 分帧处理优化性能：每生成5个按钮等待一帧
-            if (CDL.allChemicals.IndexOf(che) % 5 == 0)
+            if (CL.allChemicals.IndexOf(che) % 5 == 0)
                 yield return null;
         }
     }
@@ -74,7 +74,7 @@ public class CollectionsLoader : MonoBehaviour
     /// <param name="id">化学物质唯一标识符</param>
     void OnButtonClick(int id)
     {
-        List<Chemical> result = CDL.FindChemicals(id);
+        List<Chemical> result = CL.FindChemicals(id);
 
         // 安全检查搜索结果有效性
         if (result != null && result.Count > 0)
