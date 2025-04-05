@@ -26,7 +26,6 @@ public class ReactionButton : MonoBehaviour
         string condition = Condition.options[Condition.value].text;
         Equation abledEquation = EquationLoader.StrictSearch(reactants: ReactionPool.MolChemicalsInReactionPool, condition: condition);
         EquationLoader.PrintEquations(abledEquation);
-        //EquationLoader.PrintEquations(EquationLoader.AdvancedSearch(reactants: ReactionPool.MolChemicalsInReactionPool, condition: condition));
         if (abledEquation.Equals(default(Equation)))
         {
             Flowchart.ExecuteBlock("NothingHappened");
