@@ -48,23 +48,23 @@ public struct Chemical
     }
 }
 
-public struct MolChemicals
+public struct MolChemical
 {
-    public Chemical Chemicals;//纯净物
+    public Chemical Chemical;//纯净物
     public int MolNum;  //摩尔数
-    public MolChemicals(Chemical _Chemicals, int _MolNum)
+    public MolChemical(Chemical _Chemicals, int _MolNum)
     {
-        Chemicals = _Chemicals;
+        Chemical = _Chemicals;
         MolNum = _MolNum;
     }
-    public MolChemicals(string _Chemicals, int _MolNum)
+    public MolChemical(string _Chemicals, int _MolNum)
     {
-        Chemicals = ChemicalLoader.FindChemicals(formula : _Chemicals)[0];
+        Chemical = ChemicalLoader.FindChemicals(formula : _Chemicals)[0];
         MolNum = _MolNum;
     }
     override public string ToString()
     {
-        return $"{MolNum}*{Chemicals.Formula}";
+        return $"{MolNum}*{Chemical.Formula}";
     }
 }
 // 数据库加载器类：负责加载和处理化学物质数据

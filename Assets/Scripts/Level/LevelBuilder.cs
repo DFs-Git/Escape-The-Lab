@@ -57,10 +57,10 @@ public class LevelBuilder : MonoBehaviour
             Cards.Add(newCard);
 
             // 设置卡片化学物质信息
-            Cards[Cards.Count - 1].GetComponent<Card>().ChemicalInfo = CL.FindChemicals(offer[i])[0];
+            Cards[Cards.Count - 1].GetComponent<Card>().molChemical.Chemical = CL.FindChemicals(offer[i])[0];
 
             // 设置卡片数量
-            Cards[Cards.Count - 1].GetComponent<Card>().Count = offer[i + 1];
+            Cards[Cards.Count - 1].GetComponent<Card>().molChemical.MolNum = offer[i + 1];
 
             // 显示化学物质信息
             Cards[Cards.Count - 1].GetComponent<Card>().ShowChemicalInformation();
