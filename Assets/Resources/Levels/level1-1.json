@@ -1,0 +1,10 @@
+{
+    "chapter": 1,
+    "topic": 1,
+    "title": "制取二氧化硫",
+    "task_description": "使用提供的化学物质卡牌，制取1个二氧化硫(SO<sub>2</sub>)分子并提交。",
+    "tips": ["S+O<sub>2</sub>=点燃=SO<sub>2</sub>"],
+    "offered": [[1, 1, 1, 1, 3, 1], [1, 5, 1, 1, 1, 2]],
+    "commit": [16, 1],
+    "reaction_condition": [1, 3]
+}
