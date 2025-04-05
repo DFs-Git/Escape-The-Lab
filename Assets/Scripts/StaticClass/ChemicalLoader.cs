@@ -57,6 +57,11 @@ public struct MolChemicals
         Chemicals = _Chemicals;
         MolNum = _MolNum;
     }
+    public MolChemicals(string _Chemicals, int _MolNum)
+    {
+        Chemicals = ChemicalLoader.FindChemicals(formula : _Chemicals)[0];
+        MolNum = _MolNum;
+    }
     override public string ToString()
     {
         return $"{Chemicals.Name}*{MolNum}";
