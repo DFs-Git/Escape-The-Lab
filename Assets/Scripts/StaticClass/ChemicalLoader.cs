@@ -64,7 +64,7 @@ public struct MolChemicals
     }
     override public string ToString()
     {
-        return $"{Chemicals.Name}*{MolNum}";
+        return $"{Chemicals.Name}{MolNum}";
     }
 }
 // 数据库加载器类：负责加载和处理化学物质数据
@@ -84,7 +84,7 @@ public static class ChemicalLoader
     {
         allChemicals.Clear();
         // 从Unity资源系统加载CSV文本文件
-        TextAsset csvFile = Resources.Load<TextAsset>("chemicals");
+        TextAsset csvFile = Resources.Load<TextAsset>("Chemicals/chemicals");
 
         // 空文件检查
         if (csvFile == null)
