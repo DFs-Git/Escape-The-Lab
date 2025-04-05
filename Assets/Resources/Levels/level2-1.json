@@ -1,10 +1,11 @@
 {
+    "type": 1,
     "chapter": 2,
     "topic": 1,
     "title": "电解水",
     "task_description": "让水通电分解。",
     "tips": ["2H<sub>2</sub>O=通电=2H<sub>2</sub>↑+O<sub>2</sub>↑"],
-    "offered": [[1, 11, 1, 2, 2, 1]],
+    "offered": [11, 2],
     "commit": [2, 2, 1, 1],
     "reaction_condition": [1, 2, 5]
 }

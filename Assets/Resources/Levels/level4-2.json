@@ -1,0 +1,11 @@
+{
+    "type": 1,
+    "chapter": 4,
+    "topic": 2,
+    "title": "(稀)硫酸与铁的反应",
+    "task_description": "试着将(稀)硫酸(H<sub>2</sub>SO<sub>4</sub>)和金属铁(Fe)放在一起。",
+    "tips": ["Fe+H<sub>2</sub>SO<sub>4</sub>==FeSO<sub>4</sub>+H<sub>2</sub>↑"],
+    "offered": [6, 1, 22, 1],
+    "commit": [49, 1, 2, 1],
+    "reaction_condition": [1, 2]
+}

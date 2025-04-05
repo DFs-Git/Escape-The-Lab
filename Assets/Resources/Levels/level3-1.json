@@ -1,10 +1,11 @@
 {
+    "type": 1,
     "chapter": 3,
     "topic": 1,
     "title": "炼铁",
     "task_description": "利用还原剂将氧化铁(Fe<sub>2</sub>O<sub>3</sub>)还原为铁。",
     "tips": ["先制取CO。", "Fe<sub>2</sub>O<sub>3</sub>+3CO=高温=2Fe+3CO<sub>2</sub>"],
-    "offered": [[1, 14, 1, 1, 1, 1], [1, 9, 1, 4, 1, 2], [1, 1, 1, 2, 3, 1]],
+    "offered": [14, 1, 9, 4, 1, 2],
     "commit": [6, 2],
     "reaction_condition": [1, 2, 3, 4]
 }

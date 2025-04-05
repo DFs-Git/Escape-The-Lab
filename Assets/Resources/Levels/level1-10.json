@@ -1,10 +1,11 @@
 {
+    "type": 1,
     "chapter": 1,
     "topic": 10,
     "title": "制取五氧化二磷",
     "task_description": "使用提供的化学物质卡牌，制取2个五氧化二磷(P<sub>2</sub>O<sub>5</sub>)分子并提交。",
     "tips": ["4P+5O<sub>2</sub>=点燃=2P<sub>2</sub>O<sub>5</sub>"],
-    "offered": [[1, 1, 1, 5, 3, 1], [1, 10, 1, 4, 1, 2]],
+    "offered": [1, 5, 10, 4],
     "commit": [17, 2],
     "reaction_condition": [1, 3]
 }

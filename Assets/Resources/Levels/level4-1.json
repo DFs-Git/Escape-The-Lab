@@ -1,0 +1,11 @@
+{
+    "type": 1,
+    "chapter": 4,
+    "topic": 1,
+    "title": "(稀)盐酸与镁的反应",
+    "task_description": "试着将(稀)盐酸(HCl)和金属镁(Mg)放在一起。",
+    "tips": ["Mg+2HCl==MgCl<sub>2</sub>+H<sub>2</sub>↑"],
+    "offered": [21, 2],
+    "commit": [2, 1],
+    "reaction_condition": [1, 2]
+}

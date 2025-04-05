@@ -1,0 +1,11 @@
+{
+    "type": 1,
+    "chapter": 3,
+    "topic": 10,
+    "title": "制取氧化铜",
+    "task_description": "利用提供的手牌，将氧化亚铜(Cu<sub>2</sub>O)转换为氧化铜(CuO)。",
+    "tips": ["先将Cu<sub>2</sub>O还原。", "再氧化。"],
+    "offered": [102, 1, 9, 2, 1, 2],
+    "commit": [19, 2],
+    "reaction_condition": [1, 2, 3, 4]
+}

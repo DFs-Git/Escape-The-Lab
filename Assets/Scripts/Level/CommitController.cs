@@ -31,7 +31,8 @@ public class CommitController : MonoBehaviour
             Chemical che = CL.FindChemicals(Loader.level.commit[i])[0];
             CommitDescription.text += che.Formula;
             CommitDescription.text += "*" + Loader.level.commit[i + 1].ToString();
-            CommitDescription.text += ",";
+            // 最后一个不生成逗号
+            if (i + 2 < Loader.level.commit.Count) CommitDescription.text += ",";
         }
         CommitDescription.text += "。";
     }

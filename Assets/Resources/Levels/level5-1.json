@@ -1,0 +1,11 @@
+{
+    "type": 1,
+    "chapter": 5,
+    "topic": 1,
+    "title": "澄清石灰水",
+    "task_description": "澄清石灰水[Ca(OH)<sub>2</sub>溶液]能够检验二氧化碳(CO<sub>2</sub>)。",
+    "tips": ["Ca(OH)<sub>2</sub>+CO<sub>2</sub>==CaCO<sub>3</sub>↓+H<sub>2</sub>O"],
+    "offered": [32, 1, 12, 1],
+    "commit": [48, 1],
+    "reaction_condition": [1, 2]
+}

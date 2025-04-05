@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 
 public class Level
 {
+    public int type;
     public int chapter, topic; // 当前关卡的章节和课题
     public string title; // 当前关卡的标题
     public string task_description; // 当前关卡的任务描述
@@ -51,6 +52,7 @@ public class LevelLoader : MonoBehaviour
         Debug.Log(level.reaction_condition);
 
         // 跳转到Level场景
-        SceneManager.LoadScene(4);
+        if (level.type == 1)
+            SceneManager.LoadScene(4);
     }
 }
