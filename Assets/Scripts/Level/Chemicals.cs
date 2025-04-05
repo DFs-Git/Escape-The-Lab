@@ -217,7 +217,8 @@ public class Chemicals : MonoBehaviour
             // 遍历卡牌区，检查是否存在父卡牌
             foreach (GameObject che in Builder.Cards)
             {
-                if (che.GetComponent<Card>().Chemicals == ChemicalsInclude)
+                //if (che.GetComponent<Card>().Chemicals == ChemicalsInclude)
+                if (che.GetComponent<Card>().Chemicals[0].Formula == ChemicalsInclude[0].Formula)
                 {
                     // 设其为父卡牌
                     ParentCard = che;
