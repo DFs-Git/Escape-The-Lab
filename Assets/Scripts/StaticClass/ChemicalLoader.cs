@@ -84,7 +84,7 @@ public static class ChemicalLoader
     {
         allChemicals.Clear();
         // 从Unity资源系统加载CSV文本文件
-        TextAsset csvFile = Resources.Load<TextAsset>("chemicals");
+        TextAsset csvFile = Resources.Load<TextAsset>("Chemicals/chemicals");
 
         // 空文件检查
         if (csvFile == null)

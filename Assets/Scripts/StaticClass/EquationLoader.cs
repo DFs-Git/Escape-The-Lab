@@ -75,7 +75,7 @@ public static class EquationLoader
     public static void LoadEquations()
     {
         // 从Resources/Equation文件夹加载名为"equation"的JSON文件
-        TextAsset jsonFile = Resources.Load<TextAsset>("Equation/equation");
+        TextAsset jsonFile = Resources.Load<TextAsset>("Equations/equations");
 
         // 文件不存在检查
         if (jsonFile == null)
