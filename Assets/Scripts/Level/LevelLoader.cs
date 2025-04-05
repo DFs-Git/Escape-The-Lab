@@ -11,7 +11,7 @@ public class Level
     public string title; // 当前关卡的标题
     public string task_description; // 当前关卡的任务描述
     public List<string> tips; // 当前关卡的提示
-    public List<List<int>> offered; // 当前关卡的提供物质
+    public List<int> offered; // 当前关卡的提供物质
     public List<int> commit; // 当前关卡的提交物质
     public List<int> reaction_condition; // 当前关卡的反应条件
 }

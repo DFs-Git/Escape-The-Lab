@@ -10,20 +10,15 @@ using CL = ChemicalLoader;
 public class Card : MonoBehaviour
 {
     // 化学物质属性
-    // public CDL.Chemical Chemical;
-    public List<Chemical> Chemicals;// 每一种纯净物
-    public List<int> CheCount;          // 每一种纯净物的分子数
+    public Chemical ChemicalInfo;
+    // public List<ChemicalInfo> Chemicals; // 每一种纯净物
     public int Count;                   // 卡牌数量
-    public string State;                // 物质状态
-    public string Form;                 // 物质存在形式
     
     // 所有显示文本
     public TMP_Text NameText;
     public TMP_Text FormulaText;
     public TMP_Text CountText;
     public TMP_Text CategoryText;
-    public TMP_Text StateText;
-    public TMP_Text FormText;
 
     public GameObject ChemicalPrefab;
     public GameObject Canva;
@@ -48,35 +43,20 @@ public class Card : MonoBehaviour
     public void ShowChemicalInformation()
     {
         // 显示化学物质信息
-        if (Chemicals.Count > 1) NameText.text = "混合";
-        else NameText.text = Chemicals[0].Name;
-        FormulaText.text = "[";
-        for (int i = 0; i < Chemicals.Count; i++)
-        {
-            FormulaText.text +=
-                Chemicals[i].Formula + "*" + CheCount[i].ToString() + ";";
-        }
-        FormulaText.text += "]";
+        NameText.text = ChemicalInfo.Name;
+        FormulaText.text = ChemicalInfo.Formula;
         CountText.text = Count.ToString();
-        if (Chemicals.Count > 1) CategoryText.text = "混合物";
-        else
-            CategoryText.text = Chemicals[0].Category;
-        StateText.text = State;
-        FormText.text = Form;
+        CategoryText.text = ChemicalInfo.Category;
     }
 
     public void InstantiateChemical()
     {
         GameObject newChemical = Instantiate(ChemicalPrefab, Canva.transform);
-        newChemical.GetComponent<Chemicals>().ChemicalsInclude = Chemicals;
+        newChemical.GetComponent<Chemicals>().ChemicalInclude = ChemicalInfo;
         newChemical.GetComponent<Chemicals>().ParentCard = gameObject;
         // 设置关于这张卡牌的属性，便于重新生成
-        newChemical.GetComponent<Chemicals>().ParentCardData.Chemicals = Chemicals;
+        newChemical.GetComponent<Chemicals>().ParentCardData.ChemicalInfo = ChemicalInfo;
         newChemical.GetComponent<Chemicals>().ParentCardData.Count = Count;
-        newChemical.GetComponent<Chemicals>().ParentCardData.State = State;
-        newChemical.GetComponent<Chemicals>().ParentCardData.CheCount = CheCount;
-        newChemical.GetComponent<Chemicals>().ParentCardData.Form = Form;
-
 
         Count--;
         ShowChemicalInformation();
@@ -93,7 +73,7 @@ public class Card : MonoBehaviour
         foreach (GameObject che in reactionPool.Chemicals)
         {
             // 存在，正常生成
-            if (Equals(che.GetComponent<Chemicals>().ChemicalsInclude, Chemicals))
+            if (Equals(che.GetComponent<Chemicals>().ChemicalInclude, ChemicalInfo))
             {
                 InstantiateChemical();
                 return;

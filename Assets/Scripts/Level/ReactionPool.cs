@@ -24,39 +24,35 @@ public class ReactionPool : MonoBehaviour
     }
 
     // 向反应池添加化学物质数据
-    public void AddData(List<MolChemicals> data)
+    public void AddData(MolChemicals data)
     {
-        // 遍历要添加的所有化学物质
-        foreach (var c in data)
+        var c = data;
+        
+        // 检查反应池中是否已存在相同ID的化学物质
+        for (int i = 0; i < MolChemicalsInReactionPool.Count; i++)
         {
-            // 检查反应池中是否已存在相同ID的化学物质
-            for (int i = 0; i < MolChemicalsInReactionPool.Count; i++)
+            if (MolChemicalsInReactionPool[i].Chemicals.ID == c.Chemicals.ID)
             {
-                if (MolChemicalsInReactionPool[i].Chemicals.ID == c.Chemicals.ID)
-                {
-                    // 如果存在，则合并摩尔数（原有摩尔数 + 新增摩尔数）
-                    MolChemicalsInReactionPool[i] = new MolChemicals(
-                        c.Chemicals,
-                        c.MolNum + MolChemicalsInReactionPool[i].MolNum
-                    );
-                    return; // 合并后立即返回
-                }
+                // 如果存在，则合并摩尔数（原有摩尔数 + 新增摩尔数）
+                MolChemicalsInReactionPool[i] = new MolChemicals(
+                    c.Chemicals,
+                    c.MolNum + MolChemicalsInReactionPool[i].MolNum
+                );
+                return; // 合并后立即返回
             }
-
-            // 如果不存在相同ID的化学物质，则直接添加到列表
-            MolChemicalsInReactionPool.Add(c);
         }
+
+        // 如果不存在相同ID的化学物质，则直接添加到列表
+        MolChemicalsInReactionPool.Add(c);
     }
 
     // 从反应池减少化学物质数据（完全移除指定ID的所有物质）
-    public void ReduceData(List<MolChemicals> data)
+    public void ReduceData(MolChemicals data)
     {
-        // 遍历要移除的所有化学物质
-        foreach (var c in data)
-        {
-            // 使用RemoveAll移除所有匹配ID的化学物质
-            MolChemicalsInReactionPool.RemoveAll(n => (n.Chemicals.ID == c.Chemicals.ID));
-        }
+        var c = data;
+
+        // 使用RemoveAll移除所有匹配ID的化学物质
+        MolChemicalsInReactionPool.RemoveAll(n => (n.Chemicals.ID == c.Chemicals.ID));
     }
 
     // 重写ToString方法，返回反应池内容的字符串表示

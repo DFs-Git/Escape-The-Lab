@@ -9,21 +9,14 @@ using CL = ChemicalLoader; // 化学加载器的别名
 // 卡牌数据结构体，用于存储化学物质相关信息
 public struct CardData
 {
-    public List<Chemical> Chemicals; // 卡牌包含的化学纯净物列表
-    public List<int> CheCount;      // 每种化学纯净物对应的分子数
+    public Chemical ChemicalInfo;
+    // public List<Chemical> Chemicals; // 卡牌包含的化学纯净物列表
     public int Count;               // 卡牌总数量
-    public string State;            // 物质状态（固态/液态/气态等）
-    public string Form;             // 物质存在形式
 
-    // 将CardData转换为MolChemicals列表的方法
-    public List<MolChemicals> To_MolChemicals()
+    // 将CardData转换为MolChemicals的方法
+    public MolChemicals To_MolChemical()
     {
-        List<MolChemicals> re = new();
-        for (int i = 0; i < Chemicals.Count; i++)
-        {
-            MolChemicals temp = new MolChemicals(Chemicals[i], CheCount[i]);
-            re.Add(temp);
-        }
+        MolChemicals re = new MolChemicals(ChemicalInfo, Count);
         return re;
     }
 }
@@ -32,7 +25,7 @@ public struct CardData
 public class Chemicals : MonoBehaviour
 {
     // 公共字段
-    public List<Chemical> ChemicalsInclude; // 当前卡牌包含的化学物质列表
+    public Chemical ChemicalInclude;       // 对应的物质
     public TMP_Text FormulaText;           // 显示化学式的文本组件
     public TMP_Text CountText;             // 显示数量的文本组件
     public GameObject ReactionLayer;       // 反应池游戏对象
@@ -70,12 +63,7 @@ public class Chemicals : MonoBehaviour
         Builder = Camera.main.GetComponent<LevelBuilder>();
 
         // 构建并显示化学式文本
-        FormulaText.text = "[";
-        for (int i = 0; i < ChemicalsInclude.Count; i++)
-        {
-            FormulaText.text += ChemicalsInclude[i].Formula + "*1;";
-        }
-        FormulaText.text += "]";
+        FormulaText.text = ChemicalInclude.Formula;
 
         // 获取反应层和提交层对象
         ReactionLayer = GameObject.Find("Reaction");
@@ -160,12 +148,12 @@ public class Chemicals : MonoBehaviour
         if (entering && following)
         {
             // 将物质数据添加到反应池
-            reactionPool.AddData(ParentCardData.To_MolChemicals());
+            reactionPool.AddData(ParentCardData.To_MolChemical());
 
             // 检查反应池中是否已存在相同物质
             foreach (GameObject che in reactionPool.Chemicals)
             {
-                if (Equals(che.GetComponent<Chemicals>().ChemicalsInclude, ChemicalsInclude))
+                if (Equals(che.GetComponent<Chemicals>().ChemicalInclude, ChemicalInclude))
                 {
                     // 存在则增加数量并销毁当前对象
                     che.GetComponent<Chemicals>().Count++;
@@ -189,7 +177,7 @@ public class Chemicals : MonoBehaviour
             // 检查提交区中是否已存在相同物质
             foreach (GameObject che in commitPool.CommitChemicals)
             {
-                if (Equals(che.GetComponent<Chemicals>().ChemicalsInclude, ChemicalsInclude))
+                if (Equals(che.GetComponent<Chemicals>().ChemicalInclude, ChemicalInclude))
                 {
                     // 存在则增加数量并销毁当前对象
                     che.GetComponent<Chemicals>().Count++;
@@ -211,14 +199,14 @@ public class Chemicals : MonoBehaviour
         else if (!following)
         {
             // 从反应池移除数据
-            reactionPool.ReduceData(ParentCardData.To_MolChemicals());
+            reactionPool.ReduceData(ParentCardData.To_MolChemical());
 
             bool found = false;
             // 遍历卡牌区，检查是否存在父卡牌
             foreach (GameObject che in Builder.Cards)
             {
                 //if (che.GetComponent<Card>().Chemicals == ChemicalsInclude)
-                if (che.GetComponent<Card>().Chemicals[0].Formula == ChemicalsInclude[0].Formula)
+                if (che.GetComponent<Card>().ChemicalInfo.Formula == ChemicalInclude.Formula)
                 {
                     // 设其为父卡牌
                     ParentCard = che;
@@ -244,10 +232,7 @@ public class Chemicals : MonoBehaviour
             {
                 GameObject parentCard = Instantiate(CardPrefab, Content.transform);
                 Builder.Cards.Add(parentCard);
-                parentCard.GetComponent<Card>().Chemicals = ParentCardData.Chemicals;
-                parentCard.GetComponent<Card>().CheCount = ParentCardData.CheCount;
-                parentCard.GetComponent<Card>().State = ParentCardData.State;
-                parentCard.GetComponent<Card>().Form = ParentCardData.Form;
+                parentCard.GetComponent<Card>().ChemicalInfo = ParentCardData.ChemicalInfo;
                 parentCard.GetComponent<Card>().Count = Count;
 
                 parentCard.GetComponent<Card>().ShowChemicalInformation();

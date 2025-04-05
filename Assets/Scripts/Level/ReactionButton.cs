@@ -43,15 +43,12 @@ public class ReactionButton : MonoBehaviour
             foreach (MolChemicals che in abledEquation.Products)
             {
                 GameObject newChemical = Instantiate(ChemicalPrefab, reactionPool.transform);
-                List<Chemical> _chemicals = new List<Chemical> { che.Chemicals };
-                newChemical.GetComponent<Chemicals>().ChemicalsInclude = _chemicals;
+                Chemical _chemicals = che.Chemicals;
+                newChemical.GetComponent<Chemicals>().ChemicalInclude = _chemicals;
                 newChemical.GetComponent<Chemicals>().ParentCard = Instantiate(CardPrefab);
                 //// 设置关于这张卡牌的属性，便于重新生成
-                newChemical.GetComponent<Chemicals>().ParentCardData.Chemicals = _chemicals;
-                newChemical.GetComponent<Chemicals>().ParentCardData.CheCount = new List<int> { 1 };
+                newChemical.GetComponent<Chemicals>().ParentCardData.ChemicalInfo = _chemicals;
                 newChemical.GetComponent<Chemicals>().ParentCardData.Count = che.MolNum;
-                newChemical.GetComponent<Chemicals>().ParentCardData.State = "1";
-                newChemical.GetComponent<Chemicals>().ParentCardData.Form = "1";
 
                 newChemical.GetComponent<Chemicals>().Count = che.MolNum;
                 newChemical.GetComponent<Chemicals>().following = false;

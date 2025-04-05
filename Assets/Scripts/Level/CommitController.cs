@@ -60,7 +60,7 @@ public class CommitController : MonoBehaviour
             foreach (GameObject che in CommitChemicals)
             {
                 
-                if (che.GetComponent<Chemicals>().ChemicalsInclude[0].ID == chem.ID &&
+                if (che.GetComponent<Chemicals>().ChemicalInclude.ID == chem.ID &&
                     che.GetComponent<Chemicals>().Count >= Loader.level.commit[i + 1])
                 {
                     

@@ -47,29 +47,20 @@ public class LevelBuilder : MonoBehaviour
         TaskDescription.text = level.task_description;
         Tips.text = "想不到了吗？点击下面的按钮获取提示。";
 
+        List<int> offer = Loader.level.offered;
         // 生成卡片
         // offer 表示每一条化学物质
-        foreach (List<int> offer in level.offered)
+        for (int i = 0; i < offer.Count; i += 2)
         {
             // 生成卡片
             GameObject newCard = Instantiate(CardPrefab, Content.transform);
             Cards.Add(newCard);
 
             // 设置卡片化学物质信息
-            int count = offer[0];
-            List<Chemical> cheInclude = new List<Chemical>();
-            int i = 0;
-            for (i = 1; i <= count * 2; i += 2)
-            {
-                cheInclude.Add(CL.allChemicals[offer[i] - 1]);
-                Cards[Cards.Count - 1].GetComponent<Card>().CheCount.Add(offer[i + 1]);
-            }
-            Cards[Cards.Count - 1].GetComponent<Card>().Chemicals = cheInclude;
+            Cards[Cards.Count - 1].GetComponent<Card>().ChemicalInfo = CL.FindChemicals(offer[i])[0];
 
-            // 设置卡片其他属性
-            Cards[Cards.Count - 1].GetComponent<Card>().Count = offer[i];
-            Cards[Cards.Count - 1].GetComponent<Card>().State = ChemicalStatesMap[offer[i + 1]];
-            Cards[Cards.Count - 1].GetComponent<Card>().Form = ExistFormMap[offer[i + 2]];
+            // 设置卡片数量
+            Cards[Cards.Count - 1].GetComponent<Card>().Count = offer[i + 1];
 
             // 显示化学物质信息
             Cards[Cards.Count - 1].GetComponent<Card>().ShowChemicalInformation();
