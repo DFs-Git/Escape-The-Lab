@@ -10,7 +10,7 @@ public class ReactionPool : MonoBehaviour
     public List<GameObject> Chemicals;
 
     // 当前反应池中的化学物质及其摩尔数列表
-    public List<MolChemicals> MolChemicalsInReactionPool = new();
+    public static List<MolChemicals> MolChemicalsInReactionPool = new();
 
     // 序列化字段，带有属性设置器，用于在Inspector中显示反应池内容
     [SerializeField, SetProperty("内容")]
@@ -69,5 +69,15 @@ public class ReactionPool : MonoBehaviour
             s += $"{t.ToString()},"; // 每个化学物质后加逗号
         }
         return s;
+    }
+    public static void Print()
+    {
+        string s = "";
+        // 拼接所有化学物质的字符串表示
+        foreach (MolChemicals t in MolChemicalsInReactionPool)
+        {
+            s += $"{t.ToString()},"; // 每个化学物质后加逗号
+        }
+        Debug.Log(s);
     }
 }

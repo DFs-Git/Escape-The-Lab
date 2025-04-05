@@ -33,6 +33,7 @@ public class LevelBuilder : MonoBehaviour
     {
         Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
         CL.LoadChemicals();
+        EquationLoader.LoadEquations();
     }
 
     void Start()

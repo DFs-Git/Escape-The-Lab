@@ -74,6 +74,7 @@ public static class EquationLoader
     /// </summary>
     public static void LoadEquations()
     {
+        allEquations.Clear();
         // 从Resources/Equation文件夹加载名为"equation"的JSON文件
         TextAsset jsonFile = Resources.Load<TextAsset>("Equations/equations");
 
@@ -179,7 +180,65 @@ public static class EquationLoader
     }
 
     #region 查询方法
+    /// <summary>
+    /// 打印方程式列表，提供格式化输出
+    /// </summary>
+    /// <param name="equations">要打印的方程式列表</param>
+    public static void PrintEquations(List<Equation> equations)
+    {
+        if (equations == null || equations.Count == 0)
+        {
+            Debug.Log("没有找到匹配的方程式");
+            return;
+        }
 
+        Debug.Log($"找到 {equations.Count} 个匹配的方程式:");
+
+        for (int i = 0; i < equations.Count; i++)
+        {
+            Equation eq = equations[i];
+
+            // 格式化反应物部分
+            string reactantsStr = string.Join(" + ",
+                eq.Reactants.Select(r => $"{r.MolNum} {r.Chemicals.Formula}"));
+
+            // 格式化生成物部分
+            string productsStr = string.Join(" + ",
+                eq.Products.Select(p => $"{p.MolNum} {p.Chemicals.Formula}"));
+
+            // 构建完整方程式字符串
+            string equationStr = $"{i + 1}. {reactantsStr} →({eq.Condition}) {productsStr}";
+
+            Debug.Log(equationStr);
+        }
+    }
+
+    /// <summary>
+    /// 打印单个化学反应方程式，提供格式化输出
+    /// </summary>
+    /// <param name="equation">要打印的方程式</param>
+    public static void PrintEquations(Equation equation)
+    {
+        // 检查是否为默认空结构体
+        if (equation.Equals(default(Equation)))
+        {
+            Debug.Log("方程式为空，无有效数据");
+            return;
+        }
+
+        // 格式化反应物部分
+        string reactantsStr = string.Join(" + ",
+            equation.Reactants.Select(r => $"{r.MolNum}{r.Chemicals.Formula}"));
+
+        // 格式化生成物部分
+        string productsStr = string.Join(" + ",
+            equation.Products.Select(p => $"{p.MolNum}{p.Chemicals.Formula}"));
+
+        // 构建完整方程式字符串
+        string equationStr = $"{reactantsStr} ->({equation.Condition}) {productsStr}";
+
+        Debug.Log(equationStr);
+    }
     /// <summary>
     /// 根据反应物查询可能的反应方程式
     /// </summary>
@@ -305,6 +364,44 @@ public static class EquationLoader
 
         // 执行查询并返回结果
         return query.ToList();
+    }
+
+    /// <summary>
+    /// 严格搜索 - 精确匹配反应物和条件
+    /// 查找反应物完全匹配且条件完全匹配的单一反应
+    /// </summary>
+    /// <param name="reactants">反应物列表</param>
+    /// <param name="condition">反应条件</param>
+    /// <returns>匹配的方程式，若无匹配则返回空结构体</returns>
+    public static Equation StrictSearch(
+        List<MolChemicals> reactants,
+        string condition)
+    {
+        // 确保数据已加载
+        if (allEquations.Count == 0) LoadEquations();
+
+        // 确保字典已构建
+        if (reactionDict == null) BuildReactionDictionary();
+
+        // 生成反应物键
+        var key = GenerateReactantsKey(reactants);
+
+        // 尝试获取匹配的反应
+        if (reactionDict.TryGetValue(key, out var equations))
+        {
+            // 查找条件完全匹配的反应
+            var matchedEquation = equations.FirstOrDefault(eq =>
+                string.Equals(eq.Condition, condition, StringComparison.OrdinalIgnoreCase));
+
+            // 如果找到匹配则返回
+            if (!matchedEquation.Equals(default(Equation)))
+            {
+                return matchedEquation;
+            }
+        }
+
+        // 没有找到匹配时返回空结构体
+        return default(Equation);
     }
 
     /// <summary>

@@ -2421,7 +2421,7 @@ RectTransform:
   m_Father: {fileID: 170895053}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.2}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2546,7 +2546,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 806346756}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.2
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2897,6 +2897,7 @@ GameObject:
   - component: {fileID: 887224340}
   - component: {fileID: 887224339}
   - component: {fileID: 887224338}
+  - component: {fileID: 887224341}
   m_Layer: 5
   m_Name: ReactionButton
   m_TagString: Untagged
@@ -2967,7 +2968,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 887224339}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 887224341}
+        m_TargetAssemblyTypeName: ReactionButton, Assembly-CSharp
+        m_MethodName: Clicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &887224339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3006,6 +3019,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 887224336}
   m_CullTransparentMesh: 1
+--- !u!114 &887224341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887224336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 832cb1d01f1f8a64585a367a8c9a2b3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Condition: {fileID: 2080941215}
+  Flowchart: {fileID: 2092102549}
+  ChemicalPrefab: {fileID: 2880383129913731086, guid: aaa285c759e26f2418df3f3c1c7ca22c, type: 3}
+  CardPrefab: {fileID: 2275547320523109941, guid: 509c963604e945d42a84848835165380, type: 3}
+  reactionPool: {fileID: 0}
 --- !u!1 &904448353
 GameObject:
   m_ObjectHideFlags: 0
@@ -4792,7 +4822,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1216069390}
   m_HandleRect: {fileID: 1216069389}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -6741,7 +6771,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -18, y: 0}
+  m_SizeDelta: {x: -17, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2063905719
 MonoBehaviour:
@@ -6961,6 +6991,8 @@ GameObject:
   - component: {fileID: 2092102572}
   - component: {fileID: 2092102571}
   - component: {fileID: 2092102573}
+  - component: {fileID: 2092102575}
+  - component: {fileID: 2092102574}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -6984,7 +7016,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 67
     y: 70
-    width: 72.4
+    width: 68.723404
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -7025,21 +7057,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 312.54465, y: 119.0773}
+  scrollPos: {x: 70.58719, y: 10.915613}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 1
+  zoom: 0.94000006
   scrollViewRect:
     serializedVersion: 2
     x: -343
     y: -340
     width: 1114
     height: 859
-  selectedBlocks:
-  - {fileID: 2092102570}
-  selectedCommands:
-  - {fileID: 2092102573}
+  selectedBlocks: []
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -7595,7 +7625,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 218.2554
     y: 70.72269
-    width: 78
+    width: 75.53191
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -7649,8 +7679,8 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 219.85532
-    y: 124.32269
-    width: 98
+    y: 125.17376
+    width: 97.65958
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -7663,7 +7693,7 @@ MonoBehaviour:
   suppressAllAutoSelections: 0
 --- !u!114 &2092102573
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -7688,6 +7718,60 @@ MonoBehaviour:
   stopVoiceover: 1
   waitForVO: 0
   setSayDialog: {fileID: 0}
+--- !u!114 &2092102574
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092102546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 25
+  indentLevel: 0
+  storyText: "\u4EC0\u4E48\u4E5F\u6CA1\u6709\u53D1\u751F"
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &2092102575
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092102546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 217.07248
+    y: 222.70154
+    width: 156.38297
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 1
+  itemId: 24
+  blockName: NothingHappened
+  description: 
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 2092102574}
+  suppressAllAutoSelections: 0
 --- !u!1 &2094171916
 GameObject:
   m_ObjectHideFlags: 0
@@ -7748,13 +7832,13 @@ MonoBehaviour:
   m_text: Option A
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef8f258e9b3986549b8aad13e2b97dc9, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 1970378537357027744, guid: ef8f258e9b3986549b8aad13e2b97dc9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -7767,7 +7851,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2

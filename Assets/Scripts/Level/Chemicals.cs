@@ -13,7 +13,7 @@ public struct CardData
     public List<int> CheCount;      // 每种化学纯净物对应的分子数
     public int Count;               // 卡牌总数量
     public string State;            // 物质状态（固态/液态/气态等）
-    public string Form;             // 物质存在形式（单质/化合物等）
+    public string Form;             // 物质存在形式
 
     // 将CardData转换为MolChemicals列表的方法
     public List<MolChemicals> To_MolChemicals()
@@ -259,4 +259,5 @@ public class Chemicals : MonoBehaviour
             }
         }
     }
+
 }

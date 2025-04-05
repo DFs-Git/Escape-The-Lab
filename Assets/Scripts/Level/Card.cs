@@ -100,12 +100,15 @@ public class Card : MonoBehaviour
             }
         }
 
+
         // 物质在反应池中不存在，而且反应池中的物质种类已经达到上限
         // 不再生成
-        if (reactionPool.Chemicals.Count >= 2)
-        {
-            return;
-        }
+        //if (reactionPool.Chemicals.Count >= 2)
+        //{
+        //    return;
+        //}
+
+
         // 物质在反应池中不存在，且反应池中的物质种类没有达到上限
         // 正常生成
         InstantiateChemical();
