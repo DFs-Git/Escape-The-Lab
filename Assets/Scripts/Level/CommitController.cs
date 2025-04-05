@@ -28,7 +28,7 @@ public class CommitController : MonoBehaviour
         CommitDescription.text = "提交";
         for (int i = 0; i < Loader.level.commit.Count; i += 2)
         {
-            CL.Chemical che = CL.FindChemicals(Loader.level.commit[i])[0];
+            Chemical che = CL.FindChemicals(Loader.level.commit[i])[0];
             CommitDescription.text += che.Formula;
             CommitDescription.text += "*" + Loader.level.commit[i + 1].ToString();
             CommitDescription.text += ",";
@@ -54,7 +54,7 @@ public class CommitController : MonoBehaviour
 
         for (int i = 0; i < Loader.level.commit.Count; i += 2)
         {
-            CL.Chemical chem = CL.FindChemicals(Loader.level.commit[i])[0];
+            Chemical chem = CL.FindChemicals(Loader.level.commit[i])[0];
             Debug.Log(chem.ID.ToString() + " " + Loader.level.commit[i + 1].ToString());
             bool found = false;
             foreach (GameObject che in CommitChemicals)

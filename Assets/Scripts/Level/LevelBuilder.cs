@@ -51,7 +51,7 @@ public class LevelBuilder : MonoBehaviour
 
             // 设置卡片化学物质信息
             int count = offer[0];
-            List<CL.Chemical> cheInclude = new List<CL.Chemical>();
+            List<Chemical> cheInclude = new List<Chemical>();
             int i = 0;
             for (i = 1; i <= count * 2; i += 2)
             {

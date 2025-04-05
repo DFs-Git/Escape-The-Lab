@@ -11,7 +11,7 @@ public class Card : MonoBehaviour
 {
     // 化学物质属性
     // public CDL.Chemical Chemical;
-    public List<CL.Chemical> Chemicals;// 每一种纯净物
+    public List<Chemical> Chemicals;// 每一种纯净物
     public List<int> CheCount;          // 每一种纯净物的分子数
     public int Count;                   // 卡牌数量
     public string State;                // 物质状态

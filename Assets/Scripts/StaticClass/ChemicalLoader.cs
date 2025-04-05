@@ -10,62 +10,63 @@ using System.Text.RegularExpressions;
 using CsvHelper;
 using System.Linq;
 
+/// <summary>
+/// 化学物质数据结构，用于存储单个化学物质的属性
+/// </summary>
+public struct Chemical
+{
+    // 唯一标识符
+    public int ID { get; }
+    // 化学物质名称（中文）
+    public string Name { get; }
+    // 化学分子式（如H2O）
+    public string Formula { get; }
+    // 分类类别（如酸、碱、有机物等）
+    public string Category { get; }
+    // 化学性质描述
+    public string ChemicalProperty { get; }
+    // 物理性质描述
+    public string PhysicalProperty { get; }
 
+    /// <summary>
+    /// 构造函数，用于创建新的化学物质实例
+    /// </summary>
+    /// <param name="id">唯一ID</param>
+    /// <param name="name">中文名称</param>
+    /// <param name="formula">化学分子式</param>
+    /// <param name="category">分类类别</param>
+    /// <param name="chemicalProperty">化学性质描述</param>
+    /// <param name="physicaProperty">物理性质描述</param>
+    public Chemical(int id, string name, string formula, string category, string chemicalProperty, string physicaProperty)
+    {
+        ID = id;
+        Name = name;
+        Formula = formula;
+        Category = category;
+        ChemicalProperty = chemicalProperty;
+        PhysicalProperty = physicaProperty;
+    }
+}
 
+public struct MolChemicals
+{
+    public Chemical Chemicals;//纯净物
+    public int MolNum;  //摩尔数
+    public MolChemicals(Chemical _Chemicals, int _MolNum)
+    {
+        Chemicals = _Chemicals;
+        MolNum = _MolNum;
+    }
+    override public string ToString()
+    {
+        return $"{Chemicals.Name}*{MolNum}";
+    }
+}
 // 数据库加载器类：负责加载和处理化学物质数据
 public static class ChemicalLoader
 {
-    /// <summary>
-    /// 化学物质数据结构，用于存储单个化学物质的属性
-    /// </summary>
-    public struct Chemical
-    {
-        // 唯一标识符
-        public int ID { get; }
-        // 化学物质名称（中文）
-        public string Name { get; }
-        // 化学分子式（如H2O）
-        public string Formula { get; }
-        // 分类类别（如酸、碱、有机物等）
-        public string Category { get; }
-        // 化学性质描述
-        public string ChemicalProperty { get; }
-        // 物理性质描述
-        public string PhysicalProperty { get; }
-
-        /// <summary>
-        /// 构造函数，用于创建新的化学物质实例
-        /// </summary>
-        /// <param name="id">唯一ID</param>
-        /// <param name="name">中文名称</param>
-        /// <param name="formula">化学分子式</param>
-        /// <param name="category">分类类别</param>
-        /// <param name="chemicalProperty">化学性质描述</param>
-        /// <param name="physicaProperty">物理性质描述</param>
-        public Chemical(int id, string name, string formula, string category, string chemicalProperty, string physicaProperty)
-        {
-            ID = id;
-            Name = name;
-            Formula = formula;
-            Category = category;
-            ChemicalProperty = chemicalProperty;
-            PhysicalProperty = physicaProperty;
-        }
-    }
-    public struct MolChemicals
-    {
-        public Chemical Chemicals;//纯净物
-        public int MolNum;  //摩尔数
-        public MolChemicals(Chemical _Chemicals, int _MolNum)
-        {
-            Chemicals = _Chemicals;
-            MolNum = _MolNum;
-        }
-        override public string ToString()
-        {
-            return $"{Chemicals.Name}*{MolNum}";
-        }
-    }
+    
+    
 
     // 存储所有化学物质数据的静态列表（内存数据库）
     public static List<Chemical> allChemicals = new List<Chemical>();
