@@ -1,0 +1,10 @@
+{
+    "chapter": 2,
+    "topic": 10,
+    "title": "制取氧气（三）",
+    "task_description": "用氯酸钾(KClO<sub>3</sub>)制取氧气。",
+    "tips": ["2KClO<sub>3</sub>=催化剂&Δ=2KCl+3O<sub>2</sub>↑"],
+    "offered": [[1, 108, 1, 2, 1, 1]],
+    "commit": [1, 3],
+    "reaction_condition": [1, 6, 7]
+}
