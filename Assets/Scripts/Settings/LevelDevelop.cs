@@ -44,8 +44,8 @@ public class LevelDevelop : MonoBehaviour
         // ´´½¨¿¨ÅÆ
         GameObject parentCard = Instantiate(CardPrefab, Content.transform);
         Builder.Cards.Add(parentCard);
-        parentCard.GetComponent<Card>().ChemicalInfo = CL.FindChemicals(data[0])[0];
-        parentCard.GetComponent<Card>().Count = data[1];
+        parentCard.GetComponent<Card>().molChemical.Chemical = CL.FindChemicals(data[0])[0];
+        parentCard.GetComponent<Card>().molChemical.MolNum = data[1];
 
         parentCard.GetComponent<Card>().ShowChemicalInformation();
 

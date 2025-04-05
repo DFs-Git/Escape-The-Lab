@@ -15,13 +15,13 @@ using System.IO;            // 文件IO操作
 public struct Equation
 {
     /// <summary>反应物列表，包含化学物质和对应摩尔数</summary>
-    public List<MolChemicals> Reactants;
+    public List<MolChemical> Reactants;
 
     /// <summary>反应条件描述字符串</summary>
     public string Condition;
 
     /// <summary>生成物列表，包含化学物质和对应摩尔数</summary>
-    public List<MolChemicals> Products;
+    public List<MolChemical> Products;
 
     /// <summary>
     /// 构造函数，初始化方程式
@@ -29,7 +29,7 @@ public struct Equation
     /// <param name="_Reactants">反应物列表</param>
     /// <param name="_Condition">反应条件</param>
     /// <param name="_Products">生成物列表</param>
-    public Equation(List<MolChemicals> _Reactants, string _Condition, List<MolChemicals> _Products)
+    public Equation(List<MolChemical> _Reactants, string _Condition, List<MolChemical> _Products)
     {
         Reactants = _Reactants;
         Condition = _Condition;
@@ -106,7 +106,7 @@ public static class EquationLoader
                 {
                     if (r.Count < 2) throw new InvalidDataException("反应物数据格式错误");
                     // 创建MolChemicals对象：化学式字符串转化学物质，并包含摩尔数
-                    return new MolChemicals(r[1].ToString(), Convert.ToInt32(r[0]));
+                    return new MolChemical(r[1].ToString(), Convert.ToInt32(r[0]));
                 }).ToList();
 
                 // 转换生成物数据
@@ -114,15 +114,15 @@ public static class EquationLoader
                 {
                     if (p.Count < 2) throw new InvalidDataException("生成物数据格式错误");
                     // 创建MolChemicals对象
-                    return new MolChemicals(p[1].ToString(), Convert.ToInt32(p[0]));
+                    return new MolChemical(p[1].ToString(), Convert.ToInt32(p[0]));
                 }).ToList();
 
                 // 调试输出反应信息
                 Debug.Log(
                     "加载反应方程式:" +
-                    $"{string.Join(" + ", reactants.Select(r => $"{r.MolNum} {r.Chemicals.Formula}"))}" +
+                    $"{string.Join(" + ", reactants.Select(r => $"{r.MolNum} {r.Chemical.Formula}"))}" +
                     $" ->({reaction.Condition}) " +
-                    $"{string.Join(" + ", products.Select(p => $"{p.MolNum} {p.Chemicals.Formula}"))}"
+                    $"{string.Join(" + ", products.Select(p => $"{p.MolNum} {p.Chemical.Formula}"))}"
                 );
 
                 // 创建并返回新的Equation对象
@@ -171,12 +171,12 @@ public static class EquationLoader
     /// </summary>
     /// <param name="reactants">反应物列表</param>
     /// <returns>标准化后的反应物组合字符串</returns>
-    private static string GenerateReactantsKey(List<MolChemicals> reactants)
+    private static string GenerateReactantsKey(List<MolChemical> reactants)
     {
         // 按化学式排序后拼接生成唯一键
         return string.Join("+", reactants
-            .OrderBy(r => r.Chemicals.Formula)
-            .Select(r => $"{r.Chemicals.Formula}_{r.MolNum}"));
+            .OrderBy(r => r.Chemical.Formula)
+            .Select(r => $"{r.Chemical.Formula}_{r.MolNum}"));
     }
 
     #region 查询方法
@@ -200,11 +200,11 @@ public static class EquationLoader
 
             // 格式化反应物部分
             string reactantsStr = string.Join(" + ",
-                eq.Reactants.Select(r => $"{r.MolNum} {r.Chemicals.Formula}"));
+                eq.Reactants.Select(r => $"{r.MolNum} {r.Chemical.Formula}"));
 
             // 格式化生成物部分
             string productsStr = string.Join(" + ",
-                eq.Products.Select(p => $"{p.MolNum} {p.Chemicals.Formula}"));
+                eq.Products.Select(p => $"{p.MolNum} {p.Chemical.Formula}"));
 
             // 构建完整方程式字符串
             string equationStr = $"{i + 1}. {reactantsStr} →({eq.Condition}) {productsStr}";
@@ -228,11 +228,11 @@ public static class EquationLoader
 
         // 格式化反应物部分
         string reactantsStr = string.Join(" + ",
-            equation.Reactants.Select(r => $"{r.MolNum}{r.Chemicals.Formula}"));
+            equation.Reactants.Select(r => $"{r.MolNum}{r.Chemical.Formula}"));
 
         // 格式化生成物部分
         string productsStr = string.Join(" + ",
-            equation.Products.Select(p => $"{p.MolNum}{p.Chemicals.Formula}"));
+            equation.Products.Select(p => $"{p.MolNum}{p.Chemical.Formula}"));
 
         // 构建完整方程式字符串
         string equationStr = $"{reactantsStr} ->({equation.Condition}) {productsStr}";
@@ -244,7 +244,7 @@ public static class EquationLoader
     /// </summary>
     /// <param name="reactants">反应物列表</param>
     /// <returns>匹配的方程式列表，若无匹配则返回空列表</returns>
-    public static List<Equation> GetReactionsByReactants(List<MolChemicals> reactants)
+    public static List<Equation> GetReactionsByReactants(List<MolChemical> reactants)
     {
         // 确保数据已加载
         if (allEquations.Count == 0) LoadEquations();
@@ -265,7 +265,7 @@ public static class EquationLoader
     /// </summary>
     /// <param name="products">生成物列表</param>
     /// <returns>匹配的方程式列表</returns>
-    public static List<Equation> GetReactionsByProducts(List<MolChemicals> products)
+    public static List<Equation> GetReactionsByProducts(List<MolChemical> products)
     {
         // 确保数据已加载
         if (allEquations.Count == 0) LoadEquations();
@@ -274,7 +274,7 @@ public static class EquationLoader
         return allEquations.Where(eq =>
             products.All(p =>
                 eq.Products.Any(prod =>
-                    prod.Chemicals.Formula == p.Chemicals.Formula &&
+                    prod.Chemical.Formula == p.Chemical.Formula &&
                     prod.MolNum >= p.MolNum)))
             .ToList();
     }
@@ -309,8 +309,8 @@ public static class EquationLoader
 
         // 使用LINQ查询反应物或生成物中包含指定字符串的反应
         return allEquations.Where(eq =>
-            eq.Reactants.Any(r => r.Chemicals.Formula.Contains(partialFormula)) ||
-            eq.Products.Any(p => p.Chemicals.Formula.Contains(partialFormula)))
+            eq.Reactants.Any(r => r.Chemical.Formula.Contains(partialFormula)) ||
+            eq.Products.Any(p => p.Chemical.Formula.Contains(partialFormula)))
             .ToList();
     }
 
@@ -324,8 +324,8 @@ public static class EquationLoader
     /// <param name="condition">条件字符串(可选)</param>
     /// <returns>匹配所有条件的方程式列表</returns>
     public static List<Equation> AdvancedSearch(
-        List<MolChemicals> reactants = null,
-        List<MolChemicals> products = null,
+        List<MolChemical> reactants = null,
+        List<MolChemical> products = null,
         string condition = null)
     {
         // 确保数据已加载
@@ -338,21 +338,21 @@ public static class EquationLoader
         if (reactants != null && reactants.Count > 0)
         {
             // 提取反应物化学式集合
-            var reactantFormulas = reactants.Select(r => r.Chemicals.Formula).ToHashSet();
+            var reactantFormulas = reactants.Select(r => r.Chemical.Formula).ToHashSet();
             // 添加反应物数量匹配和化学式匹配条件
             query = query.Where(eq =>
                 eq.Reactants.Count == reactants.Count &&
-                eq.Reactants.All(r => reactantFormulas.Contains(r.Chemicals.Formula)));
+                eq.Reactants.All(r => reactantFormulas.Contains(r.Chemical.Formula)));
         }
 
         // 如果指定了生成物条件
         if (products != null && products.Count > 0)
         {
             // 提取生成物化学式集合
-            var productFormulas = products.Select(p => p.Chemicals.Formula).ToHashSet();
+            var productFormulas = products.Select(p => p.Chemical.Formula).ToHashSet();
             // 添加生成物化学式匹配条件
             query = query.Where(eq =>
-                eq.Products.Any(p => productFormulas.Contains(p.Chemicals.Formula)));
+                eq.Products.Any(p => productFormulas.Contains(p.Chemical.Formula)));
         }
 
         // 如果指定了条件字符串
@@ -374,7 +374,7 @@ public static class EquationLoader
     /// <param name="condition">反应条件</param>
     /// <returns>匹配的方程式，若无匹配则返回空结构体</returns>
     public static Equation StrictSearch(
-        List<MolChemicals> reactants,
+        List<MolChemical> reactants,
         string condition)
     {
         // 确保数据已加载
@@ -417,8 +417,8 @@ public static class EquationLoader
 
         // 查询反应物或生成物中包含指定化学式的反应
         return allEquations.Where(eq =>
-            eq.Reactants.Any(r => r.Chemicals.Formula == formula) ||
-            eq.Products.Any(p => p.Chemicals.Formula == formula))
+            eq.Reactants.Any(r => r.Chemical.Formula == formula) ||
+            eq.Products.Any(p => p.Chemical.Formula == formula))
             .ToList();
     }
 

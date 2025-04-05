@@ -7,19 +7,7 @@ using UnityEngine.UI;
 using CL = ChemicalLoader; // 化学加载器的别名
 
 // 卡牌数据结构体，用于存储化学物质相关信息
-public struct CardData
-{
-    public Chemical ChemicalInfo;
-    // public List<Chemical> Chemicals; // 卡牌包含的化学纯净物列表
-    public int Count;               // 卡牌总数量
 
-    // 将CardData转换为MolChemicals的方法
-    public MolChemicals To_MolChemical()
-    {
-        MolChemicals re = new MolChemicals(ChemicalInfo, Count);
-        return re;
-    }
-}
 
 // 化学物质类，继承自MonoBehaviour，用于处理卡牌的交互逻辑
 public class Chemicals : MonoBehaviour
@@ -40,7 +28,7 @@ public class Chemicals : MonoBehaviour
 
     // 关联对象引用
     public GameObject ParentCard;          // 父卡牌对象
-    public CardData ParentCardData;        // 父卡牌数据
+    public MolChemical ParentMolChemical;        // 父卡牌数据
     public GameObject CardPrefab;          // 卡牌预制体
     public GameObject Content;             // 卡牌容器（手牌区）
     public GameObject CommitContent;       // 提交内容容器（提交区）
@@ -148,9 +136,7 @@ public class Chemicals : MonoBehaviour
         if (entering && following)
         {
             // 将物质数据添加到反应池
-            CardData insCardData = ParentCardData;
-            insCardData.Count = 1;                          // 只添加1个
-            reactionPool.AddData(insCardData.To_MolChemical());
+            reactionPool.AddData(new MolChemical(ParentMolChemical.Chemical, 1));
 
             // 检查反应池中是否已存在相同物质
             foreach (GameObject che in reactionPool.Chemicals)
@@ -201,14 +187,14 @@ public class Chemicals : MonoBehaviour
         else if (!following)
         {
             // 从反应池移除数据
-            reactionPool.ReduceData(ParentCardData.To_MolChemical());
+            reactionPool.ReduceData(ParentMolChemical);
 
             bool found = false;
             // 遍历卡牌区，检查是否存在父卡牌
             foreach (GameObject che in Builder.Cards)
             {
                 //if (che.GetComponent<Card>().Chemicals == ChemicalsInclude)
-                if (che.GetComponent<Card>().ChemicalInfo.Formula == ChemicalInclude.Formula)
+                if (che.GetComponent<Card>().molChemical.Chemical.Formula == ChemicalInclude.Formula)
                 {
                     // 设其为父卡牌
                     ParentCard = che;
@@ -221,7 +207,7 @@ public class Chemicals : MonoBehaviour
             if (found)
             {
                 // 存在则恢复卡牌数量
-                ParentCard.GetComponent<Card>().Count += Count;
+                ParentCard.GetComponent<Card>().molChemical.MolNum += Count;
                 ParentCard.GetComponent<Card>().ShowChemicalInformation();
                 if (entering)
                     reactionPool.Chemicals.Remove(gameObject);
@@ -234,8 +220,8 @@ public class Chemicals : MonoBehaviour
             {
                 GameObject parentCard = Instantiate(CardPrefab, Content.transform);
                 Builder.Cards.Add(parentCard);
-                parentCard.GetComponent<Card>().ChemicalInfo = ParentCardData.ChemicalInfo;
-                parentCard.GetComponent<Card>().Count = Count;
+                parentCard.GetComponent<Card>().molChemical.Chemical = ParentMolChemical.Chemical;
+                parentCard.GetComponent<Card>().molChemical.MolNum = Count;
 
                 parentCard.GetComponent<Card>().ShowChemicalInformation();
 

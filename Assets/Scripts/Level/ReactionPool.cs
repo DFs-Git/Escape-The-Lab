@@ -10,7 +10,7 @@ public class ReactionPool : MonoBehaviour
     public List<GameObject> Chemicals;
 
     // 当前反应池中的化学物质及其摩尔数列表
-    public static List<MolChemicals> MolChemicalsInReactionPool = new();
+    public static List<MolChemical> MolChemicalsInReactionPool = new();
 
     // 序列化字段，带有属性设置器，用于在Inspector中显示反应池内容
     [SerializeField, SetProperty("内容")]
@@ -24,18 +24,18 @@ public class ReactionPool : MonoBehaviour
     }
 
     // 向反应池添加化学物质数据
-    public void AddData(MolChemicals data)
+    public void AddData(MolChemical data)
     {
         var c = data;
         
         // 检查反应池中是否已存在相同ID的化学物质
         for (int i = 0; i < MolChemicalsInReactionPool.Count; i++)
         {
-            if (MolChemicalsInReactionPool[i].Chemicals.ID == c.Chemicals.ID)
+            if (MolChemicalsInReactionPool[i].Chemical.ID == c.Chemical.ID)
             {
                 // 如果存在，则合并摩尔数（原有摩尔数 + 新增摩尔数）
-                MolChemicalsInReactionPool[i] = new MolChemicals(
-                    c.Chemicals,
+                MolChemicalsInReactionPool[i] = new MolChemical(
+                    c.Chemical,
                     c.MolNum + MolChemicalsInReactionPool[i].MolNum
                 );
                 return; // 合并后立即返回
@@ -47,12 +47,12 @@ public class ReactionPool : MonoBehaviour
     }
 
     // 从反应池减少化学物质数据（完全移除指定ID的所有物质）
-    public void ReduceData(MolChemicals data)
+    public void ReduceData(MolChemical data)
     {
         var c = data;
 
         // 使用RemoveAll移除所有匹配ID的化学物质
-        MolChemicalsInReactionPool.RemoveAll(n => (n.Chemicals.ID == c.Chemicals.ID));
+        MolChemicalsInReactionPool.RemoveAll(n => (n.Chemical.ID == c.Chemical.ID));
     }
 
     // 重写ToString方法，返回反应池内容的字符串表示
@@ -60,7 +60,7 @@ public class ReactionPool : MonoBehaviour
     {
         string s = "";
         // 拼接所有化学物质的字符串表示
-        foreach (MolChemicals t in MolChemicalsInReactionPool)
+        foreach (MolChemical t in MolChemicalsInReactionPool)
         {
             s += $"{t.ToString()},"; // 每个化学物质后加逗号
         }
@@ -70,7 +70,7 @@ public class ReactionPool : MonoBehaviour
     {
         string s = "";
         // 拼接所有化学物质的字符串表示
-        foreach (MolChemicals t in MolChemicalsInReactionPool)
+        foreach (MolChemical t in MolChemicalsInReactionPool)
         {
             s += $"{t.ToString()},"; // 每个化学物质后加逗号
         }

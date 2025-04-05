@@ -26,7 +26,7 @@ public class ReactionButton : MonoBehaviour
         string condition = Condition.options[Condition.value].text;
         Equation abledEquation = EquationLoader.StrictSearch(reactants: ReactionPool.MolChemicalsInReactionPool, condition: condition);
         EquationLoader.PrintEquations(abledEquation);
-        EquationLoader.PrintEquations(EquationLoader.AdvancedSearch(reactants: ReactionPool.MolChemicalsInReactionPool, condition: condition));
+        //EquationLoader.PrintEquations(EquationLoader.AdvancedSearch(reactants: ReactionPool.MolChemicalsInReactionPool, condition: condition));
         if (abledEquation.Equals(default(Equation)))
         {
             Flowchart.ExecuteBlock("NothingHappened");
@@ -40,15 +40,15 @@ public class ReactionButton : MonoBehaviour
             reactionPool.Chemicals.Clear();
             ReactionPool.MolChemicalsInReactionPool.Clear();
 
-            foreach (MolChemicals che in abledEquation.Products)
+            foreach (MolChemical che in abledEquation.Products)
             {
                 GameObject newChemical = Instantiate(ChemicalPrefab, reactionPool.transform);
-                Chemical _chemicals = che.Chemicals;
+                Chemical _chemicals = che.Chemical;
                 newChemical.GetComponent<Chemicals>().ChemicalInclude = _chemicals;
                 newChemical.GetComponent<Chemicals>().ParentCard = Instantiate(CardPrefab);
                 //// 设置关于这张卡牌的属性，便于重新生成
-                newChemical.GetComponent<Chemicals>().ParentCardData.ChemicalInfo = _chemicals;
-                newChemical.GetComponent<Chemicals>().ParentCardData.Count = che.MolNum;
+                newChemical.GetComponent<Chemicals>().ParentMolChemical.Chemical = _chemicals;
+                newChemical.GetComponent<Chemicals>().ParentMolChemical.MolNum = che.MolNum;
 
                 newChemical.GetComponent<Chemicals>().Count = che.MolNum;
                 newChemical.GetComponent<Chemicals>().following = false;

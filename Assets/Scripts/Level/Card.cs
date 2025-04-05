@@ -10,9 +10,7 @@ using CL = ChemicalLoader;
 public class Card : MonoBehaviour
 {
     // 化学物质属性
-    public Chemical ChemicalInfo;
-    // public List<ChemicalInfo> Chemicals; // 每一种纯净物
-    public int Count;                   // 卡牌数量
+    public MolChemical molChemical;
     
     // 所有显示文本
     public TMP_Text NameText;
@@ -43,24 +41,24 @@ public class Card : MonoBehaviour
     public void ShowChemicalInformation()
     {
         // 显示化学物质信息
-        NameText.text = ChemicalInfo.Name;
-        FormulaText.text = ChemicalInfo.Formula;
-        CountText.text = Count.ToString();
-        CategoryText.text = ChemicalInfo.Category;
+        NameText.text = molChemical.Chemical.Name;
+        FormulaText.text = molChemical.Chemical.Formula;
+        CountText.text =molChemical.MolNum.ToString();
+        CategoryText.text = molChemical.Chemical.Category;
     }
 
     public void InstantiateChemical()
     {
         GameObject newChemical = Instantiate(ChemicalPrefab, Canva.transform);
-        newChemical.GetComponent<Chemicals>().ChemicalInclude = ChemicalInfo;
+        newChemical.GetComponent<Chemicals>().ChemicalInclude = molChemical.Chemical;
         newChemical.GetComponent<Chemicals>().ParentCard = gameObject;
         // 设置关于这张卡牌的属性，便于重新生成
-        newChemical.GetComponent<Chemicals>().ParentCardData.ChemicalInfo = ChemicalInfo;
-        newChemical.GetComponent<Chemicals>().ParentCardData.Count = Count;
+        newChemical.GetComponent<Chemicals>().ParentMolChemical.Chemical = molChemical.Chemical;
+        newChemical.GetComponent<Chemicals>().ParentMolChemical.MolNum = molChemical.MolNum;
 
-        Count--;
+        molChemical.MolNum--;
         ShowChemicalInformation();
-        if (Count == 0)
+        if (molChemical.MolNum == 0)
         {
             Builder.Cards.Remove(gameObject);
             Destroy(gameObject);
@@ -73,7 +71,7 @@ public class Card : MonoBehaviour
         foreach (GameObject che in reactionPool.Chemicals)
         {
             // 存在，正常生成
-            if (Equals(che.GetComponent<Chemicals>().ChemicalInclude, ChemicalInfo))
+            if (Equals(che.GetComponent<Chemicals>().ChemicalInclude, molChemical.Chemical))
             {
                 InstantiateChemical();
                 return;
