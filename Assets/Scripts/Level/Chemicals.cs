@@ -148,7 +148,9 @@ public class Chemicals : MonoBehaviour
         if (entering && following)
         {
             // 将物质数据添加到反应池
-            reactionPool.AddData(ParentCardData.To_MolChemical());
+            CardData insCardData = ParentCardData;
+            insCardData.Count = 1;                          // 只添加1个
+            reactionPool.AddData(insCardData.To_MolChemical());
 
             // 检查反应池中是否已存在相同物质
             foreach (GameObject che in reactionPool.Chemicals)
