@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using UnityEngine.Windows.Speech;
 
 public class LevelButtons : MonoBehaviour
 {
@@ -34,7 +35,9 @@ public class LevelButtons : MonoBehaviour
             // 获取当前按钮对应的关卡
             string levelIndex = gameObject.GetComponentInChildren<TMP_Text>().text;
             int chapter = (int)levelIndex[0] - '0';
-            int topic = (int)levelIndex[2] - '0';
+            int topic = 0;
+            if (levelIndex[2] == 'X') topic = 10;
+            else topic = (int)levelIndex[2] - '0';
 
             UnityEngine.UI.Image img = gameObject.GetComponent<UnityEngine.UI.Image>();
 

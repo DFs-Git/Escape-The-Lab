@@ -26,6 +26,9 @@ public class LevelBuilder : MonoBehaviour
     public List<string> ExistFormMap;
     public List<string> ConditionMap;
 
+    public GameObject DevelopText;
+    public GameObject Panel;
+
     void Awake()
     {
         Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
@@ -37,7 +40,9 @@ public class LevelBuilder : MonoBehaviour
         // 先获取关卡信息
         Level level = Loader.level;
 
-        Title.text = level.chapter.ToString() + "-" + level.topic.ToString() + " " + level.title;
+        string top = level.topic == 10 ? "X" : level.topic.ToString();
+
+        Title.text = level.chapter.ToString() + "-" + top + " " + level.title;
         TaskDescription.text = level.task_description;
         Tips.text = "想不到了吗？点击下面的按钮获取提示。";
 
@@ -77,5 +82,26 @@ public class LevelBuilder : MonoBehaviour
 
         // 执行对话
         flowchart.ExecuteBlock(level.chapter.ToString() + "-" + level.topic.ToString());
+    }
+
+    // 主要用于处理开发者模式
+    void Update()
+    {
+        if (PlayerPrefs.GetInt("DevelopmentMode") == 1)
+        {
+            DevelopText.SetActive(true);
+        }
+        else
+        {
+            DevelopText.SetActive(false);
+        }
+
+        if (PlayerPrefs.GetInt("DevelopmentMode") == 1)
+        {
+            if (Input.GetKey(KeyCode.Slash))
+            {
+                Panel.SetActive(true);
+            }
+        }
     }
 }

@@ -5,6 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class ButtonEvents : MonoBehaviour
 {
+    void Start()
+    {
+        if (!PlayerPrefs.HasKey("DevelopmentMode"))
+        {
+            PlayerPrefs.SetInt("DevelopmentMode", 0);
+            PlayerPrefs.Save();
+        }
+    }
+
     // 开始按钮
     public void StartEvent()
     {
