@@ -64,7 +64,7 @@ public struct MolChemicals
     }
     override public string ToString()
     {
-        return $"{Chemicals.Name}*{MolNum}";
+        return $"{Chemicals.Name}{MolNum}";
     }
 }
 // 数据库加载器类：负责加载和处理化学物质数据
