@@ -213,8 +213,21 @@ public class Chemicals : MonoBehaviour
             // 从反应池移除数据
             reactionPool.ReduceData(ParentCardData.To_MolChemicals());
 
-            // 检查父卡牌是否仍存在
-            if (ParentCard != null)
+            bool found = false;
+            // 遍历卡牌区，检查是否存在父卡牌
+            foreach (GameObject che in Builder.Cards)
+            {
+                if (che.GetComponent<Card>().Chemicals == ChemicalsInclude)
+                {
+                    // 设其为父卡牌
+                    ParentCard = che;
+                    found = true;
+                    break;
+                }
+            }
+
+            // 找到父卡牌
+            if (found)
             {
                 // 存在则恢复卡牌数量
                 ParentCard.GetComponent<Card>().Count += Count;
