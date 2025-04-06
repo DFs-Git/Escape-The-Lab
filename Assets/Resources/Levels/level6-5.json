@@ -1,0 +1,11 @@
+{
+    "type": 1,
+    "chapter": 6,
+    "topic": 5,
+    "title": "铁和硫酸铜的反应",
+    "task_description": "铁(Fe)能将硫酸铜(CuSO<sub>4</sub>)中的铜(Cu)置换出来。",
+    "tips": ["Fe+CuSO<sub>4</sub>==FeSO<sub>4</sub>+Cu"],
+    "offered": [6, 1, 44, 1],
+    "commit": [49, 1, 7, 1],
+    "reaction_condition": [1, 2]
+}
