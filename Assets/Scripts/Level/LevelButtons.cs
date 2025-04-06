@@ -29,6 +29,30 @@ public class LevelButtons : MonoBehaviour
         flowchart = GameObject.Find("Attention").GetComponent<Flowchart>();
         Loading.SetActive(false);
 
+        int chapterNow = PlayerPrefs.GetInt("chapter");
+        char charactor = '零';
+        if (chapterNow == 0) charactor = '零';
+        if (chapterNow == 1) charactor = '一';
+        if (chapterNow == 2) charactor = '二';
+        if (chapterNow == 3) charactor = '三';
+        if (chapterNow == 4) charactor = '四';
+        if (chapterNow == 5) charactor = '五';
+        if (chapterNow == 6) charactor = '六';
+
+        for (int i = 0; i < AllChapters.Count; i++)
+        {
+            string index = AllChaptersButtons[i].GetComponentInChildren<TMP_Text>().text;
+            if (index[1] != charactor)
+            {
+                // 隐藏不是当前章节的章节
+                AllChapters[i].SetActive(false);
+            }
+            else
+            {
+                AllChapters[i].SetActive(true);
+            }
+        }
+
         // 确保是关卡按钮，调整关卡按钮颜色
         if (gameObject.tag == "levelbtn")
         {
