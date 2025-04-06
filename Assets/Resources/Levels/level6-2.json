@@ -1,0 +1,11 @@
+{
+    "type": 1,
+    "chapter": 6,
+    "topic": 2,
+    "title": "复分解反应（一）",
+    "task_description": "(稀)硫酸(H<sub>2</sub>SO<sub>4</sub>)能与氯化钡(BaCl<sub>2</sub>)发生复分解反应。",
+    "tips": ["H<sub>2</sub>SO<sub>4</sub>+BaCl<sub>2</sub>==2HCl+BaSO<sub>4</sub>↓"],
+    "offered": [22, 1],
+    "commit": [21, 2, 45, 1],
+    "reaction_condition": [1, 2]
+}
