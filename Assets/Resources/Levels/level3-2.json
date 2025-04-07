@@ -5,7 +5,7 @@
     "title": "炼锡",
     "task_description": "利用还原剂将二氧化锡(SnO<sub>2</sub>)还原为锡。",
     "tips": ["SnO<sub>2</sub>+C=高温=Sn+CO<sub>2</sub>↑"],
-    "offered": [114, 1, 9, 1],
+    "offered": [114, 1, 9, 2],
     "commit": [116, 1],
     "reaction_condition": [1, 2, 3, 4]
 }
