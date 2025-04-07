@@ -13,6 +13,7 @@ public class ChooseDevelop : MonoBehaviour
 
     void Start()
     {
+        EquationLoader.LoadEquations();
         if (!PlayerPrefs.HasKey("DevelopmentMode"))
         {
             dvpText.gameObject.SetActive(false);
