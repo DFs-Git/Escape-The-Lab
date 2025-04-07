@@ -5,7 +5,7 @@
     "title": "复分解反应（三）",
     "task_description": "氯化钙(CaCl<sub>2</sub>)能与硝酸银(AgNO<sub>3</sub>)发生复分解反应。",
     "tips": ["CaCl<sub>2</sub>+2AgNO<sub>3</sub>==2AgCl↓+Ca(NO<sub>3</sub>)<sub>2</sub>"],
-    "offered": [46, 2],
-    "commit": [47, 2],
+    "offered": [46, 2, 145, 1],
+    "commit": [47, 2, 142, 1],
     "reaction_condition": [1, 2]
 }

@@ -6,6 +6,6 @@
     "task_description": "氢氧化钠(NaOH)溶液能够与三氧化硫(SO<sub>3</sub>)反应。",
     "tips": ["2NaOH+SO<sub>3</sub>==Na<sub>2</sub>SO<sub>4</sub>+H<sub>2</sub>O"],
     "offered": [31, 2, 106, 1],
-    "commit": [],
+    "commit": [130, 1],
     "reaction_condition": [1, 2]
 }

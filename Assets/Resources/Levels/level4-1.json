@@ -6,6 +6,6 @@
     "task_description": "试着将(稀)盐酸(HCl)和金属镁(Mg)放在一起。",
     "tips": ["Mg+2HCl==MgCl<sub>2</sub>+H<sub>2</sub>↑"],
     "offered": [21, 2],
-    "commit": [2, 1],
+    "commit": [2, 1, 146, 1],
     "reaction_condition": [1, 2]
 }
