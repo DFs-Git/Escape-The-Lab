@@ -1,11 +1,11 @@
 {
-    "type": 2,
+    "type": 1,
     "chapter": 6,
     "topic": 6,
-    "title": "粗盐精细化提纯",
-    "task_description": "利用提供的卡牌，将反应池中含氯化镁(MgCl<sub>2</sub>、硫酸钠(Na<sub>2</sub>SO<sub>4</sub>)、氯化钙(CaCl<sub>2</sub>)杂质的粗盐溶液提取出精盐(NaCl)。",
-    "tips": ["用氢氧化钠(NaOH)除去氯化镁(MgCl<sub>2</sub>)和氯化铜(CuCl<sub>2</sub>)。", "用氯化钡(BaCl<sub>2</sub>)除去硫酸钠(Na<sub>2</sub>SO<sub>4</sub>)。"],
-    "offered": [1, 41, 4, 42, 2, 31, 3, 21, 2],
-    "commit": [41, 10],
+    "title": "硫酸钠的制取",
+    "task_description": "利用提供的卡牌，制取硫酸钠(Na<sub>2</sub>SO<sub>4</sub>)。",
+    "tips": ["常见的+4价的硫(S)化合物可以与氧气(O<sub>2</sub>)化合反应生成+6价的硫(S)化合物。"],
+    "offered": [5, 2, 1, 3, 31, 4],
+    "commit": [130, 2],
     "reaction_condition": [1, 2, 3, 4]
 }

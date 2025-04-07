@@ -5,7 +5,7 @@
     "title": "制取亚硫酸钾",
     "task_description": "使用提供的卡牌，制取亚硫酸钾(K<sub>2</sub>SO<sub>3</sub>)并提交。",
     "tips": ["碱能与部分非金属化合物反应，生成盐和水，元素的化合价不变。"],
-    "offered": [5, 1, 1, 1, 39, 1],
-    "commit": [],
+    "offered": [5, 1, 1, 1, 39, 2],
+    "commit": [133, 1],
     "reaction_condition": [1, 2, 3, 4]
 }

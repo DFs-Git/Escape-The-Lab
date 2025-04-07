@@ -13,6 +13,7 @@ public class SettingsButton : MonoBehaviour
 
     public TMP_Dropdown screen;
     public Toggle fullsc;
+    public Slider volume;
 
     // 存储设备支持的可用分辨率列表（已去重且排序）
     private List<Resolution> availableResolutions = new List<Resolution>();
@@ -66,6 +67,7 @@ public class SettingsButton : MonoBehaviour
         // 初始化全屏状态（从PlayerPrefs读取，默认使用当前状态）
         bool defaultFullscreen = Screen.fullScreen;
         fullsc.isOn = PlayerPrefs.GetInt("fullscreen", defaultFullscreen ? 1 : 0) == 1;
+        volume.value = PlayerPrefs.GetFloat("volume");
     }
 
     public void Back()
