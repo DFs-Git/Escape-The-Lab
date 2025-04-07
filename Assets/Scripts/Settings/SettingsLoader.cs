@@ -41,6 +41,7 @@ public class SettingsLoader : MonoBehaviour
             PlayerPrefs.SetInt("fullscreen", 1);
             PlayerPrefs.SetInt("chapter", 0);
             PlayerPrefs.SetInt("topic", 0);
+            PlayerPrefs.SetFloat("volume", 0.20F);
             // 保存到磁盘
             PlayerPrefs.Save();
         }

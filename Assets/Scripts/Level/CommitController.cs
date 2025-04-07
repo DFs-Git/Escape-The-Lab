@@ -85,9 +85,13 @@ public class CommitController : MonoBehaviour
         if (Loader.level.chapter == PlayerPrefs.GetInt("chapter") &&
             Loader.level.topic == PlayerPrefs.GetInt("topic"))
         {
-            flowchart.ExecuteBlock("Pass");
-            //初始章节
-            if (PlayerPrefs.GetInt("chapter") == 0)
+            if (Loader.level.chapter != 6 || Loader.level.topic != 10)
+            {
+                Debug.Log("not Last");
+                flowchart.ExecuteBlock("Pass");
+            }
+                //初始章节
+                if (PlayerPrefs.GetInt("chapter") == 0)
             {
                 PlayerPrefs.SetInt("chapter", 1);
                 PlayerPrefs.SetInt("topic", 1);
@@ -119,7 +123,13 @@ public class CommitController : MonoBehaviour
             {
                 PlayerPrefs.SetInt("topic", Loader.level.topic +1);
             }
-            //还有终章没处理
+            // 终章直接改成课题11
+            else if (PlayerPrefs.GetInt("chapter") == 6 && PlayerPrefs.GetInt("topic") == 10)
+            {
+                PlayerPrefs.SetInt("topic", 11);
+                Debug.Log("Last");
+                flowchart.ExecuteBlock("After");
+            }
         }
     }
 
