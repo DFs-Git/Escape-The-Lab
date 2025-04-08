@@ -5179,7 +5179,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1564117167
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6796,7 +6796,6 @@ GameObject:
   - component: {fileID: 2092102567}
   - component: {fileID: 2092102566}
   - component: {fileID: 2092102565}
-  - component: {fileID: 2092102564}
   - component: {fileID: 2092102563}
   - component: {fileID: 2092102568}
   - component: {fileID: 2092102570}
@@ -6897,7 +6896,6 @@ MonoBehaviour:
   - {fileID: 2092102566}
   - {fileID: 2092102568}
   - {fileID: 2092102565}
-  - {fileID: 2092102564}
   - {fileID: 2092102563}
   suppressAllAutoSelections: 0
 --- !u!114 &2092102549
@@ -6913,7 +6911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 285.5003, y: -1579.7144}
+  scrollPos: {x: 317.50027, y: 161.8858}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
@@ -7293,33 +7291,6 @@ MonoBehaviour:
   storyText: "\u70B9\u51FB\u53F3\u4E0A\u89D2\u7684\u67E5\u770B\u5BF9\u8BDD\u6309\u94AE\u53EF\u4EE5\u518D\u6B21\u67E5\u770B\u6B64\u6B21\u5BF9\u8BDD\u3002"
   description: 
   character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
---- !u!114 &2092102564
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2092102546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 16
-  indentLevel: 0
-  storyText: "\u53F3\u4E0B\u89D2\u7684\u91CD\u7F6E\u5173\u5361\u6309\u94AE\u53EF\u4EE5\u5E2E\u4F60\u91CD\u65B0\u5F00\u59CB\u8FD9\u4E00\u5173\u3002"
-  description: 
-  character: {fileID: 381301190}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
