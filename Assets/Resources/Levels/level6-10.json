@@ -4,8 +4,8 @@
     "topic": 10,
     "title": "纯碱的制取",
     "task_description": "利用提供的卡牌，制取纯碱(碳酸钠，Na<sub>2</sub>CO<sub>3</sub>)。",
-    "tips": ["NH<sub>3</sub>+CO<sub>2</sub>+H<sub>2</sub>O+NaCl==NH<sub>4</sub>Cl+NaHCO<sub>3</sub>↓",
-            "N<sub>2</sub>+3H<sub>2</sub>=高温、高压=2NH<sub>3</sub>"],
+    "tips": ["N<sub>2</sub>+3H<sub>2</sub>=高温、高压=2NH<sub>3</sub>",
+            "氨气溶于水形成一水合氨(NH<sub>3</sub>·H<sub>2</sub>O，能解离出铵根离子和氢氧根离子。"],
     "offered": [3, 1, 41, 2, 11, 6, 9, 2],
     "commit": [42, 1, 58, 2],
     "reaction_condition": [1, 2, 3, 4, 5, 9]
