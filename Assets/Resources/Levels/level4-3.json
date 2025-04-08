@@ -5,7 +5,7 @@
     "title": "(稀)硫酸与氧化镁的反应",
     "task_description": "试着将(稀)硫酸(H<sub>2</sub>SO<sub>4</sub>)和氧化镁(MgO)放在一起。",
     "tips": ["MgO+H<sub>2</sub>SO<sub>4</sub>==MgSO<sub>4</sub>+H<sub>2</sub>O"],
-    "offered": [22, 1],
-    "commit": [149, 2],
+    "offered": [22, 1,251,1],
+    "commit": [149, 1],
     "reaction_condition": [1, 2]
 }
