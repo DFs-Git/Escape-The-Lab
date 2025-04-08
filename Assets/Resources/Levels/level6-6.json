@@ -7,5 +7,5 @@
     "tips": ["常见的+4价的硫(S)化合物可以与氧气(O<sub>2</sub>)化合反应生成+6价的硫(S)化合物。"],
     "offered": [5, 2, 1, 3, 31, 4],
     "commit": [130, 2],
-    "reaction_condition": [1, 2, 3, 4]
+    "reaction_condition": [1, 2, 3, 4,5]
 }
