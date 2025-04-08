@@ -6,7 +6,7 @@
     "task_description": "利用提供的卡牌，制取纯碱(碳酸钠，Na<sub>2</sub>CO<sub>3</sub>)。",
     "tips": ["NH<sub>3</sub>+CO<sub>2</sub>+H<sub>2</sub>O+NaCl==NH<sub>4</sub>Cl+NaHCO<sub>3</sub>↓",
             "N<sub>2</sub>+3H<sub>2</sub>=高温、高压=2NH<sub>3</sub>"],
-    "offered": [3, 1, 41, 2, 11, 6, 9, 2],
+    "offered": [3, 10, 41, 10, 11, 10, 9, 10],
     "commit": [42, 1, 58, 2],
     "reaction_condition": [1, 2, 3, 4, 5, 9]
 }
