@@ -23,7 +23,7 @@ public class LevelLoader : MonoBehaviour
 
     public Level level;
 
-    void Awake()
+    void Start()
     {
         if (Instance == null)
         {
