@@ -16,43 +16,54 @@ public class CollectionsLoader : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nameDisplay;     // 化学物质名称显示区域
     [SerializeField] private TextMeshProUGUI formulaDisplay;  // 化学式显示区域
     [SerializeField] private TextMeshProUGUI contentDisplay;  // 详细信息显示区域
+    [SerializeField] private Button SearchButton;
+    [SerializeField] private TextMeshProUGUI SearchTxt;
 
-    private void Awake()
-    {
-        // 确保在场景加载时初始化化学数据库
-        // 避免在数据未加载时进行后续操作
-        if (CL.allChemicals.Count == 0)
-        {
-            CL.LoadChemicals();
-        }
-    }
-
+    private List<Chemical> showList;
     void Start()
     {
-        if (nameDisplay == null || formulaDisplay == null || contentDisplay == null) {
+        CL.LoadChemicals();
+        showList = CL.allChemicals;
+        if (nameDisplay == null || formulaDisplay == null || contentDisplay == null || SearchButton==null) {
             Debug.Log("组件为空");
         }
+
+        SearchButton.onClick.AddListener(() => SearchClicked());
+
+        updataButton(CL.allChemicals);
+    }
+    public void updataButton(List<Chemical> list)
+    {
+
+        showList =list;
         // 清空现有子对象，防止重复生成
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }
 
-        StartCoroutine(GenerateButtons());
+        StartCoroutine(GenerateButtons(showList));
 
         // 默认展示第一个化学物质信息，提供初始界面状态
-        if (CL.allChemicals.Count > 0)
+        if (showList.Count > 0)
         {
-            OnButtonClick(CL.allChemicals[0].ID);
+            OnButtonClick(showList[0].ID);
         }
+    }
+
+    public void SearchClicked()
+    {
+        //CL.PrintChemicals(CL.FindChemicals(SearchTxt.text));
+        if(string.IsNullOrEmpty(SearchTxt.text)) updataButton(allChemicals);
+        else updataButton(CL.FindChemicals(SearchTxt.text));
     }
 
     /// <summary>
     /// 协程生成化学物质按钮，每生成5个等待一帧优化性能
     /// </summary>
-    IEnumerator GenerateButtons()
+    IEnumerator GenerateButtons(List<Chemical> list)
     {
-        foreach (Chemical che in CL.allChemicals)
+        foreach (Chemical che in list)
         {
             // 实例化按钮并设置显示文本
             Button btn = Instantiate(itemPrefab, transform);
@@ -63,7 +74,7 @@ public class CollectionsLoader : MonoBehaviour
             btn.onClick.AddListener(() => OnButtonClick(currentID));
 
             // 分帧处理优化性能：每生成5个按钮等待一帧
-            if (CL.allChemicals.IndexOf(che) % 5 == 0)
+            if (list.IndexOf(che) % 5 == 0)
                 yield return null;
         }
     }
@@ -81,8 +92,8 @@ public class CollectionsLoader : MonoBehaviour
         {
             Chemical che = result[0];
             // 格式化显示化学物质信息
-            nameDisplay.text = $"{che.Name} {che.Category}";
-            formulaDisplay.text = che.Formula;
+            nameDisplay.text = $"{che.Name}";
+            formulaDisplay.text = $"{che.Formula}  {che.Category}";
             contentDisplay.text = $"物理性质：{che.PhysicalProperty}\n化学性质：{che.ChemicalProperty}";
         }
         else
