@@ -189,7 +189,7 @@ public static class EquationLoader
     {
         if (equations == null || equations.Count == 0)
         {
-            Debug.Log("没有找到匹配的方程式");
+            Debug.Log($"没有找到匹配的方程式{equations == null}{equations.Count == 0}");
             return;
         }
 
