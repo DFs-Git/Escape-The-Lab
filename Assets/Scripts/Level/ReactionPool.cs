@@ -66,7 +66,7 @@ public class ReactionPool : MonoBehaviour
         }
         return s;
     }
-    public static void Print()
+    public static string Print()
     {
         string s = "";
         // 拼接所有化学物质的字符串表示
@@ -75,5 +75,6 @@ public class ReactionPool : MonoBehaviour
             s += $"{t.ToString()},"; // 每个化学物质后加逗号
         }
         Debug.Log(s);
+        return s;
     }
 }

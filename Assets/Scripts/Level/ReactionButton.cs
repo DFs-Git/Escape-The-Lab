@@ -25,9 +25,9 @@ public class ReactionButton : MonoBehaviour
     {
         string condition = Condition.options[Condition.value].text;
         Equation abledEquation = EquationLoader.StrictSearch(reactants: ReactionPool.MolChemicalsInReactionPool, condition: condition);
+        Debug.Log($"=======================\n{ReactionPool.Print()} {condition}");
         EquationLoader.PrintEquations(abledEquation);
-
-        //Equation abledEquation = EquationLoader.AdvancedSearch(reactants: ReactionPool.MolChemicalsInReactionPool, condition: condition)[0];
+        Debug.Log("相似的化学方程式有：");
         EquationLoader.PrintEquations(EquationLoader.AdvancedSearch(reactants: ReactionPool.MolChemicalsInReactionPool, condition: condition));
         if (abledEquation.Equals(default(Equation)))
         {

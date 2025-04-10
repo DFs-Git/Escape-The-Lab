@@ -374,34 +374,60 @@ public static class EquationLoader
     /// <param name="reactants">反应物列表</param>
     /// <param name="condition">反应条件</param>
     /// <returns>匹配的方程式，若无匹配则返回空结构体</returns>
-    public static Equation StrictSearch(
-        List<MolChemical> reactants,
-        string condition)
+    public static Equation StrictSearch(List<MolChemical> reactants, string condition)
     {
         // 确保数据已加载
         if (allEquations.Count == 0) LoadEquations();
 
-        // 确保字典已构建
-        if (reactionDict == null) BuildReactionDictionary();
-
-        // 生成反应物键
-        var key = GenerateReactantsKey(reactants);
-
-        // 尝试获取匹配的反应
-        if (reactionDict.TryGetValue(key, out var equations))
+        // 如果反应物为空或条件为空，返回默认值
+        if (reactants == null || reactants.Count == 0 || string.IsNullOrEmpty(condition))
         {
-            // 查找条件完全匹配的反应
-            var matchedEquation = equations.FirstOrDefault(eq =>
-                string.Equals(eq.Condition, condition, StringComparison.OrdinalIgnoreCase));
+            return default(Equation);
+        }
 
-            // 如果找到匹配则返回
-            if (!matchedEquation.Equals(default(Equation)))
+        // 遍历所有方程式进行匹配检查
+        foreach (var eq in allEquations)
+        {
+            // 首先检查条件是否匹配（不区分大小写）
+            if (!string.Equals(eq.Condition, condition, StringComparison.OrdinalIgnoreCase))
             {
-                return matchedEquation;
+                continue;
+            }
+
+            // 检查反应物数量是否匹配
+            if (eq.Reactants.Count != reactants.Count)
+            {
+                continue;
+            }
+
+            // 检查所有反应物是否匹配（化学式和摩尔数）
+            bool allReactantsMatch = true;
+            foreach (var reqReactant in reactants)
+            {
+                bool found = false;
+                foreach (var eqReactant in eq.Reactants)
+                {
+                    if (eqReactant.Chemical.Formula == reqReactant.Chemical.Formula &&
+                        eqReactant.MolNum == reqReactant.MolNum)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    allReactantsMatch = false;
+                    break;
+                }
+            }
+
+            if (allReactantsMatch)
+            {
+                return eq;
             }
         }
 
-        // 没有找到匹配时返回空结构体
         return default(Equation);
     }
 
@@ -423,22 +449,7 @@ public static class EquationLoader
             .ToList();
     }
 
-    /// <summary>
-    /// 获取所有可能的反应物组合
-    /// 返回所有已知反应的反应物组合的标准键
-    /// </summary>
-    /// <returns>反应物组合的哈希集合</returns>
-    public static HashSet<string> GetAllReactantCombinations()
-    {
-        // 确保数据已加载
-        if (allEquations.Count == 0) LoadEquations();
-        // 确保字典已构建
-        if (reactionDict == null) BuildReactionDictionary();
-
-        // 返回字典键的集合
-        return new HashSet<string>(reactionDict.Keys);
-    }
-
+    
     /// <summary>
     /// 检查两个化学物质是否能直接反应
     /// 查找是否存在以这两种物质为反应物的反应
