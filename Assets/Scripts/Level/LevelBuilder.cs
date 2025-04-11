@@ -31,6 +31,7 @@ public class LevelBuilder : MonoBehaviour
 
     void Awake()
     {
+        ReactionPool.MolChemicalsInReactionPool.Clear();
         Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
         CL.LoadChemicals();
         EquationLoader.LoadEquations();

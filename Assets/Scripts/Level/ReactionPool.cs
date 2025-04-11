@@ -16,6 +16,10 @@ public class ReactionPool : MonoBehaviour
     [SerializeField, SetProperty("内容")]
     public string content; // 反应池内容的字符串表示
 
+    public void Start()
+    {
+        MolChemicalsInReactionPool.Clear();
+    }
     // 每帧更新的Unity生命周期方法
     private void Update()
     {
