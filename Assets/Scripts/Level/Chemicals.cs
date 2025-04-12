@@ -144,7 +144,7 @@ public class Chemicals : MonoBehaviour
                 if (Equals(che.GetComponent<Chemicals>().ChemicalInclude, ChemicalInclude))
                 {
                     // 存在则增加数量并销毁当前对象
-                    che.GetComponent<Chemicals>().Count++;
+                    che.GetComponent<Chemicals>().Count += Count;
                     Destroy(gameObject);
                     return;
                 }
@@ -168,7 +168,7 @@ public class Chemicals : MonoBehaviour
                 if (Equals(che.GetComponent<Chemicals>().ChemicalInclude, ChemicalInclude))
                 {
                     // 存在则增加数量并销毁当前对象
-                    che.GetComponent<Chemicals>().Count++;
+                    che.GetComponent<Chemicals>().Count += Count;
                     Destroy(gameObject);
                     return;
                 }
