@@ -728,5 +728,27 @@
         "生成物": [
             [2, "SO<sub>3</sub>"]
         ]
+    },
+    {
+        "反应物": [
+            [2, "NH<sub>4</sub>HCO<sub>3</sub>"]
+        ],
+        "反应条件": "加热",
+        "生成物": [
+            [1, "(NH<sub>4</sub>)<sub>2</sub>CO<sub>3</sub>"],
+            [1, "H<sub>2</sub>O"],
+            [1, "CO<sub>2</sub>"]
+        ]
+    },
+    {
+        "反应物": [
+            [1, "(NH<sub>4</sub>)<sub>2</sub>CO<sub>3</sub>"],
+            [2, "NaCl"]
+        ],
+        "反应条件": "常温常压",
+        "生成物": [
+            [2, "NH<sub>4</sub>Cl"],
+            [1, "Na<sub>2</sub>CO<sub>3</sub>"]
+        ]
     }
 ]
