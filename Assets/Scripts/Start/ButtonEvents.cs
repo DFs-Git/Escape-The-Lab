@@ -1,10 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ButtonEvents : MonoBehaviour
 {
+    public Mask mask;
+
+    void Awake()
+    {
+        mask = GameObject.Find("Mask").GetComponent<Mask>();
+    }
+
     void Start()
     {
         if (!PlayerPrefs.HasKey("DevelopmentMode"))
@@ -17,19 +25,20 @@ public class ButtonEvents : MonoBehaviour
     // 开始按钮
     public void StartEvent()
     {
-        SceneManager.LoadScene(3);
+        // SceneManager.LoadScene(3);
+        StartCoroutine(mask.MaskFadeIn(3));
     }
 
     // 设置按钮
     public void SettingEvent()
     {
-        SceneManager.LoadScene(1);
+        StartCoroutine(mask.MaskFadeIn(1));
     }
 
     // 图鉴按钮
     public void CollectionEvent()
     {
-        SceneManager.LoadScene(2);
+        StartCoroutine(mask.MaskFadeIn(2));
     }
 
     // 退出按钮

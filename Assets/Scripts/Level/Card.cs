@@ -103,7 +103,7 @@ public class Card : MonoBehaviour
 
     public void InstantiateChemical()
     {
-        GameObject newChemical = Instantiate(ChemicalPrefab, Canva.transform);
+        GameObject newChemical = Instantiate(ChemicalPrefab, transform.position, Quaternion.identity, Canva.transform);
         newChemical.GetComponent<Chemicals>().ChemicalInclude = molChemical.Chemical;
         newChemical.GetComponent<Chemicals>().ParentCard = gameObject;
         // 按下L-Ctrl取出全部

@@ -5,8 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class CollectionsButtonEvents : MonoBehaviour
 {
-   public void BackEvent()
+    public Mask mask;
+
+    void Awake()
     {
-        SceneManager.LoadScene(0);
+        mask = GameObject.Find("Mask").GetComponent<Mask>();
+    }
+
+    public void BackEvent()
+    {
+        StartCoroutine(mask.MaskFadeIn(0));
     }
 }

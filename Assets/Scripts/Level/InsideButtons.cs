@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class InsideButtons : MonoBehaviour
 {
     public LevelLoader Loader;
+    public Mask mask;
 
     public TMP_Text TipsText;
     public int TipsGotten;
@@ -16,6 +17,7 @@ public class InsideButtons : MonoBehaviour
 
     void Awake()
     {
+        mask = GameObject.Find("Mask").GetComponent<Mask>();
         Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
     }
 
@@ -35,7 +37,7 @@ public class InsideButtons : MonoBehaviour
 
     public void Back()
     {
-        SceneManager.LoadScene(3);
+        StartCoroutine(mask.MaskFadeIn(3));
     }
 
     public void ShowDialogs()

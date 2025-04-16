@@ -39,6 +39,8 @@ public class Chemicals : MonoBehaviour
     public CommitController commitPool;   // 提交区控制器
     public LevelBuilder Builder;          // 关卡构建器
 
+    public float duration;
+
     // 初始化方法
     void Start()
     {
@@ -71,8 +73,12 @@ public class Chemicals : MonoBehaviour
         // 跟随鼠标移动逻辑
         if (following)
         {
+            /*
             Vector2 screenPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             gameObject.transform.position = screenPos;
+            */
+
+            Follow();
         }
 
         // 显示/隐藏提示UI
@@ -84,6 +90,13 @@ public class Chemicals : MonoBehaviour
         {
             Notice.SetActive(false);
         }
+    }
+
+    public void Follow()
+    {
+        Vector2 screenPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 movement = Vector2.Lerp(screenPos, gameObject.transform.position, duration);
+        gameObject.transform.position = movement;
     }
 
     // 检测是否进入指定区域的方法

@@ -23,6 +23,13 @@ public class LevelLoader : MonoBehaviour
 
     public Level level;
 
+    public Mask mask;
+
+    void Awake()
+    {
+        mask = GameObject.Find("Mask").GetComponent<Mask>();
+    }
+
     void Start()
     {
 
@@ -57,6 +64,6 @@ public class LevelLoader : MonoBehaviour
 
         // 跳转到Level场景
         if (level.type == 1)
-            SceneManager.LoadScene(4);
+            StartCoroutine(mask.MaskFadeIn(4));
     }
 }

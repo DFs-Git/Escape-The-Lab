@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class SettingsButton : MonoBehaviour
 {
     public SettingsLoader loader;
+    public Mask mask;
 
     public TMP_Dropdown screen;
     public Toggle fullsc;
@@ -17,6 +18,11 @@ public class SettingsButton : MonoBehaviour
 
     // 存储设备支持的可用分辨率列表（已去重且排序）
     private List<Resolution> availableResolutions = new List<Resolution>();
+
+    void Awake()
+    {
+        mask = GameObject.Find("Mask").GetComponent<Mask>();
+    }
 
     private void Start()
     {
@@ -72,7 +78,7 @@ public class SettingsButton : MonoBehaviour
 
     public void Back()
     {
-        SceneManager.LoadScene(0);
+        StartCoroutine(mask.MaskFadeIn(0));
     }
 
     public void Apply()

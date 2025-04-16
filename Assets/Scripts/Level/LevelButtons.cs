@@ -16,11 +16,14 @@ public class LevelButtons : MonoBehaviour
     public LevelLoader Loader;
     public GameObject Loading;
 
+    public Mask mask;
+
     [HideInInspector]
     public Flowchart flowchart;
 
     void Awake()
     {
+        mask = GameObject.Find("Mask").GetComponent<Mask>();
         Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
     }
 
@@ -97,7 +100,7 @@ public class LevelButtons : MonoBehaviour
     // 返回主菜单
     public void BackEvent()
     {
-        SceneManager.LoadScene(0);
+        StartCoroutine(mask.MaskFadeIn(0));
     }
 
     // 进入某个关卡
@@ -116,7 +119,7 @@ public class LevelButtons : MonoBehaviour
         // 确保是已完成关卡或者进行中关卡
         if (chapter <= PlayerPrefs.GetInt("chapter") && topic <= PlayerPrefs.GetInt("topic"))
         {
-            Loading.SetActive(true);
+            // Loading.SetActive(true);
             Loader.LoadLevel(chapter, topic);
         }
         else
