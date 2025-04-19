@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Collections.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using CL = ChemicalLoader; // 化学加载器的别名
@@ -226,7 +227,9 @@ public class Chemicals : MonoBehaviour
                     reactionPool.Chemicals.Remove(gameObject);
                 else if (commiting)
                     commitPool.CommitChemicals.Remove(gameObject);
-                Destroy(gameObject);
+                                
+                StartCoroutine(BackToCard(new Vector2(0F, -5F), 0.01F));
+                // Destroy(gameObject);
             }
             // 父卡牌不存在则创建新卡牌
             else
@@ -242,9 +245,25 @@ public class Chemicals : MonoBehaviour
                     reactionPool.Chemicals.Remove(gameObject);
                 else if (commiting)
                     commitPool.CommitChemicals.Remove(gameObject);
-                Destroy(gameObject);
+
+                StartCoroutine(BackToCard(new Vector2(0F, -5F), 0.01F));
+                // Destroy(gameObject);
             }
         }
     }
 
+    IEnumerator BackToCard(Vector2 target, float eps)
+    {
+        transform.SetParent(GameObject.Find("Canvas").transform);
+        Debug.Log(transform.position.x.ToString() + " " + transform.position.y.ToString());
+        Debug.Log(target.x.ToString() + " " + target.y.ToString());
+        while (transform.position.x - target.x > eps && transform.position.y - target.y > eps)
+        {
+            Vector2 movement = Vector2.Lerp(transform.position, target, 1.5F);
+            transform.position = movement;
+            yield return new WaitForSeconds(0.1F);
+        }
+
+        Destroy(gameObject);
+    }
 }
