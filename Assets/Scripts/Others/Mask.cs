@@ -26,7 +26,6 @@ public class Mask : MonoBehaviour
             while (image.color.a > 0 && !fadingIn)
             {
                 fadingOut = true;
-                Debug.Log("turing");
                 image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a - 0.01F);
                 yield return new WaitForSeconds(TuringDuration / 100.0F);
             }
@@ -48,7 +47,6 @@ public class Mask : MonoBehaviour
             while (image.color.a < 1.0F && !fadingOut)
             {
                 fadingIn = true;
-                Debug.Log("turing");
                 image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a + 0.01F);
                 
                 yield return new WaitForSeconds(TuringDuration / 100.0F);

@@ -227,8 +227,9 @@ public class Chemicals : MonoBehaviour
                     reactionPool.Chemicals.Remove(gameObject);
                 else if (commiting)
                     commitPool.CommitChemicals.Remove(gameObject);
-                                
-                StartCoroutine(BackToCard(new Vector2(0F, -5F), 0.01F));
+
+                Vector2 target = ParentCard.transform.position;
+                StartCoroutine(BackToCard(target, 0.01F));
                 // Destroy(gameObject);
             }
             // 父卡牌不存在则创建新卡牌
@@ -246,7 +247,7 @@ public class Chemicals : MonoBehaviour
                 else if (commiting)
                     commitPool.CommitChemicals.Remove(gameObject);
 
-                StartCoroutine(BackToCard(new Vector2(0F, -5F), 0.01F));
+                StartCoroutine(BackToCard(new Vector2(0F, -4F), 0.01F));
                 // Destroy(gameObject);
             }
         }
@@ -255,15 +256,18 @@ public class Chemicals : MonoBehaviour
     IEnumerator BackToCard(Vector2 target, float eps)
     {
         transform.SetParent(GameObject.Find("Canvas").transform);
-        Debug.Log(transform.position.x.ToString() + " " + transform.position.y.ToString());
-        Debug.Log(target.x.ToString() + " " + target.y.ToString());
-        while (transform.position.x - target.x > eps && transform.position.y - target.y > eps)
+
+        while (transform.position.x - target.x > eps || transform.position.y - target.y > eps)
         {
-            Vector2 movement = Vector2.Lerp(transform.position, target, 1.5F);
+            Vector2 movement = Vector2.Lerp(transform.position, target, 0.5F);
             transform.position = movement;
-            yield return new WaitForSeconds(0.1F);
+            Color srcColor = gameObject.GetComponent<Image>().color;
+            gameObject.GetComponent<Image>().color = new Color(srcColor.r, srcColor.g, srcColor.b, srcColor.a - 0.03F);
+            yield return new WaitForSeconds(0.02F);
         }
 
         Destroy(gameObject);
+
+        yield return null;
     }
 }
