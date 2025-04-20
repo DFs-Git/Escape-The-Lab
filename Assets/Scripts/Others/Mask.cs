@@ -18,7 +18,7 @@ public class Mask : MonoBehaviour
         StartCoroutine(MaskFadeOut());
     }
 
-    // Mask????(???��??)
+    // Mask渐隐
     public IEnumerator MaskFadeOut()
     {
         if (!fadingIn)
@@ -27,14 +27,14 @@ public class Mask : MonoBehaviour
             {
                 fadingOut = true;
                 image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a - 0.01F);
-                yield return new WaitForSeconds(TuringDuration / 100.0F);
+                yield return new WaitForSeconds(0.7F / 100.0F);
             }
 
             fadingOut = false;
         }
     }
 
-    // Mask????(???��??)???????????
+    // Mask渐显加上更换场景
     public IEnumerator MaskFadeIn(int sceneNumber)
     {
         if (fadingOut)
@@ -49,7 +49,7 @@ public class Mask : MonoBehaviour
                 fadingIn = true;
                 image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a + 0.01F);
                 
-                yield return new WaitForSeconds(TuringDuration / 100.0F);
+                yield return new WaitForSeconds(0.7F / 100.0F);
             }
 
             fadingIn = false;

@@ -229,7 +229,7 @@ public class Chemicals : MonoBehaviour
                     commitPool.CommitChemicals.Remove(gameObject);
 
                 Vector2 target = ParentCard.transform.position;
-                StartCoroutine(BackToCard(target, 0.01F));
+                StartCoroutine(BackToCard(target, 0.1F));
                 // Destroy(gameObject);
             }
             // 父卡牌不存在则创建新卡牌
@@ -247,7 +247,7 @@ public class Chemicals : MonoBehaviour
                 else if (commiting)
                     commitPool.CommitChemicals.Remove(gameObject);
 
-                StartCoroutine(BackToCard(new Vector2(0F, -4F), 0.01F));
+                StartCoroutine(BackToCard(new Vector2(0F, -3.5F), 0.1F));
                 // Destroy(gameObject);
             }
         }
@@ -259,7 +259,7 @@ public class Chemicals : MonoBehaviour
 
         while (transform.position.x - target.x > eps || transform.position.y - target.y > eps)
         {
-            Vector2 movement = Vector2.Lerp(transform.position, target, 0.5F);
+            Vector2 movement = Vector2.Lerp(transform.position, target, 0.4F);
             transform.position = movement;
             Color srcColor = gameObject.GetComponent<Image>().color;
             gameObject.GetComponent<Image>().color = new Color(srcColor.r, srcColor.g, srcColor.b, srcColor.a - 0.03F);
