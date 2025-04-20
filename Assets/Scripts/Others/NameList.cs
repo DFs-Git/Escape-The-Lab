@@ -5,13 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class NameList : MonoBehaviour
 {
+    public Mask mask;
+
+    void Awake()
+    {
+        mask = GameObject.Find("Mask").GetComponent<Mask>();
+    }
+
     public void Back()
     {
-        SceneManager.LoadScene(1);
+        StartCoroutine(mask.MaskFadeIn(1));
     }
 
     public void GoNameList()
     {
-        SceneManager.LoadScene(5);
+        StartCoroutine(mask.MaskFadeIn(5));
     }
 }
