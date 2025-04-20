@@ -18,7 +18,7 @@ public class Mask : MonoBehaviour
         StartCoroutine(MaskFadeOut());
     }
 
-    // Mask渐隐(界面渐显)
+    // Mask????(???潥??)
     public IEnumerator MaskFadeOut()
     {
         if (!fadingIn)
@@ -34,7 +34,7 @@ public class Mask : MonoBehaviour
         }
     }
 
-    // Mask渐显(界面渐隐)跳转其他界面
+    // Mask????(???潥??)???????????
     public IEnumerator MaskFadeIn(int sceneNumber)
     {
         if (fadingOut)
