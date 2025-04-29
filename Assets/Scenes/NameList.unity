@@ -667,7 +667,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -88, y: -53}
+  m_AnchoredPosition: {x: -146.33, y: -53}
   m_SizeDelta: {x: 65.9894, y: 34.5373}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &673109599
@@ -971,7 +971,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u8096\u535A\u6587\uFF0C\u6797\u542F\u715C"
+  m_text: "\u6F47\uFF0C\u9C7C\u5E72\u88AB\u70E4\u5F97\u9165\u8106"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef8f258e9b3986549b8aad13e2b97dc9, type: 2}
   m_sharedMaterial: {fileID: 1970378537357027744, guid: ef8f258e9b3986549b8aad13e2b97dc9, type: 2}
@@ -1332,7 +1332,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5F20\u7115\u77E5"
+  m_text: HRYX_HS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef8f258e9b3986549b8aad13e2b97dc9, type: 2}
   m_sharedMaterial: {fileID: 1970378537357027744, guid: ef8f258e9b3986549b8aad13e2b97dc9, type: 2}
@@ -1535,8 +1535,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 212, y: 0.00013685}
-  m_SizeDelta: {x: 326.2792, y: 34.537}
+  m_AnchoredPosition: {x: 237.6369, y: 0.00013685}
+  m_SizeDelta: {x: 377.5531, y: 34.537}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1561183437
 MonoBehaviour:
@@ -1558,7 +1558,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u65B9\u6986\u6E90\uFF0C\u6C6A\u4E00\u6DB5"
+  m_text: "\u5BC2\u57DF\uFF0C__nickelNiko__\u5C0F\u954D\u954D"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef8f258e9b3986549b8aad13e2b97dc9, type: 2}
   m_sharedMaterial: {fileID: 1970378537357027744, guid: ef8f258e9b3986549b8aad13e2b97dc9, type: 2}
