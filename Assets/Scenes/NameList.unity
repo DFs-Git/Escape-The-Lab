@@ -667,7 +667,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -146.33, y: -53}
+  m_AnchoredPosition: {x: -102.36, y: -53}
   m_SizeDelta: {x: 65.9894, y: 34.5373}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &673109599
@@ -1427,7 +1427,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1337465468
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1558,7 +1558,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5BC2\u57DF\uFF0C__nickelNiko__\u5C0F\u954D\u954D"
+  m_text: "\u5BC2\u57DF\uFF0CemoEnderman"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef8f258e9b3986549b8aad13e2b97dc9, type: 2}
   m_sharedMaterial: {fileID: 1970378537357027744, guid: ef8f258e9b3986549b8aad13e2b97dc9, type: 2}
