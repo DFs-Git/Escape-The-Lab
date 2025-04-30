@@ -74,7 +74,7 @@ public static class EquationLoader
     /// </summary>
     public static void LoadEquations()
     {
-        
+
         //allEquations.Clear();
         // 从Resources/Equation文件夹加载名为"equation"的JSON文件
         TextAsset jsonFile = Resources.Load<TextAsset>("Equations/equations");
@@ -407,6 +407,7 @@ public static class EquationLoader
                 bool found = false;
                 foreach (var eqReactant in eq.Reactants)
                 {
+                    // 检查化学式和摩尔数是否完全匹配
                     if (eqReactant.Chemical.Formula == reqReactant.Chemical.Formula &&
                         eqReactant.MolNum == reqReactant.MolNum)
                     {
@@ -415,6 +416,7 @@ public static class EquationLoader
                     }
                 }
 
+                // 如果有一个反应物不匹配，标记为不匹配并跳出循环
                 if (!found)
                 {
                     allReactantsMatch = false;
@@ -422,14 +424,86 @@ public static class EquationLoader
                 }
             }
 
+            // 如果所有反应物都匹配，返回当前方程式
             if (allReactantsMatch)
             {
                 return eq;
             }
         }
 
+        // 如果遍历完所有方程式后仍未找到匹配的方程式，返回默认的化学方程式
         return default(Equation);
+
     }
+
+    public static (Equation,int) StrictSearchWithMultipleReactants(List<MolChemical> reactants, string condition)
+    {
+        // 确保数据已加载
+        if (allEquations.Count == 0) LoadEquations();
+
+        // 如果反应物为空或条件为空，返回默认值
+        if (reactants == null || reactants.Count == 0 || string.IsNullOrEmpty(condition))
+        {
+            return (default(Equation), 0);
+        }
+
+        // 遍历所有方程式进行匹配检查
+        foreach (var eq in allEquations)
+        {
+            // 首先检查条件是否匹配（不区分大小写）
+            if (!string.Equals(eq.Condition, condition, StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            // 检查反应物数量是否匹配
+            if (eq.Reactants.Count != reactants.Count)
+            {
+                continue;
+            }
+
+            // 检查所有反应物是否匹配（化学式和摩尔数）
+            bool allReactantsMatch = true;
+            int multiple = 0; // 用于存储摩尔数的倍数
+            foreach (var reqReactant in reactants)
+            {
+                bool found = false;
+                foreach (var eqReactant in eq.Reactants)
+                {
+                    // 检查化学式是否相同，并且摩尔数是否是给定摩尔数的倍数
+                    if (eqReactant.Chemical.Formula == reqReactant.Chemical.Formula &&
+                        reqReactant.MolNum % eqReactant.MolNum == 0)
+                    {
+
+                        Debug.Log(eqReactant.Chemical.Formula);
+                        Debug.Log(eqReactant.MolNum + " " + reqReactant.MolNum);
+                        found = true;
+                        // 计算摩尔数的倍数
+                        multiple = reqReactant.MolNum / eqReactant.MolNum;
+                        break;
+                    }
+                }
+
+                // 如果有一个反应物不匹配，标记为不匹配并跳出循环
+                if (!found)
+                {
+                    allReactantsMatch = false;
+                    break;
+                }
+            }
+
+            // 如果所有反应物都匹配，返回当前方程式和摩尔数的倍数
+            if (allReactantsMatch)
+            {
+                return (eq, multiple);
+            }
+        }
+
+        // 如果遍历完所有方程式后仍未找到匹配的方程式，返回默认的化学方程式和倍数为0
+        return (default(Equation), 0);
+
+    }
+
 
     /// <summary>
     /// 获取所有涉及特定化学物质的反应

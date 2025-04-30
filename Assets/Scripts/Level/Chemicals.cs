@@ -150,7 +150,7 @@ public class Chemicals : MonoBehaviour
         if (entering && following)
         {
             // 将物质数据添加到反应池
-            reactionPool.AddData(new MolChemical(ParentMolChemical.Chemical, 1));
+            //reactionPool.AddData(new MolChemical(ParentMolChemical.Chemical, 1));
 
             // 检查反应池中是否已存在相同物质
             foreach (GameObject che in reactionPool.Chemicals)
@@ -201,7 +201,7 @@ public class Chemicals : MonoBehaviour
         else if (!following)
         {
             // 从反应池移除数据
-            reactionPool.ReduceData(ParentMolChemical);
+            //reactionPool.ReduceData(ParentMolChemical);
 
             bool found = false;
             // 遍历卡牌区，检查是否存在父卡牌

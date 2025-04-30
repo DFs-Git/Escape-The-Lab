@@ -24,11 +24,22 @@ public class ReactionButton : MonoBehaviour
     public void Clicked()
     {
         string condition = Condition.options[Condition.value].text;
-        Equation abledEquation = EquationLoader.StrictSearch(reactants: ReactionPool.MolChemicalsInReactionPool, condition: condition);
-        Debug.Log($"=======================\n{ReactionPool.Print()} {condition}");
+        var result = EquationLoader.StrictSearchWithMultipleReactants(reactants:reactionPool.GetMolChemicalsInReactionPool(), condition: condition);
+        Equation abledEquation = result.Item1;
+        int multiple = result.Item2;
+
+        Debug.Log($"=======================");
         EquationLoader.PrintEquations(abledEquation);
-        Debug.Log("相似的化学方程式有：");
-        EquationLoader.PrintEquations(EquationLoader.AdvancedSearch(reactants: ReactionPool.MolChemicalsInReactionPool, condition: condition));
+        Debug.Log($"{multiple}");
+        Debug.Log($"=======================");
+        //return;
+
+        //Debug.Log($"=======================");
+        //EquationLoader.PrintEquations(abledEquation);
+        //Debug.Log("相似的化学方程式有：");
+        ////EquationLoader.PrintEquations(EquationLoader.AdvancedSearch(reactants: ReactionPool.MolChemicalsInReactionPool, condition: condition));
+        //Debug.Log("=======================");
+
         if (abledEquation.Equals(default(Equation)))
         {
             Flowchart.ExecuteBlock("NothingHappened");
@@ -40,7 +51,6 @@ public class ReactionButton : MonoBehaviour
                 Destroy(reactionPool.Chemicals[i]);
             }
             reactionPool.Chemicals.Clear();
-            ReactionPool.MolChemicalsInReactionPool.Clear();
 
             foreach (MolChemical che in abledEquation.Products)
             {
@@ -50,14 +60,13 @@ public class ReactionButton : MonoBehaviour
                 newChemical.GetComponent<Chemicals>().ParentCard = Instantiate(CardPrefab);
                 //// 设置关于这张卡牌的属性，便于重新生成
                 newChemical.GetComponent<Chemicals>().ParentMolChemical.Chemical = _chemicals;
-                newChemical.GetComponent<Chemicals>().ParentMolChemical.MolNum = che.MolNum;
+                newChemical.GetComponent<Chemicals>().ParentMolChemical.MolNum = che.MolNum * multiple;
 
-                newChemical.GetComponent<Chemicals>().Count = che.MolNum;
+                newChemical.GetComponent<Chemicals>().Count = che.MolNum * multiple;
                 newChemical.GetComponent<Chemicals>().following = false;
                 newChemical.GetComponent<Chemicals>().entering = true;      
 
                 reactionPool.Chemicals.Add(newChemical);
-                ReactionPool.MolChemicalsInReactionPool.Add(che);
             }
         }
     }

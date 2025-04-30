@@ -33,7 +33,7 @@ public class LevelLoader : MonoBehaviour
     void Start()
     {
 
-        ReactionPool.MolChemicalsInReactionPool.Clear();
+        //ReactionPool.MolChemicalsInReactionPool.Clear();
         if (Instance == null)
         {
             Instance = this;
@@ -49,7 +49,7 @@ public class LevelLoader : MonoBehaviour
     public void LoadLevel(int chapter, int topic)
     {
 
-        ReactionPool.MolChemicalsInReactionPool.Clear();
+        //ReactionPool.MolChemicalsInReactionPool.Clear();
         // 读取相关关卡的json文件，并存入
         TextAsset jsonLevel = Resources.Load<TextAsset>("Levels/level" + chapter.ToString() + "-" + topic.ToString());
         level = JsonConvert.DeserializeObject<Level>(jsonLevel.text);
