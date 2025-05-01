@@ -14,6 +14,6 @@ public class CollectionsButtonEvents : MonoBehaviour
 
     public void BackEvent()
     {
-        StartCoroutine(mask.MaskFadeIn(0));
+        StartCoroutine(mask.MaskFadeIn("Start"));
     }
 }

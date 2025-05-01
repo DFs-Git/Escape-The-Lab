@@ -17,8 +17,8 @@ public class ResetButton : MonoBehaviour
     {
         //ReactionPool.MolChemicalsInReactionPool.Clear();
         // 获取当前场景的索引并重新加载
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        StartCoroutine(mask.MaskFadeIn(currentSceneIndex));
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        StartCoroutine(mask.MaskFadeIn(currentSceneName));
         // SceneManager.LoadScene(currentSceneIndex);
     }
 }

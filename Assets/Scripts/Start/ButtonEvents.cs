@@ -24,20 +24,20 @@ public class ButtonEvents : MonoBehaviour
     // 开始按钮
     public void StartEvent()
     {
-        // SceneManager.LoadScene(3);
-        StartCoroutine(mask.MaskFadeIn(3));
+         //SceneManager.LoadScene(3);
+        StartCoroutine(mask.MaskFadeIn("ChooseLevel"));
     }
 
     // 设置按钮
     public void SettingEvent()
     {
-        StartCoroutine(mask.MaskFadeIn(1));
+        StartCoroutine(mask.MaskFadeIn("Settings"));
     }
 
     // 图鉴按钮
     public void CollectionEvent()
     {
-        StartCoroutine(mask.MaskFadeIn(2));
+        StartCoroutine(mask.MaskFadeIn("Collections"));
     }
 
     // 退出按钮

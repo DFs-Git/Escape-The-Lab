@@ -14,11 +14,11 @@ public class NameList : MonoBehaviour
 
     public void Back()
     {
-        StartCoroutine(mask.MaskFadeIn(1));
+        StartCoroutine(mask.MaskFadeIn("Settings"));
     }
 
     public void GoNameList()
     {
-        StartCoroutine(mask.MaskFadeIn(5));
+        StartCoroutine(mask.MaskFadeIn("NameList"));
     }
 }

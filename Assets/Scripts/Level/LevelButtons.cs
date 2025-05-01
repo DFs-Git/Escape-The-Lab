@@ -95,7 +95,7 @@ public class LevelButtons : MonoBehaviour
     // 返回主菜单
     public void BackEvent()
     {
-        StartCoroutine(mask.MaskFadeIn(0));
+        StartCoroutine(mask.MaskFadeIn("Start"));
     }
 
     // 进入某个关卡

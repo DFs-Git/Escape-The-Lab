@@ -66,6 +66,6 @@ public class LevelLoader : MonoBehaviour
 
         // 跳转到Level场景
         if (level.type == 1)
-            StartCoroutine(mask.MaskFadeIn(4));
+            StartCoroutine(mask.MaskFadeIn("Level"));
     }
 }

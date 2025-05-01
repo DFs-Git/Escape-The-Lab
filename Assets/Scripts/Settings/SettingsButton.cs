@@ -78,7 +78,7 @@ public class SettingsButton : MonoBehaviour
 
     public void Back()
     {
-        StartCoroutine(mask.MaskFadeIn(0));
+        StartCoroutine(mask.MaskFadeIn("Start"));
     }
 
     public void Apply()
