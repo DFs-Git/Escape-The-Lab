@@ -19,3 +19,7 @@ Github Pages 部署（手机端可能无法访问）
 netlify 部署（加载非常慢）
 
 -https://minecraft-without-mine-escape-the-lab.netlify.app/
+
+vercel 部署（不稳定）
+
+-https://escape-the-lab.vercel.app/
