@@ -7,8 +7,8 @@ public class Mask : MonoBehaviour
 {
     // 遮罩的Image组件
     public Image image;
-    // 遮罩渐变的时间，默认为0.7秒
-    public float TuringDuration = 0.7F;
+    // 遮罩渐变的时间，默认为0.4秒
+    public float TuringDuration = 0.4F;
     // 标记遮罩是否正在渐显
     public bool fadingIn = false;
     // 标记遮罩是否正在渐隐

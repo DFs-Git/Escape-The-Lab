@@ -393,6 +393,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &162343438
 MonoBehaviour:
@@ -854,6 +855,7 @@ MonoBehaviour:
   - {fileID: 197453245}
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!1 &197988862
 GameObject:
@@ -945,6 +947,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 197988864}
   TuringDuration: 1.5
+  fadingIn: 0
+  fadingOut: 0
 --- !u!1 &234497782
 GameObject:
   m_ObjectHideFlags: 0
@@ -1462,6 +1466,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &330776059
 MonoBehaviour:
@@ -1993,6 +1998,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &394713531
 MonoBehaviour:
@@ -3375,6 +3381,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &612797009
 MonoBehaviour:
@@ -3794,6 +3801,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &649134041
 MonoBehaviour:
@@ -4079,6 +4087,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &662339214
 MonoBehaviour:
@@ -4282,6 +4291,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &717631631
 MonoBehaviour:
@@ -4433,6 +4443,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &721845940
 MonoBehaviour:
@@ -4964,6 +4975,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &764754843
 MonoBehaviour:
@@ -5115,6 +5127,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &800991323
 MonoBehaviour:
@@ -5642,6 +5655,7 @@ MonoBehaviour:
   - {fileID: 197453245}
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!1 &841546825
 GameObject:
@@ -6533,6 +6547,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &944894036
 MonoBehaviour:
@@ -7142,6 +7157,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &1086786631
 MonoBehaviour:
@@ -7535,6 +7551,7 @@ MonoBehaviour:
   - {fileID: 197453245}
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!1 &1183201654
 GameObject:
@@ -8151,6 +8168,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &1250352564
 MonoBehaviour:
@@ -8783,6 +8801,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!1 &1315367272
 GameObject:
@@ -9009,6 +9028,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!1 &1366672298
 GameObject:
@@ -9066,6 +9086,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &1366672301
 MonoBehaviour:
@@ -9819,6 +9840,7 @@ MonoBehaviour:
   - {fileID: 197453245}
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!1 &1495074227
 GameObject:
@@ -10010,6 +10032,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &1526731084
 MonoBehaviour:
@@ -10255,6 +10278,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!1 &1564023963
 GameObject:
@@ -10521,6 +10545,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &1599030568
 MonoBehaviour:
@@ -10672,6 +10697,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &1615500848
 MonoBehaviour:
@@ -10823,6 +10849,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &1624481163
 MonoBehaviour:
@@ -11153,6 +11180,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &1661777910
 MonoBehaviour:
@@ -11769,6 +11797,7 @@ MonoBehaviour:
   - {fileID: 197453245}
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!1 &1791848229
 GameObject:
@@ -12269,6 +12298,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &1822149089
 MonoBehaviour:
@@ -12706,6 +12736,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &1868250944
 MonoBehaviour:
@@ -13350,6 +13381,7 @@ MonoBehaviour:
   - {fileID: 197453245}
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!1 &1954033893
 GameObject:
@@ -13660,6 +13692,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &1985640503
 MonoBehaviour:
@@ -13811,6 +13844,7 @@ MonoBehaviour:
   AllChaptersButtons: []
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!114 &1991161224
 MonoBehaviour:
@@ -14145,6 +14179,7 @@ MonoBehaviour:
   - {fileID: 197453245}
   Loader: {fileID: 0}
   Loading: {fileID: 923127135}
+  mask: {fileID: 0}
   flowchart: {fileID: 0}
 --- !u!1 &2005948314
 GameObject:
@@ -14439,6 +14474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77b254a93c5ae224581e9f2ac0755412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mask: {fileID: 0}
 --- !u!1 &2061381177
 GameObject:
   m_ObjectHideFlags: 0

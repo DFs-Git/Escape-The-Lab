@@ -1,20 +1,126 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using Newtonsoft.Json;
+using Fungus;               // 用于对话系统的命名空间
+using Newtonsoft.Json;      // JSON序列化/反序列化库
+using Newtonsoft.Json.Linq; // 用于处理动态JSON对象
+using System;               // 基础系统命名空间
+using System.Collections.Generic; // 集合类命名空间
+using UnityEngine;          // Unity引擎核心命名空间
+using CL = ChemicalLoader;  // 化学加载器的别名
+using System.Linq;          // LINQ查询扩展
+using System.IO;            // 文件IO操作
 
-public class Level
+[Serializable]
+public struct Level
 {
+    /// <summary>
+    /// 关卡类型
+    /// </summary>
     public int type;
-    public int chapter, topic; // 当前关卡的章节和课题
-    public string title; // 当前关卡的标题
-    public string task_description; // 当前关卡的任务描述
-    public List<string> tips; // 当前关卡的提示
-    public List<int> offered; // 当前关卡的提供物质
-    public List<int> commit; // 当前关卡的提交物质
-    public List<int> reaction_condition; // 当前关卡的反应条件
+
+    /// <summary>
+    /// 关卡章节
+    /// </summary>
+    public int chapter;
+
+    /// <summary>
+    /// 关卡题目
+    /// </summary>
+    public int topic;
+    /// <summary>
+    /// 关卡标题
+    /// </summary>
+    public string title;
+
+    /// <summary>
+    /// 关卡任务描述
+    /// </summary>
+    public string task_description;
+
+    /// <summary>
+    /// 关卡提示
+    /// </summary>
+    public List<string> tips;
+
+    /// <summary>
+    /// 关卡提供的物质
+    /// </summary>
+    public List<int> offered;
+    /// <summary>
+    /// 关卡提交的物质
+    /// </summary>
+    public List<int> commit;
+
+    /// <summary>
+    /// 关卡支持的反应条件
+    /// </summary>
+    public List<int> reaction_condition;
+
+    override public string ToString()
+    {
+        return "Level(关卡): " + chapter + "-" + topic + "\n" +
+               "Title(标题): " + title + "\n" +
+               "Task Description(任务描述): " + task_description + "\n" +
+               "Tips(提示): " + string.Join(", ", tips) + "\n" +
+               "Offered(提供的物质): " + string.Join(", ", offered) + "\n" +
+               "Commit(提交的物质): " + string.Join(", ", commit) + "\n" +
+               "Reaction Condition(反应条件): " + string.Join(", ", reaction_condition) + "\n";
+    }
+}
+
+
+[Serializable]
+public struct TempLevel
+{
+    /// <summary>
+    /// 关卡类型
+    /// </summary>
+    [JsonProperty("type")] // 指定JSON属性映射
+    public int type { get; set; } 
+
+    /// <summary>
+    /// 关卡章节
+    /// </summary>
+    [JsonProperty("chapter")] // 指定JSON属性映射
+    public int chapter { get; set; } 
+
+    /// <summary>
+    /// 关卡题目
+    /// </summary>
+    [JsonProperty("topic")] // 指定JSON属性映射
+    public int topic { get; set; } 
+    /// <summary>
+    /// 关卡标题
+    /// </summary>
+    [JsonProperty("title")] // 指定JSON属性映射
+    public string title { get; set; }
+
+    /// <summary>
+    /// 关卡任务描述
+    /// </summary>
+    [JsonProperty("task_description")] // 指定JSON属性映射
+    public string task_description { get; set; }
+
+    /// <summary>
+    /// 关卡提示
+    /// </summary>
+    [JsonProperty("tips")] // 指定JSON属性映射
+    public List<string> tips { get; set; }
+
+    /// <summary>
+    /// 关卡提供的物质
+    /// </summary>
+    [JsonProperty("offered")] // 指定JSON属性映射
+    public List<int> offered { get; set; }
+    /// <summary>
+    /// 关卡提交的物质
+    /// </summary>
+    [JsonProperty("commit")] // 指定JSON属性映射
+    public List<int> commit { get; set; }
+
+    /// <summary>
+    /// 关卡支持的反应条件
+    /// </summary>
+    [JsonProperty("reaction_condition")] // 指定JSON属性映射
+    public List<int> reaction_condition { get; set; }
 }
 
 public class LevelLoader : MonoBehaviour
@@ -33,7 +139,6 @@ public class LevelLoader : MonoBehaviour
     void Start()
     {
 
-        //ReactionPool.MolChemicalsInReactionPool.Clear();
         if (Instance == null)
         {
             Instance = this;
@@ -49,18 +154,24 @@ public class LevelLoader : MonoBehaviour
     public void LoadLevel(int chapter, int topic)
     {
 
-        //ReactionPool.MolChemicalsInReactionPool.Clear();
         // 读取相关关卡的json文件，并存入
         TextAsset jsonLevel = Resources.Load<TextAsset>("Levels/level" + chapter.ToString() + "-" + topic.ToString());
-        level = JsonConvert.DeserializeObject<Level>(jsonLevel.text);
+        var tempLevel = JsonConvert.DeserializeObject<TempLevel>(jsonLevel.text);
 
-        Debug.Log(level.chapter.ToString() + "-" + level.topic.ToString());
-        Debug.Log(level.title);
-        Debug.Log(level.task_description);
-        Debug.Log(level.tips);
-        Debug.Log(level.offered);
-        Debug.Log(level.commit.Count);
-        Debug.Log(level.reaction_condition);
+        //将TempLevel转换为Level
+        level = new Level{
+            type = Convert.ToInt32(tempLevel.type),
+            chapter = Convert.ToInt32(tempLevel.chapter),
+            topic = Convert.ToInt32(tempLevel.topic),
+            title = tempLevel.title.ToString(),
+            task_description = tempLevel.task_description.ToString(),
+            tips = tempLevel.tips.Select(x => x.ToString()).ToList(),
+            offered = tempLevel.offered.Select(x => Convert.ToInt32(x)).ToList(),
+            commit = tempLevel.commit.Select(x => Convert.ToInt32(x)).ToList(),
+            reaction_condition = tempLevel.reaction_condition.Select(x => Convert.ToInt32(x)).ToList()
+        };
+
+        Debug.Log(level.ToString());
 
         mask = GameObject.Find("Mask").GetComponent<Mask>();
 
