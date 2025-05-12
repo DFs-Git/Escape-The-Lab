@@ -5657,6 +5657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c857bc16d71434facb5bfe223b34d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mask: {fileID: 0}
 --- !u!1 &1565288147
 GameObject:
   m_ObjectHideFlags: 0
@@ -6207,7 +6208,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Chemicals: []
-  content: 
 --- !u!1 &1676548145
 GameObject:
   m_ObjectHideFlags: 0
@@ -6844,6 +6844,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1955382325}
   m_CullTransparentMesh: 1
+--- !u!1 &1977161896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1977161897}
+  - component: {fileID: 1977161898}
+  m_Layer: 0
+  m_Name: ChatController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1977161897
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977161896}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5109716, y: 0.16237527, z: -9.9518175}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1977161898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977161896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e772845d8304b48449990a7c876ec141, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2021527909
 GameObject:
   m_ObjectHideFlags: 0
@@ -7455,7 +7499,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2092102548
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -7523,7 +7567,8 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlocks: []
+  selectedBlocks:
+  - {fileID: 2092102548}
   selectedCommands: []
   variables: []
   description: 
@@ -9654,3 +9699,4 @@ SceneRoots:
   - {fileID: 381301191}
   - {fileID: 1332003512}
   - {fileID: 409365064}
+  - {fileID: 1977161897}
