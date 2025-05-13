@@ -1117,6 +1117,7 @@ GameObject:
   - component: {fileID: 460953519}
   - component: {fileID: 460953518}
   - component: {fileID: 460953522}
+  - component: {fileID: 460953523}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1244,6 +1245,22 @@ MonoBehaviour:
   - "\u9AD8\u6E29+\u9AD8\u538B"
   DevelopText: {fileID: 795683730}
   Panel: {fileID: 515746133}
+--- !u!114 &460953523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460953517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42855a8accde39d45b64db4c2b4ae850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controller: {fileID: 1977161898}
+  Canvas: {fileID: 379298684}
+  NormalDialog: {fileID: 7616926415780298226, guid: f8943fd6ad1ea084b91fcc1befa32c06, type: 3}
+  mask: {fileID: 1829415134}
 --- !u!1 &515746133
 GameObject:
   m_ObjectHideFlags: 0
@@ -6888,6 +6905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e772845d8304b48449990a7c876ec141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Loader: {fileID: 0}
 --- !u!1 &2021527909
 GameObject:
   m_ObjectHideFlags: 0

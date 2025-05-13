@@ -67,4 +67,30 @@ public class Mask : MonoBehaviour
             SceneManager.LoadScene(sceneName);
         }
     }
+
+    // 遮罩渐显至指定透明度的协程
+    public IEnumerator MaskFadeIn(float alpha)
+    {
+        // 如果遮罩正在渐隐，停止渐隐协程
+        if (fadingOut)
+        {
+            StopCoroutine(MaskFadeOut());
+            fadingOut = false;
+        }
+        // 如果遮罩不在渐隐状态
+        if (!fadingOut)
+        {
+            // 当遮罩的透明度小于 alpha 且不在渐隐状态时，继续渐显
+            while (image.color.a < alpha && !fadingOut)
+            {
+                fadingIn = true; // 设置渐显标记为true
+                // 增加遮罩的透明度
+                image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a + 0.01F);
+                // 等待一段时间，总渐显时间由TuringDuration控制
+                yield return new WaitForSeconds(TuringDuration / (alpha * 100));
+            }
+
+            fadingIn = false; // 渐显完成，设置渐显标记为false
+        }
+    }
 }
