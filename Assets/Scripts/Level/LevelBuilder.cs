@@ -72,9 +72,6 @@ public class LevelBuilder : MonoBehaviour
         {
             Condition.options.Add(new TMP_Dropdown.OptionData() { text = ConditionMap[condition] });
         }
-
-        // 执行对话
-        flowchart.ExecuteBlock(level.chapter.ToString() + "-" + level.topic.ToString());
     }
 
     // 主要用于处理开发者模式

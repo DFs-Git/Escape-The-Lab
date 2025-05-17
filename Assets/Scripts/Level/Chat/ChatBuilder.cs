@@ -14,7 +14,6 @@ public class ChatBuilder : MonoBehaviour
     public GameObject NormalDialog;
     public GameObject SpecialDialog;
     public GameObject ChoiceButton;
-    public GameObject SkipButton;
 
     public Transform Choice;
 
@@ -28,10 +27,8 @@ public class ChatBuilder : MonoBehaviour
 
     void Start()
     {
-        Instantiate(SkipButton, mask.transform);
         StartCoroutine(StartDialog());
     }
-
 
     public IEnumerator StartDialog()
     {
@@ -83,7 +80,9 @@ public class ChatBuilder : MonoBehaviour
             // 自己对话(背景变暗)
             if (single[0] == "1")
             {
-                StartCoroutine(mask.MaskFadeIn(0.7F));
+                if (index == 0)
+                    yield return new WaitUntil(() => { return mask.image.color.a <= 0.0F; });
+                StartCoroutine(mask.MaskFadeIn(0.8F));
 
                 // 获取对话内容
                 string content = single[1];
@@ -110,14 +109,19 @@ public class ChatBuilder : MonoBehaviour
 
                 // 销毁对话框
                 Destroy(dia);
-                StartCoroutine(mask.MaskFadeOut());
+
+                if (index == -1)
+                    StartCoroutine(mask.MaskFadeOut());
+                else if (Controller.dialog.dialogs[index][0] == "0")
+                    StartCoroutine(mask.MaskFadeOut());
             }
 
             // 选择
             if (single[0] == "2")
             {
-                // 启用遮罩使背景变暗
-                StartCoroutine(mask.MaskFadeIn(0.7F));
+                if (index == 0)
+                    yield return new WaitUntil(() => { return mask.image.color.a <= 0.0F; });
+                StartCoroutine(mask.MaskFadeIn(0.8F));
 
                 // 获取选项个数
                 int count = StringToInt(single[1]);
@@ -149,7 +153,11 @@ public class ChatBuilder : MonoBehaviour
                 {
                     Destroy(btn);
                 }
-                StartCoroutine(mask.MaskFadeOut());
+
+                if (index == -1)
+                    StartCoroutine(mask.MaskFadeOut());
+                else if (Controller.dialog.dialogs[index][0] == "0")
+                    StartCoroutine(mask.MaskFadeOut());
             }
         } while (index != -1);
 

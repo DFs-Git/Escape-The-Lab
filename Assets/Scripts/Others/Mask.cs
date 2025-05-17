@@ -24,13 +24,11 @@ public class Mask : MonoBehaviour
     // 遮罩渐隐的协程
     public IEnumerator MaskFadeOut()
     {
-        yield return new WaitUntil(() => !fadingIn);
-
         // 如果遮罩不在渐显状态
-        // if (!fadingIn)
+        if (!fadingIn)
         {
             // 当遮罩的透明度大于0且不在渐显状态时，继续渐隐
-            while (image.color.a > 0 && !fadingIn)
+            while (image.color.a > 0.0F && !fadingIn)
             {
                 fadingOut = true; // 设置渐隐标记为true
                 // 减少遮罩的透明度
@@ -74,24 +72,18 @@ public class Mask : MonoBehaviour
         // 如果遮罩正在渐隐，停止渐隐协程
         yield return new WaitUntil(() => !fadingOut);
 
-        Debug.Log("Start Fade in alpha");
-
         // 如果遮罩不在渐隐状态
         // if (!fadingOut)
+        // 当遮罩的透明度小于 alpha 且不在渐隐状态时，继续渐显
+        while (image.color.a < alpha)
         {
-            Debug.Log(image.color.a.ToString());
-            // 当遮罩的透明度小于 alpha 且不在渐隐状态时，继续渐显
-            while (image.color.a < alpha)
-            {
-                Debug.Log("Turning");
-                fadingIn = true; // 设置渐显标记为true
-                // 增加遮罩的透明度
-                image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a + 0.01F);
-                // 等待一段时间，总渐显时间由TuringDuration控制
-                yield return new WaitForSeconds(TuringDuration / 100.0F);
-            }
-
-            fadingIn = false; // 渐显完成，设置渐显标记为false
+            fadingIn = true; // 设置渐显标记为true
+            // 增加遮罩的透明度
+            image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a + 0.01F);
+            // 等待一段时间，总渐显时间由TuringDuration控制
+            yield return new WaitForSeconds(TuringDuration / 100.0F);
         }
+
+        fadingIn = false; // 渐显完成，设置渐显标记为false
     }
 }

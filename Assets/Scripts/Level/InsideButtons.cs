@@ -4,21 +4,22 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class InsideButtons : MonoBehaviour
 {
     public LevelLoader Loader;
+    public ChatBuilder chatBuilder;
     public Mask mask;
 
     public TMP_Text TipsText;
     public int TipsGotten;
 
-    public Flowchart flowchart;
-
     void Awake()
     {
         mask = GameObject.Find("Mask").GetComponent<Mask>();
         Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
+        chatBuilder = Camera.main.GetComponent<ChatBuilder>();
     }
 
     // 获取提示
@@ -42,7 +43,9 @@ public class InsideButtons : MonoBehaviour
 
     public void ShowDialogs()
     {
+        GetComponent<Button>().interactable = false;
         // 执行对话
-        flowchart.ExecuteBlock(Loader.level.chapter.ToString() + "-" + Loader.level.topic.ToString());
+        StartCoroutine(chatBuilder.StartDialog());
+        GetComponent<Button>().interactable = true;
     }
 }
