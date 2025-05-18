@@ -122,6 +122,60 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &35808562
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 35808563}
+  - component: {fileID: 35808564}
+  m_Layer: 0
+  m_Name: ChatBuilder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &35808563
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35808562}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 461.0191, y: 350.08804, z: -3.734437}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &35808564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35808562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42855a8accde39d45b64db4c2b4ae850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controller: {fileID: 1977161898}
+  Canvas: {fileID: 379298684}
+  NormalDialog: {fileID: 7616926415780298226, guid: f8943fd6ad1ea084b91fcc1befa32c06, type: 3}
+  SpecialDialog: {fileID: 1059436986816897530, guid: 2e6b1424cab998341bd35d4fea53bed5, type: 3}
+  ChoiceButton: {fileID: 836968967047355896, guid: 0e29c6eda6ac73a49bbc9d139ed39276, type: 3}
+  Choice: {fileID: 1833752559}
+  mask: {fileID: 1829415134}
+  Loader: {fileID: 0}
+  Collector: {fileID: 1833752562}
+  CG_Path: 
 --- !u!1 &59919272
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,7 +1121,6 @@ GameObject:
   - component: {fileID: 460953519}
   - component: {fileID: 460953518}
   - component: {fileID: 460953522}
-  - component: {fileID: 460953523}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1195,26 +1248,6 @@ MonoBehaviour:
   - "\u9AD8\u6E29+\u9AD8\u538B"
   DevelopText: {fileID: 795683730}
   Panel: {fileID: 515746133}
---- !u!114 &460953523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 460953517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42855a8accde39d45b64db4c2b4ae850, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Controller: {fileID: 1977161898}
-  Canvas: {fileID: 379298684}
-  NormalDialog: {fileID: 7616926415780298226, guid: f8943fd6ad1ea084b91fcc1befa32c06, type: 3}
-  SpecialDialog: {fileID: 1059436986816897530, guid: 2e6b1424cab998341bd35d4fea53bed5, type: 3}
-  ChoiceButton: {fileID: 836968967047355896, guid: 0e29c6eda6ac73a49bbc9d139ed39276, type: 3}
-  Choice: {fileID: 1833752559}
-  mask: {fileID: 1829415134}
-  Collector: {fileID: 1833752562}
 --- !u!1 &515746133
 GameObject:
   m_ObjectHideFlags: 0
@@ -1862,10 +1895,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Loader: {fileID: 0}
+  chatBuilder: {fileID: 0}
   mask: {fileID: 0}
   TipsText: {fileID: 671497742}
   TipsGotten: 0
-  flowchart: {fileID: 0}
 --- !u!1 &606161094
 GameObject:
   m_ObjectHideFlags: 0
@@ -4678,10 +4711,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Loader: {fileID: 0}
+  chatBuilder: {fileID: 0}
   mask: {fileID: 0}
   TipsText: {fileID: 671497742}
   TipsGotten: 0
-  flowchart: {fileID: 0}
 --- !u!1 &1408009831
 GameObject:
   m_ObjectHideFlags: 0
@@ -7708,10 +7741,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Loader: {fileID: 0}
+  chatBuilder: {fileID: 0}
   mask: {fileID: 0}
   TipsText: {fileID: 0}
   TipsGotten: 0
-  flowchart: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -7722,3 +7755,4 @@ SceneRoots:
   - {fileID: 1052886542}
   - {fileID: 409365064}
   - {fileID: 1977161897}
+  - {fileID: 35808563}

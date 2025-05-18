@@ -4,10 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class ChatBuilder : MonoBehaviour
 {
+    public static ChatBuilder Instance;
+
     public ChatController Controller;
     public GameObject Canvas;
 
@@ -18,15 +21,29 @@ public class ChatBuilder : MonoBehaviour
     public Transform Choice;
 
     public Mask mask;
+    public LevelLoader Loader;
     public ChoiceCollector Collector;
+
+    public string CG_Path;
 
     void Awake()
     {
+        Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
         mask = GameObject.Find("Mask").GetComponent<Mask>();
     }
 
     void Start()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // 确保该对象在切换场景时不会被销毁
+        }
+        else
+        {
+            Destroy(gameObject); // 销毁重复的实例
+        }
+
         StartCoroutine(StartDialog());
     }
 
@@ -37,11 +54,25 @@ public class ChatBuilder : MonoBehaviour
         int index = 0;
         List<string> single = new List<string>();
 
+        if (Controller.dialog.dialogs.Count == 0)
+        {
+            yield return null;
+        }
+
         // 确保对话时不能进行游戏操作
         mask.image.raycastTarget = true;
 
         do
         {
+            if (Collector == null)
+                Collector = GameObject.Find("Choice").GetComponent<ChoiceCollector>();
+            if (Choice == null)
+                Choice = GameObject.Find("Choice").transform;
+            if (Canvas == null)
+                Canvas = GameObject.Find("Canvas");
+            if (mask == null)
+                mask = GameObject.Find("Mask").GetComponent<Mask>();
+
             single = Controller.dialog.dialogs[index];
 
             // 普通对话
@@ -77,7 +108,7 @@ public class ChatBuilder : MonoBehaviour
                 Destroy(dia);
             }
 
-            // 自己对话(背景变暗)
+            // 冥想(背景变暗)
             if (single[0] == "1")
             {
                 if (index == 0)
@@ -129,6 +160,8 @@ public class ChatBuilder : MonoBehaviour
                 // 选项按钮的列表，方便后续处理
                 List<GameObject> allBtn = new List<GameObject>();
 
+                
+
                 // 遍历 json 中对每一个选项的描述
                 for (int i = 2; i < single.Count; i += 2)
                 {
@@ -140,7 +173,7 @@ public class ChatBuilder : MonoBehaviour
                     btn.GetComponentInChildren<TMP_Text>().text = content;  // 设置选项文本
                     allBtn.Add(btn);                                        // 加入按钮至列表
                 }
-
+                
                 // 没有点击选项就等待
                 yield return new WaitUntil(() => Collector.ChoiceJump != -1);
 
@@ -158,6 +191,27 @@ public class ChatBuilder : MonoBehaviour
                     StartCoroutine(mask.MaskFadeOut());
                 else if (Controller.dialog.dialogs[index][0] == "0")
                     StartCoroutine(mask.MaskFadeOut());
+            }
+
+            // 播放 CG
+            if (single[0] == "3")
+            {
+                if (index == 0)
+                    yield return new WaitUntil(() => { return mask.image.color.a <= 0.0F; });
+
+                CG_Path = single[1];
+                if (single[2] == "!") index = -1;
+                else index = StringToInt(single[2]);
+                // 切换场景到 CG.unity
+                StartCoroutine(mask.MaskFadeIn("CG"));
+
+                // 等待 CG 播放完成
+                // yield return new WaitUntil(() => );
+                yield return new WaitForSeconds(5.0F);
+
+                mask = GameObject.Find("Mask").GetComponent<Mask>();    // 获取 CG.unity 的 Mask
+                StartCoroutine(mask.MaskFadeIn("Level"));               // 返回 Level.unity
+                yield return new WaitUntil(() => { return SceneManager.GetActiveScene().name == "Level"; });
             }
         } while (index != -1);
 

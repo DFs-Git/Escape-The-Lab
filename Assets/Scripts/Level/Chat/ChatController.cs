@@ -12,6 +12,8 @@ public class Dialog
 
 public class ChatController : MonoBehaviour
 {
+    public static ChatController Instance;
+
     public LevelLoader Loader;
 
     public Dialog dialog;
@@ -26,5 +28,18 @@ public class ChatController : MonoBehaviour
         dialog = JsonConvert.DeserializeObject<Dialog>(json.text);
 
         Debug.Log(dialog.dialogs.Count);
+    }
+
+    void Start()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // 确保该对象在切换场景时不会被销毁
+        }
+        else
+        {
+            Destroy(gameObject); // 销毁重复的实例
+        }
     }
 }
