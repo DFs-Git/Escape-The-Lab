@@ -13,7 +13,7 @@
     第二项描述了说话的角色(Speaker)。
     第三项描述了说话的内容(Content)。
     第四项描述了本条对话结束后，跳转到的另一条对话的索引。
-    例如，["0", "Hitler", "Sieg Heil!", "1"] 表示 Hitler 说 "Sieg Heil!"，单击回车键(Enter)后跳转到索引为 1 的对话。
+    例如，["0", "Adolf Hitler", "Sieg Heil!", "1"] 表示 Adolf Hitler 说 "Sieg Heil!"，单击回车键(Enter)后跳转到索引为 1 的对话。
 如果第一项为 "1":
     第二项描述了冥想的内容(Content)。
     第三项描述了本条对话结束后，跳转到的另一条对话的索引。
