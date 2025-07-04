@@ -208,9 +208,15 @@ public class ChatBuilder : MonoBehaviour
                 // 等待 CG 播放完成
                 // 等待切换到场景 CG.unity，再等待播放完成
                 yield return new WaitUntil(() => { return SceneManager.GetActiveScene().name == "CG"; });
+                // 调低背景音乐音量
+                GameObject audioManager = GameObject.Find("AudioManager");
+                audioManager.GetComponent<AudioSource>().volume = 0f;
+                Debug.Log("Oh Ye");
                 CGPlay player = GameObject.Find("Video Player").GetComponent<CGPlay>();
                 yield return new WaitUntil(() => player.VideoCompleted);                    // 等待播放完成
 
+                // 音量恢复正常
+                audioManager.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("volume");
                 mask = GameObject.Find("Mask").GetComponent<Mask>();    // 获取 CG.unity 的 Mask
                 StartCoroutine(mask.MaskFadeIn("Level"));               // 返回 Level.unity
                 yield return new WaitUntil(() => { return SceneManager.GetActiveScene().name == "Level"; });
