@@ -49,7 +49,6 @@ public class ChatBuilder : MonoBehaviour
         Controller = GameObject.Find("ChatController").GetComponent<ChatController>();
 
         StartCoroutine(StartDialog());
-        // StartCoroutine(Debug_SceneName());
     }
 
     void Update()
@@ -74,15 +73,6 @@ public class ChatBuilder : MonoBehaviour
     public void BuilderShowDialog()
     {
         StartCoroutine(StartDialog());
-    }
-
-    public IEnumerator Debug_SceneName()
-    {
-        while (true)
-        {
-            Debug.Log("Scene: " + SceneManager.GetActiveScene().name);
-            yield return new WaitForSeconds(1);
-        }
     }
 
     public IEnumerator StartDialog()
@@ -248,7 +238,6 @@ public class ChatBuilder : MonoBehaviour
 
                 // 等待 CG 播放完成
                 // 等待切换到场景 CG.unity，再等待播放完成
-                Debug.Log(SceneManager.GetActiveScene().name);
                 yield return new WaitUntil(() => inCG);
                 
                 // 调低背景音乐音量

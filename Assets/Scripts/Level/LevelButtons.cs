@@ -10,6 +10,7 @@ public class LevelButtons : MonoBehaviour
 
     public LevelLoader Loader;
     public GameObject Loading;
+    public GameObject Warning;
 
     public Mask mask;
 
@@ -20,12 +21,14 @@ public class LevelButtons : MonoBehaviour
     {
         mask = GameObject.Find("Mask").GetComponent<Mask>();
         Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
+        Warning = GameObject.Find("Warning");
     }
 
     void Start()
     {
         flowchart = GameObject.Find("Attention").GetComponent<Flowchart>();
         Loading.SetActive(false);
+        // Warning.SetActive(false);
 
         int chapterNow = PlayerPrefs.GetInt("chapter");
         char charactor = '零';
@@ -120,7 +123,9 @@ public class LevelButtons : MonoBehaviour
         else
         {
             // 显示警告信息
-            flowchart.ExecuteBlock("Unlocked");
+            GameObject Warning = GameObject.Find("Warning's Father");
+            Warning.GetComponent<Unlocked>().UnlockedShow();
+            // flowchart.ExecuteBlock("Unlocked");
         }
     }
 
