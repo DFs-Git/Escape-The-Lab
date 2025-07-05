@@ -31,11 +31,11 @@ public class ChatBuilder : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // È·±£¸Ã¶ÔÏóÔÚÇĞ»»³¡¾°Ê±²»»á±»Ïú»Ù
+            DontDestroyOnLoad(gameObject); // ç¡®ä¿è¯¥å¯¹è±¡åœ¨åˆ‡æ¢åœºæ™¯æ—¶ä¸ä¼šè¢«é”€æ¯
         }
         else
         {
-            Destroy(gameObject); // Ïú»ÙÖØ¸´µÄÊµÀı
+            Destroy(gameObject); // é”€æ¯é‡å¤çš„å®ä¾‹
         }
     }
 
@@ -50,7 +50,7 @@ public class ChatBuilder : MonoBehaviour
 
     void Update()
     {
-        // È·±£¸ÃÊµÀıÖ»ÔÚ Level.unity »ò CG.unity ³öÏÖ
+        // ç¡®ä¿è¯¥å®ä¾‹åªåœ¨ Level.unity æˆ– CG.unity å‡ºç°
         if (SceneManager.GetActiveScene().name != "CG" &&
             SceneManager.GetActiveScene().name != "Level")
             Destroy(gameObject);
@@ -58,8 +58,8 @@ public class ChatBuilder : MonoBehaviour
 
     public IEnumerator StartDialog()
     {
-        // Ë÷ÒıÖ¸Õë£¬¼ÇÂ¼µ±Ç°½øĞĞÖĞµÄ¶Ô»°
-        // Èç¹û index Îª -1£¬ËµÃ÷±¾´Î¶Ô»°½áÊø
+        // ç´¢å¼•æŒ‡é’ˆï¼Œè®°å½•å½“å‰è¿›è¡Œä¸­çš„å¯¹è¯
+        // å¦‚æœ index ä¸º -1ï¼Œè¯´æ˜æœ¬æ¬¡å¯¹è¯ç»“æŸ
         int index = 0;
         List<string> single = new List<string>();
 
@@ -68,7 +68,7 @@ public class ChatBuilder : MonoBehaviour
             yield return null;
         }
 
-        // È·±£¶Ô»°Ê±²»ÄÜ½øĞĞÓÎÏ·²Ù×÷
+        // ç¡®ä¿å¯¹è¯æ—¶ä¸èƒ½è¿›è¡Œæ¸¸æˆæ“ä½œ
         mask.image.raycastTarget = true;
 
         do
@@ -84,21 +84,21 @@ public class ChatBuilder : MonoBehaviour
 
             single = Controller.dialog.dialogs[index];
 
-            // ÆÕÍ¨¶Ô»°
+            // æ™®é€šå¯¹è¯
             if (single[0] == "0")
             {
-                // »ñÈ¡¶Ô»°ÄÚÈİ
+                // è·å–å¯¹è¯å†…å®¹
                 string speaker = single[1];
                 string content = single[2];
 
-                // Éú³É¶Ô»°¿ò
+                // ç”Ÿæˆå¯¹è¯æ¡†
                 GameObject dia = Instantiate(NormalDialog, Canvas.transform);
                 GameObject spk = dia.transform.Find("Speaker").gameObject;
                 TMP_Text cont = dia.transform.Find("Content").gameObject.GetComponent<TMP_Text>();
 
                 spk.GetComponentInChildren<TMP_Text>().text = speaker;
 
-                // Êä³ö¶Ô»°ÄÚÈİ
+                // è¾“å‡ºå¯¹è¯å†…å®¹
                 cont.text = "";
                 for (int i = 0; i < content.Length; i++)
                 {
@@ -106,32 +106,32 @@ public class ChatBuilder : MonoBehaviour
                     yield return new WaitForSeconds(0.02F);
                 }
 
-                // ×¼±¸ÏÂÒ»´Î¶Ô»°
+                // å‡†å¤‡ä¸‹ä¸€æ¬¡å¯¹è¯
                 if (single[3] == "!") index = -1;
                 else index = StringToInt(single[3]);
                 Debug.Log("Next " + StringToInt(single[3]).ToString());
 
                 yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
 
-                // Ïú»Ù¶Ô»°¿ò
+                // é”€æ¯å¯¹è¯æ¡†
                 Destroy(dia);
             }
 
-            // Ú¤Ïë(±³¾°±ä°µ)
+            // å†¥æƒ³(èƒŒæ™¯å˜æš—)
             if (single[0] == "1")
             {
                 if (index == 0)
                     yield return new WaitUntil(() => { return mask.image.color.a <= 0.0F; });
                 StartCoroutine(mask.MaskFadeIn(0.8F));
 
-                // »ñÈ¡¶Ô»°ÄÚÈİ
+                // è·å–å¯¹è¯å†…å®¹
                 string content = single[1];
 
-                // Éú³É¶Ô»°¿ò
+                // ç”Ÿæˆå¯¹è¯æ¡†
                 GameObject dia = Instantiate(SpecialDialog, mask.transform);
                 TMP_Text cont = dia.GetComponent<TMP_Text>();
 
-                // Êä³ö¶Ô»°ÄÚÈİ
+                // è¾“å‡ºå¯¹è¯å†…å®¹
                 cont.text = "";
                 for (int i = 0; i < content.Length; i++)
                 {
@@ -139,15 +139,15 @@ public class ChatBuilder : MonoBehaviour
                     yield return new WaitForSeconds(0.02F);
                 }
 
-                // ×¼±¸ÏÂÒ»´Î¶Ô»°
+                // å‡†å¤‡ä¸‹ä¸€æ¬¡å¯¹è¯
                 if (single[2] == "!") index = -1;
                 else index = StringToInt(single[2]);
                 Debug.Log("Next " + StringToInt(single[2]).ToString());
 
-                // Ã»ÓĞ°´ÏÂ»Ø³µ¼ü¾ÍÒ»Ö±µÈ´ı
+                // æ²¡æœ‰æŒ‰ä¸‹å›è½¦é”®å°±ä¸€ç›´ç­‰å¾…
                 yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
 
-                // Ïú»Ù¶Ô»°¿ò
+                // é”€æ¯å¯¹è¯æ¡†
                 Destroy(dia);
 
                 if (index == -1)
@@ -156,41 +156,41 @@ public class ChatBuilder : MonoBehaviour
                     StartCoroutine(mask.MaskFadeOut());
             }
 
-            // Ñ¡Ôñ
+            // é€‰æ‹©
             if (single[0] == "2")
             {
                 if (index == 0)
                     yield return new WaitUntil(() => { return mask.image.color.a <= 0.0F; });
                 StartCoroutine(mask.MaskFadeIn(0.8F));
 
-                // »ñÈ¡Ñ¡Ïî¸öÊı
+                // è·å–é€‰é¡¹ä¸ªæ•°
                 int count = StringToInt(single[1]);
 
-                // Ñ¡Ïî°´Å¥µÄÁĞ±í£¬·½±ãºóĞø´¦Àí
+                // é€‰é¡¹æŒ‰é’®çš„åˆ—è¡¨ï¼Œæ–¹ä¾¿åç»­å¤„ç†
                 List<GameObject> allBtn = new List<GameObject>();
 
                 
 
-                // ±éÀú json ÖĞ¶ÔÃ¿Ò»¸öÑ¡ÏîµÄÃèÊö
+                // éå† json ä¸­å¯¹æ¯ä¸€ä¸ªé€‰é¡¹çš„æè¿°
                 for (int i = 2; i < single.Count; i += 2)
                 {
-                    string content = single[i];                             // Ñ¡ÏîÄÚÈİ
-                    int jump = StringToInt(single[i + 1]);                  // µã»÷Ñ¡ÏîºóÌø×ªµ½µÄ¶Ô»°
+                    string content = single[i];                             // é€‰é¡¹å†…å®¹
+                    int jump = StringToInt(single[i + 1]);                  // ç‚¹å‡»é€‰é¡¹åè·³è½¬åˆ°çš„å¯¹è¯
 
-                    GameObject btn = Instantiate(ChoiceButton, Choice);     // Éú³ÉÑ¡Ïî°´Å¥
-                    btn.GetComponent<ChatButton>().jump = jump;             // ÉèÖÃÑ¡ÏîÌø×ª
-                    btn.GetComponentInChildren<TMP_Text>().text = content;  // ÉèÖÃÑ¡ÏîÎÄ±¾
-                    allBtn.Add(btn);                                        // ¼ÓÈë°´Å¥ÖÁÁĞ±í
+                    GameObject btn = Instantiate(ChoiceButton, Choice);     // ç”Ÿæˆé€‰é¡¹æŒ‰é’®
+                    btn.GetComponent<ChatButton>().jump = jump;             // è®¾ç½®é€‰é¡¹è·³è½¬
+                    btn.GetComponentInChildren<TMP_Text>().text = content;  // è®¾ç½®é€‰é¡¹æ–‡æœ¬
+                    allBtn.Add(btn);                                        // åŠ å…¥æŒ‰é’®è‡³åˆ—è¡¨
                 }
                 
-                // Ã»ÓĞµã»÷Ñ¡Ïî¾ÍµÈ´ı
+                // æ²¡æœ‰ç‚¹å‡»é€‰é¡¹å°±ç­‰å¾…
                 yield return new WaitUntil(() => Collector.ChoiceJump != -1);
 
-                // ½«Ö¸Õë(index)Ìø×ªµ½Ó¦¸ÃÌø×ªµÄË÷Òı
+                // å°†æŒ‡é’ˆ(index)è·³è½¬åˆ°åº”è¯¥è·³è½¬çš„ç´¢å¼•
                 index = Collector.ChoiceJump;
                 Collector.ChoiceJump = -1;
 
-                // Ïú»ÙËùÓĞ°´Å¥
+                // é”€æ¯æ‰€æœ‰æŒ‰é’®
                 foreach (GameObject btn in allBtn)
                 {
                     Destroy(btn);
@@ -202,7 +202,7 @@ public class ChatBuilder : MonoBehaviour
                     StartCoroutine(mask.MaskFadeOut());
             }
 
-            // ²¥·Å CG
+            // æ’­æ”¾ CG
             if (single[0] == "3")
             {
                 Debug.Log("Dialog goes into " + index.ToString());
@@ -213,33 +213,33 @@ public class ChatBuilder : MonoBehaviour
                 CG_Path = single[1];
                 if (single[2] == "!") index = -1;
                 else index = StringToInt(single[2]);
-                // ÇĞ»»³¡¾°µ½ CG.unity
+                // åˆ‡æ¢åœºæ™¯åˆ° CG.unity
                 StartCoroutine(mask.MaskFadeIn("CG"));
 
-                // µÈ´ı CG ²¥·ÅÍê³É
-                // µÈ´ıÇĞ»»µ½³¡¾° CG.unity£¬ÔÙµÈ´ı²¥·ÅÍê³É
+                // ç­‰å¾… CG æ’­æ”¾å®Œæˆ
+                // ç­‰å¾…åˆ‡æ¢åˆ°åœºæ™¯ CG.unityï¼Œå†ç­‰å¾…æ’­æ”¾å®Œæˆ
                 
                 yield return new WaitUntil(() => { return SceneManager.GetActiveScene().name == "CG"; });
                 Debug.Log(SceneManager.GetActiveScene().name);
-                // µ÷µÍ±³¾°ÒôÀÖÒôÁ¿
+                // è°ƒä½èƒŒæ™¯éŸ³ä¹éŸ³é‡
                 GameObject audioManager = GameObject.Find("AudioManager");
                 audioManager.GetComponent<AudioSource>().volume = 0f;
                 CGPlay player = GameObject.Find("Video Player").GetComponent<CGPlay>();
-                yield return new WaitUntil(() => player.VideoCompleted);                    // µÈ´ı²¥·ÅÍê³É
+                yield return new WaitUntil(() => player.VideoCompleted);                    // ç­‰å¾…æ’­æ”¾å®Œæˆ
 
-                // ÒôÁ¿»Ö¸´Õı³£
+                // éŸ³é‡æ¢å¤æ­£å¸¸
                 audioManager.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("volume");
-                mask = GameObject.Find("Mask").GetComponent<Mask>();    // »ñÈ¡ CG.unity µÄ Mask
-                StartCoroutine(mask.MaskFadeIn("Level"));               // ·µ»Ø Level.unity
+                mask = GameObject.Find("Mask").GetComponent<Mask>();    // è·å– CG.unity çš„ Mask
+                StartCoroutine(mask.MaskFadeIn("Level"));               // è¿”å› Level.unity
                 yield return new WaitUntil(() => { return SceneManager.GetActiveScene().name == "Level"; });
             }
         } while (index != -1);
 
-        // ½â³ı²Ù×÷È¨ÏŞ
+        // è§£é™¤æ“ä½œæƒé™
         mask.image.raycastTarget = false;
     }
 
-    // ÊµÏÖ×Ö·û´®×ªÊı×Ö(Î´ÅĞÌØÊâÇé¿ö)
+    // å®ç°å­—ç¬¦ä¸²è½¬æ•°å­—(æœªåˆ¤ç‰¹æ®Šæƒ…å†µ)
     public int StringToInt(string s)
     {
         int res = 0;

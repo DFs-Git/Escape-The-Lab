@@ -29,11 +29,11 @@ public class ChatController : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // È·±£¸Ã¶ÔÏóÔÚÇĞ»»³¡¾°Ê±²»»á±»Ïú»Ù
+            DontDestroyOnLoad(gameObject); // ç¡®ä¿è¯¥å¯¹è±¡åœ¨åˆ‡æ¢åœºæ™¯æ—¶ä¸ä¼šè¢«é”€æ¯
         }
         else
         {
-            Destroy(gameObject); // Ïú»ÙÖØ¸´µÄÊµÀı
+            Destroy(gameObject); // é”€æ¯é‡å¤çš„å®ä¾‹
         }
     }
 }

@@ -6,19 +6,19 @@ using UnityEngine.Video;
 
 public class CGPlay : MonoBehaviour
 {
-    // ½øÈë CG.unity ¿ªÊ¼µ÷ÓÃ
-    // ÏÈ»ñÈ¡ ChatBuilder.cs ÖĞ CG µÄÎ»ÖÃ
+    // è¿›å…¥ CG.unity å¼€å§‹è°ƒç”¨
+    // å…ˆè·å– ChatBuilder.cs ä¸­ CG çš„ä½ç½®
     public ChatBuilder Builder;
 
-    public RawImage rawImage;   //ÓÃÓÚÔÚUIÖĞÏÔÊ¾ÊÓÆµµÄÍ¼Ïñ
+    public RawImage rawImage;   //ç”¨äºåœ¨UIä¸­æ˜¾ç¤ºè§†é¢‘çš„å›¾åƒ
     public VideoClip clip;
-    private VideoPlayer videoPlayer;  //ÊÓÆµ²¥·ÅÆ÷×é¼ş
+    private VideoPlayer videoPlayer;  //è§†é¢‘æ’­æ”¾å™¨ç»„ä»¶
 
     public bool VideoCompleted = false;
 
     void Awake()
     {
-        // »ñÈ¡ ChatBuilder
+        // è·å– ChatBuilder
         Builder = GameObject.Find("ChatBuilder").GetComponent<ChatBuilder>();
     }
 
@@ -27,32 +27,32 @@ public class CGPlay : MonoBehaviour
         VideoCompleted = false;
         clip = Resources.Load<VideoClip>(Builder.CG_Path);
 
-        videoPlayer = gameObject.GetComponent<VideoPlayer>();      //»ñÈ¡VideoPlayer×é¼ş
-        videoPlayer.prepareCompleted += OnVideoPrepared;         //×¢²áÊÓÆµ×¼±¸Íê³ÉÊ±Ö´ĞĞµÄ»Øµ÷·½·¨
-        videoPlayer.errorReceived += OnVideoError;  //×¢²áµ±ÊÓÆµÎ´»ñÈ¡µ½Ê±Ö´ĞĞµÄ»Øµ÷º¯Êı
+        videoPlayer = gameObject.GetComponent<VideoPlayer>();      //è·å–VideoPlayerç»„ä»¶
+        videoPlayer.prepareCompleted += OnVideoPrepared;         //æ³¨å†Œè§†é¢‘å‡†å¤‡å®Œæˆæ—¶æ‰§è¡Œçš„å›è°ƒæ–¹æ³•
+        videoPlayer.errorReceived += OnVideoError;  //æ³¨å†Œå½“è§†é¢‘æœªè·å–åˆ°æ—¶æ‰§è¡Œçš„å›è°ƒå‡½æ•°
         videoPlayer.clip = clip;
 
-        videoPlayer.loopPointReached += OnVideoFinished;  //×¢²áÊÓÆµ²¥·Å½áÊøÊ±Ö´ĞĞµÄ»Øµ÷º¯Êı
+        videoPlayer.loopPointReached += OnVideoFinished;  //æ³¨å†Œè§†é¢‘æ’­æ”¾ç»“æŸæ—¶æ‰§è¡Œçš„å›è°ƒå‡½æ•°
     }
 
-    //ÊÓÆµ×¼±¸Íê³ÉÊ±Ö´ĞĞµÄ»Øµ÷·½·¨
+    //è§†é¢‘å‡†å¤‡å®Œæˆæ—¶æ‰§è¡Œçš„å›è°ƒæ–¹æ³•
     private void OnVideoPrepared(VideoPlayer source)
     {
         // Debug.Log("Well done");
         rawImage.texture = source.texture;
     }
-    //µ±ÊÓÆµÎ´»ñÈ¡µ½Ê±Ö´ĞĞµÄ»Øµ÷º¯Êı
+    //å½“è§†é¢‘æœªè·å–åˆ°æ—¶æ‰§è¡Œçš„å›è°ƒå‡½æ•°
     private void OnVideoError(VideoPlayer source, string message)
     {
         // Debug.LogError("Video error: " + message);
     }
-    //ÊÓÆµ²¥·Å½áÊøÊ±Ö´ĞĞµÄ»Øµ÷º¯Êı
+    //è§†é¢‘æ’­æ”¾ç»“æŸæ—¶æ‰§è¡Œçš„å›è°ƒå‡½æ•°
     private void OnVideoFinished(VideoPlayer vp)
     {
-        // Debug.Log("ÊÓÆµ²¥·ÅÍê±Ï£¡");
-        // ÔÚÕâÀïÖ´ĞĞÊÓÆµ²¥·ÅÍê±ÏºóµÄÂß¼­
+        // Debug.Log("è§†é¢‘æ’­æ”¾å®Œæ¯•ï¼");
+        // åœ¨è¿™é‡Œæ‰§è¡Œè§†é¢‘æ’­æ”¾å®Œæ¯•åçš„é€»è¾‘
 
-        // Íê³É²¥·Å
+        // å®Œæˆæ’­æ”¾
         VideoCompleted = true;
     }
 }
