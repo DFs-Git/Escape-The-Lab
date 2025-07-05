@@ -5550,7 +5550,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1564117171}
         m_TargetAssemblyTypeName: ResetButton, Assembly-CSharp
-        m_MethodName: Cliked
+        m_MethodName: Clicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

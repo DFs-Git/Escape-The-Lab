@@ -47,7 +47,9 @@ public class InsideButtons : MonoBehaviour
         // 执行对话
         chatBuilder = GameObject.Find("ChatBuilder").GetComponent<ChatBuilder>();
         Debug.Log(chatBuilder.CG_Path);
-        StartCoroutine(chatBuilder.StartDialog());
+        // 这里卡了我一整天，才知道开启协程的脚本，被销毁后会直接停止该协程。
+        // 馬鹿野郎！！
+        chatBuilder.BuilderShowDialog();
         GetComponent<Button>().interactable = true;
     }
 }

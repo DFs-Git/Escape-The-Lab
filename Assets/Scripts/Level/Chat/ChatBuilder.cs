@@ -26,6 +26,9 @@ public class ChatBuilder : MonoBehaviour
 
     public string CG_Path;
 
+    public bool inCG = false;
+    public bool inLevel = true;
+
     void Awake()
     {
         if (Instance == null)
@@ -38,7 +41,7 @@ public class ChatBuilder : MonoBehaviour
             Destroy(gameObject); // 销毁重复的实例
         }
     }
-
+    
     void Start()
     {
         Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
@@ -46,6 +49,7 @@ public class ChatBuilder : MonoBehaviour
         Controller = GameObject.Find("ChatController").GetComponent<ChatController>();
 
         StartCoroutine(StartDialog());
+        // StartCoroutine(Debug_SceneName());
     }
 
     void Update()
@@ -54,6 +58,31 @@ public class ChatBuilder : MonoBehaviour
         if (SceneManager.GetActiveScene().name != "CG" &&
             SceneManager.GetActiveScene().name != "Level")
             Destroy(gameObject);
+
+        if (SceneManager.GetActiveScene().name == "CG")
+        {
+            inCG = true;
+            inLevel = false;
+        }
+        if (SceneManager.GetActiveScene().name == "Level")
+        {
+            inCG = false;
+            inLevel = true;
+        }
+    }
+
+    public void BuilderShowDialog()
+    {
+        StartCoroutine(StartDialog());
+    }
+
+    public IEnumerator Debug_SceneName()
+    {
+        while (true)
+        {
+            Debug.Log("Scene: " + SceneManager.GetActiveScene().name);
+            yield return new WaitForSeconds(1);
+        }
     }
 
     public IEnumerator StartDialog()
@@ -67,6 +96,9 @@ public class ChatBuilder : MonoBehaviour
         {
             yield return null;
         }
+
+        if (mask == null)
+            mask = GameObject.Find("Mask").GetComponent<Mask>();
 
         // 确保对话时不能进行游戏操作
         mask.image.raycastTarget = true;
@@ -205,8 +237,6 @@ public class ChatBuilder : MonoBehaviour
             // 播放 CG
             if (single[0] == "3")
             {
-                Debug.Log("Dialog goes into " + index.ToString());
-
                 if (index == 0)
                     yield return new WaitUntil(() => { return mask.image.color.a <= 0.0F; });
 
@@ -218,9 +248,9 @@ public class ChatBuilder : MonoBehaviour
 
                 // 等待 CG 播放完成
                 // 等待切换到场景 CG.unity，再等待播放完成
-                
-                yield return new WaitUntil(() => { return SceneManager.GetActiveScene().name == "CG"; });
                 Debug.Log(SceneManager.GetActiveScene().name);
+                yield return new WaitUntil(() => inCG);
+                
                 // 调低背景音乐音量
                 GameObject audioManager = GameObject.Find("AudioManager");
                 audioManager.GetComponent<AudioSource>().volume = 0f;
@@ -231,7 +261,7 @@ public class ChatBuilder : MonoBehaviour
                 audioManager.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("volume");
                 mask = GameObject.Find("Mask").GetComponent<Mask>();    // 获取 CG.unity 的 Mask
                 StartCoroutine(mask.MaskFadeIn("Level"));               // 返回 Level.unity
-                yield return new WaitUntil(() => { return SceneManager.GetActiveScene().name == "Level"; });
+                yield return new WaitUntil(() => inLevel);
             }
         } while (index != -1);
 

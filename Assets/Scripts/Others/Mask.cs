@@ -44,7 +44,7 @@ public class Mask : MonoBehaviour
     // 遮罩渐显的协程
     public IEnumerator MaskFadeIn(string sceneName)
     {
-        // 如果遮罩正在渐隐，停止渐隐协程
+        // 如果遮罩正在渐隐，等待渐隐完成
         yield return new WaitUntil(() => !fadingOut);
 
         // 如果遮罩不在渐隐状态
@@ -69,7 +69,7 @@ public class Mask : MonoBehaviour
     // 遮罩渐显至指定透明度的协程
     public IEnumerator MaskFadeIn(float alpha)
     {
-        // 如果遮罩正在渐隐，停止渐隐协程
+        // 如果遮罩正在渐隐，等待渐隐完成
         yield return new WaitUntil(() => !fadingOut);
 
         // 如果遮罩不在渐隐状态

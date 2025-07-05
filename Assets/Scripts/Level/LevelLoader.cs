@@ -183,7 +183,6 @@ public class LevelLoader : MonoBehaviour
         mask = GameObject.Find("Mask").GetComponent<Mask>();
 
         // 跳转到Level场景
-        if (level.type == 1)
-            StartCoroutine(mask.MaskFadeIn("Level"));
+        StartCoroutine(mask.MaskFadeIn("Level"));
     }
 }

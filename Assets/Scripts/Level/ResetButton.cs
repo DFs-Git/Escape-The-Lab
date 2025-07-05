@@ -13,12 +13,14 @@ public class ResetButton : MonoBehaviour
         mask = GameObject.Find("Mask").GetComponent<Mask>();
     }
 
-    public void Cliked()
+    public void Clicked()
     {
         //ReactionPool.MolChemicalsInReactionPool.Clear();
         // 获取当前场景的索引并重新加载
         string currentSceneName = SceneManager.GetActiveScene().name;
-        StartCoroutine(mask.MaskFadeIn(currentSceneName));
+        // StartCoroutine(mask.MaskFadeIn(currentSceneName));
+        LevelLoader Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
+        Loader.LoadLevel(Loader.level.chapter, Loader.level.topic);
         // SceneManager.LoadScene(currentSceneIndex);
     }
 }
