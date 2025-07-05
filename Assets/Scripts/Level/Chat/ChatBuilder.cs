@@ -28,12 +28,6 @@ public class ChatBuilder : MonoBehaviour
 
     void Awake()
     {
-        Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
-        mask = GameObject.Find("Mask").GetComponent<Mask>();
-    }
-
-    void Start()
-    {
         if (Instance == null)
         {
             Instance = this;
@@ -43,8 +37,23 @@ public class ChatBuilder : MonoBehaviour
         {
             Destroy(gameObject); // 销毁重复的实例
         }
+    }
+
+    void Start()
+    {
+        Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
+        mask = GameObject.Find("Mask").GetComponent<Mask>();
+        Controller = GameObject.Find("ChatController").GetComponent<ChatController>();
 
         StartCoroutine(StartDialog());
+    }
+
+    void Update()
+    {
+        // 确保该实例只在 Level.unity 或 CG.unity 出现
+        if (SceneManager.GetActiveScene().name != "CG" &&
+            SceneManager.GetActiveScene().name != "Level")
+            Destroy(gameObject);
     }
 
     public IEnumerator StartDialog()
@@ -196,6 +205,8 @@ public class ChatBuilder : MonoBehaviour
             // 播放 CG
             if (single[0] == "3")
             {
+                Debug.Log("Dialog goes into " + index.ToString());
+
                 if (index == 0)
                     yield return new WaitUntil(() => { return mask.image.color.a <= 0.0F; });
 
@@ -207,11 +218,12 @@ public class ChatBuilder : MonoBehaviour
 
                 // 等待 CG 播放完成
                 // 等待切换到场景 CG.unity，再等待播放完成
+                
                 yield return new WaitUntil(() => { return SceneManager.GetActiveScene().name == "CG"; });
+                Debug.Log(SceneManager.GetActiveScene().name);
                 // 调低背景音乐音量
                 GameObject audioManager = GameObject.Find("AudioManager");
                 audioManager.GetComponent<AudioSource>().volume = 0f;
-                Debug.Log("Oh Ye");
                 CGPlay player = GameObject.Find("Video Player").GetComponent<CGPlay>();
                 yield return new WaitUntil(() => player.VideoCompleted);                    // 等待播放完成
 

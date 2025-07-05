@@ -8532,6 +8532,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1262703546}
   m_CullTransparentMesh: 1
+--- !u!1 &1285653043
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1285653045}
+  - component: {fileID: 1285653044}
+  m_Layer: 0
+  m_Name: ChatController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1285653044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285653043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e772845d8304b48449990a7c876ec141, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Loader: {fileID: 0}
+--- !u!4 &1285653045
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285653043}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5109716, y: 0.16237527, z: -9.9518175}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1294371422
 GameObject:
   m_ObjectHideFlags: 0
@@ -14474,6 +14519,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77b254a93c5ae224581e9f2ac0755412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level:
+    type: 0
+    chapter: 0
+    topic: 0
+    title: 
+    task_description: 
+    tips: []
+    offered: 
+    commit: 
+    reaction_condition: 
   mask: {fileID: 0}
 --- !u!1 &2061381177
 GameObject:
@@ -15207,3 +15262,4 @@ SceneRoots:
   - {fileID: 1628579594}
   - {fileID: 472299157}
   - {fileID: 2080023808}
+  - {fileID: 1285653045}

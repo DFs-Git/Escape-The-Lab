@@ -46,6 +46,7 @@ public class InsideButtons : MonoBehaviour
         GetComponent<Button>().interactable = false;
         // 执行对话
         chatBuilder = GameObject.Find("ChatBuilder").GetComponent<ChatBuilder>();
+        Debug.Log(chatBuilder.CG_Path);
         StartCoroutine(chatBuilder.StartDialog());
         GetComponent<Button>().interactable = true;
     }

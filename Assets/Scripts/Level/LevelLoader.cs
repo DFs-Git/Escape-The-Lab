@@ -171,7 +171,14 @@ public class LevelLoader : MonoBehaviour
             reaction_condition = tempLevel.reaction_condition.Select(x => Convert.ToInt32(x)).ToList()
         };
 
-        Debug.Log(level.ToString());
+        // 加载对话信息
+        // 读取对话json文件
+        TextAsset chatJson = Resources.Load<TextAsset>("Dialogues/dialog" + chapter.ToString()
+            + "-" + topic.ToString());
+        ChatController Chat = GameObject.Find("ChatController").GetComponent<ChatController>();
+        Chat.dialog = JsonConvert.DeserializeObject<Dialog>(chatJson.text);
+
+        // Debug.Log(level.ToString());
 
         mask = GameObject.Find("Mask").GetComponent<Mask>();
 

@@ -38,18 +38,18 @@ public class CGPlay : MonoBehaviour
     //视频准备完成时执行的回调方法
     private void OnVideoPrepared(VideoPlayer source)
     {
-        Debug.Log("Well done");
+        // Debug.Log("Well done");
         rawImage.texture = source.texture;
     }
     //当视频未获取到时执行的回调函数
     private void OnVideoError(VideoPlayer source, string message)
     {
-        Debug.LogError("Video error: " + message);
+        // Debug.LogError("Video error: " + message);
     }
     //视频播放结束时执行的回调函数
     private void OnVideoFinished(VideoPlayer vp)
     {
-        Debug.Log("视频播放完毕！");
+        // Debug.Log("视频播放完毕！");
         // 在这里执行视频播放完毕后的逻辑
 
         // 完成播放
