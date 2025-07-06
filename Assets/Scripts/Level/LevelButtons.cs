@@ -14,9 +14,6 @@ public class LevelButtons : MonoBehaviour
 
     public Mask mask;
 
-    [HideInInspector]
-    public Flowchart flowchart;
-
     void Awake()
     {
         mask = GameObject.Find("Mask").GetComponent<Mask>();
@@ -26,7 +23,6 @@ public class LevelButtons : MonoBehaviour
 
     void Start()
     {
-        flowchart = GameObject.Find("Attention").GetComponent<Flowchart>();
         Loading.SetActive(false);
         // Warning.SetActive(false);
 
@@ -156,5 +152,8 @@ public class LevelButtons : MonoBehaviour
         PlayerPrefs.SetInt("chapter", 0);
         PlayerPrefs.SetInt("topic", 0);
         PlayerPrefs.Save();
+
+        // 重新载入
+        StartCoroutine(mask.MaskFadeIn("ChooseLevel"));
     }
 }

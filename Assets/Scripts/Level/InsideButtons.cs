@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class InsideButtons : MonoBehaviour
 {
     public LevelLoader Loader;
+    public ChatController chatController;
     public ChatBuilder chatBuilder;
     public Mask mask;
 
@@ -19,7 +20,6 @@ public class InsideButtons : MonoBehaviour
     {
         mask = GameObject.Find("Mask").GetComponent<Mask>();
         Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
-        chatBuilder = Camera.main.GetComponent<ChatBuilder>();
     }
 
     // 获取提示
@@ -46,10 +46,10 @@ public class InsideButtons : MonoBehaviour
         GetComponent<Button>().interactable = false;
         // 执行对话
         chatBuilder = GameObject.Find("ChatBuilder").GetComponent<ChatBuilder>();
-        Debug.Log(chatBuilder.CG_Path);
-        // 这里卡了我一整天，才知道开启协程的脚本，被销毁后会直接停止该协程。
-        // 馬鹿野郎！！
-        chatBuilder.BuilderShowDialog();
+        chatController = GameObject.Find("ChatController").GetComponent<ChatController>();
+        // 先加载当前关卡的对话
+        chatController.LoadChat("dialog" + Loader.level.chapter.ToString() + "-" + Loader.level.topic.ToString());
+        chatBuilder.BuilderShowDialog(() => { });
         GetComponent<Button>().interactable = true;
     }
 }

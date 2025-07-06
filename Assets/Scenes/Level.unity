@@ -438,7 +438,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Loader: {fileID: 0}
-  flowchart: {fileID: 0}
+  chatController: {fileID: 1977161898}
+  chatBuilder: {fileID: 35808564}
   CommitDescription: {fileID: 561309607}
   CommitChemicals: []
 --- !u!1 &90766922
@@ -1895,6 +1896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Loader: {fileID: 0}
+  chatController: {fileID: 0}
   chatBuilder: {fileID: 0}
   mask: {fileID: 0}
   TipsText: {fileID: 671497742}
@@ -4711,6 +4713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Loader: {fileID: 0}
+  chatController: {fileID: 0}
   chatBuilder: {fileID: 0}
   mask: {fileID: 0}
   TipsText: {fileID: 671497742}
@@ -6759,7 +6762,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Loader: {fileID: 0}
-  flowchart: {fileID: 0}
+  chatController: {fileID: 0}
+  chatBuilder: {fileID: 0}
   CommitDescription: {fileID: 561309607}
   CommitChemicals: []
 --- !u!1 &1955382325
@@ -6844,7 +6848,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1133741978}
   m_HandleRect: {fileID: 1133741977}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -7741,6 +7745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Loader: {fileID: 0}
+  chatController: {fileID: 0}
   chatBuilder: {fileID: 0}
   mask: {fileID: 0}
   TipsText: {fileID: 0}

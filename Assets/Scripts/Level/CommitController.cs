@@ -5,11 +5,15 @@ using TMPro;
 using UnityEngine;
 using CL = ChemicalLoader;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using System;
 
 public class CommitController : MonoBehaviour
 {
     public LevelLoader Loader;
-    public Flowchart flowchart;
+    // public Flowchart flowchart;
+    public ChatController chatController;
+    public ChatBuilder chatBuilder;
 
     public TMP_Text CommitDescription;
 
@@ -19,7 +23,10 @@ public class CommitController : MonoBehaviour
     void Awake()
     {
         CL.LoadChemicals();
+        // 获取组件
         Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
+        chatController = GameObject.Find("ChatController").GetComponent<ChatController>();
+        chatBuilder = GameObject.Find("ChatBuilder").GetComponent<ChatBuilder>();
     }
 
     void Start()
@@ -80,18 +87,49 @@ public class CommitController : MonoBehaviour
         Success();
     }
 
+    // 判断资源是否存在
+    public bool ResourceExists(string resourceName)
+    {
+        return Resources.Load<UnityEngine.Object>(resourceName) != null;
+    }
+
     public void Success()
     {
+        // 判断是不是通关了正在进行中的关卡，如果不是就不做任何事
         if (Loader.level.chapter == PlayerPrefs.GetInt("chapter") &&
             Loader.level.topic == PlayerPrefs.GetInt("topic"))
         {
-            if (Loader.level.chapter != 6 || Loader.level.topic != 10)
+            // Debug.Log("not Last");
+            // flowchart.ExecuteBlock("Pass");
+            GetComponent<Button>().interactable = false;
+
+            chatController.LoadChat("Pass");
+            chatBuilder.BuilderShowDialog(() =>
             {
-                Debug.Log("not Last");
-                flowchart.ExecuteBlock("Pass");
-            }
-                //初始章节
-                if (PlayerPrefs.GetInt("chapter") == 0)
+                // 可能存在通关后的特殊对话
+                // dialogx-x-after 这样式的
+                if (ResourceExists("Dialogues/dialog" + Loader.level.chapter.ToString() + "-" + Loader.level.topic.ToString() + "-after"))
+                {
+                    // 加载它
+                    chatController.LoadChat("dialog" + Loader.level.chapter.ToString() + "-" + Loader.level.topic.ToString() + "-after");
+                    chatBuilder.BuilderShowDialog(() => {
+                        if (Loader.mask == null)
+                            Loader.mask = GameObject.Find("Mask").GetComponent<Mask>();
+                        StartCoroutine(Loader.mask.MaskFadeIn("ChooseLevel"));
+                    });
+                }
+                else
+                {
+                    // 没有特殊对话，直接返回关卡选择界面
+                    if (Loader.mask == null)
+                        Loader.mask = GameObject.Find("Mask").GetComponent<Mask>();
+                    StartCoroutine(Loader.mask.MaskFadeIn("ChooseLevel"));
+                }
+            });
+
+            /// 处理关卡进度
+            //初始章节
+            if (PlayerPrefs.GetInt("chapter") == 0)
             {
                 PlayerPrefs.SetInt("chapter", 1);
                 PlayerPrefs.SetInt("topic", 1);
@@ -127,14 +165,20 @@ public class CommitController : MonoBehaviour
             else if (PlayerPrefs.GetInt("chapter") == 6 && PlayerPrefs.GetInt("topic") == 10)
             {
                 PlayerPrefs.SetInt("topic", 11);
-                Debug.Log("Last");
-                flowchart.ExecuteBlock("After");
             }
         }
     }
 
+    // 提交错误
     public void Failed()
     {
-        flowchart.ExecuteBlock("NotPass");
+        // flowchart.ExecuteBlock("NotPass");
+        // 禁用 button
+        GetComponent<Button>().interactable = false;
+        chatController.LoadChat("NotPass");
+        chatBuilder.BuilderShowDialog(() => {
+            // 恢复 button
+            GetComponent<Button>().interactable = true;
+        });
     }
 }

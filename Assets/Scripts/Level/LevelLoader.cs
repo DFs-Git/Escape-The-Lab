@@ -172,11 +172,8 @@ public class LevelLoader : MonoBehaviour
         };
 
         // 加载对话信息
-        // 读取对话json文件
-        TextAsset chatJson = Resources.Load<TextAsset>("Dialogues/dialog" + chapter.ToString()
-            + "-" + topic.ToString());
         ChatController Chat = GameObject.Find("ChatController").GetComponent<ChatController>();
-        Chat.dialog = JsonConvert.DeserializeObject<Dialog>(chatJson.text);
+        Chat.LoadChat("dialog" + chapter.ToString() + "-" + topic.ToString());
 
         // Debug.Log(level.ToString());
 

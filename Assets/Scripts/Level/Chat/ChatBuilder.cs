@@ -1,5 +1,6 @@
 using Fungus;
 using MoonSharp.Interpreter;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -26,9 +27,6 @@ public class ChatBuilder : MonoBehaviour
 
     public string CG_Path;
 
-    public bool inCG = false;
-    public bool inLevel = true;
-
     void Awake()
     {
         if (Instance == null)
@@ -48,7 +46,7 @@ public class ChatBuilder : MonoBehaviour
         mask = GameObject.Find("Mask").GetComponent<Mask>();
         Controller = GameObject.Find("ChatController").GetComponent<ChatController>();
 
-        StartCoroutine(StartDialog());
+        StartCoroutine(StartDialog(() => { }));
     }
 
     void Update()
@@ -57,25 +55,18 @@ public class ChatBuilder : MonoBehaviour
         if (SceneManager.GetActiveScene().name != "CG" &&
             SceneManager.GetActiveScene().name != "Level")
             Destroy(gameObject);
-
-        if (SceneManager.GetActiveScene().name == "CG")
-        {
-            inCG = true;
-            inLevel = false;
-        }
-        if (SceneManager.GetActiveScene().name == "Level")
-        {
-            inCG = false;
-            inLevel = true;
-        }
     }
 
-    public void BuilderShowDialog()
+    // 让 ChatBuilder 开启协程，防止开启协程的对象不确定被销毁而导致协程意外终止
+    public void BuilderShowDialog(Action action_after)
     {
-        StartCoroutine(StartDialog());
+        StartCoroutine(StartDialog(action_after));
     }
 
-    public IEnumerator StartDialog()
+    // 参数 action_after 是对话结束后执行的回调函数
+    // 如果没有想要执行的回调函数，可以传入一个空的 Action
+    // 你甚至可以用这个把几个对话串联起来……
+    public IEnumerator StartDialog(Action action_after)
     {
         // 索引指针，记录当前进行中的对话
         // 如果 index 为 -1，说明本次对话结束
@@ -90,9 +81,6 @@ public class ChatBuilder : MonoBehaviour
         if (mask == null)
             mask = GameObject.Find("Mask").GetComponent<Mask>();
 
-        // 确保对话时不能进行游戏操作
-        mask.image.raycastTarget = true;
-
         do
         {
             if (Collector == null)
@@ -104,6 +92,8 @@ public class ChatBuilder : MonoBehaviour
             if (mask == null)
                 mask = GameObject.Find("Mask").GetComponent<Mask>();
 
+            // 确保对话时不能操作
+            mask.image.raycastTarget = true;
             single = Controller.dialog.dialogs[index];
 
             // 普通对话
@@ -191,13 +181,12 @@ public class ChatBuilder : MonoBehaviour
                 // 选项按钮的列表，方便后续处理
                 List<GameObject> allBtn = new List<GameObject>();
 
-                
-
                 // 遍历 json 中对每一个选项的描述
                 for (int i = 2; i < single.Count; i += 2)
                 {
                     string content = single[i];                             // 选项内容
                     int jump = StringToInt(single[i + 1]);                  // 点击选项后跳转到的对话
+                    if (jump == StringToInt("!")) jump = -2;                // 这里改成 -2 防止和没有点击选项的情况冲突
 
                     GameObject btn = Instantiate(ChoiceButton, Choice);     // 生成选项按钮
                     btn.GetComponent<ChatButton>().jump = jump;             // 设置选项跳转
@@ -218,8 +207,12 @@ public class ChatBuilder : MonoBehaviour
                     Destroy(btn);
                 }
 
-                if (index == -1)
+                if (index == -2)
+                {
+                    // 终止对话
                     StartCoroutine(mask.MaskFadeOut());
+                    break;
+                }
                 else if (Controller.dialog.dialogs[index][0] == "0")
                     StartCoroutine(mask.MaskFadeOut());
             }
@@ -238,7 +231,7 @@ public class ChatBuilder : MonoBehaviour
 
                 // 等待 CG 播放完成
                 // 等待切换到场景 CG.unity，再等待播放完成
-                yield return new WaitUntil(() => inCG);
+                yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "CG");
                 
                 // 调低背景音乐音量
                 GameObject audioManager = GameObject.Find("AudioManager");
@@ -250,12 +243,15 @@ public class ChatBuilder : MonoBehaviour
                 audioManager.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("volume");
                 mask = GameObject.Find("Mask").GetComponent<Mask>();    // 获取 CG.unity 的 Mask
                 StartCoroutine(mask.MaskFadeIn("Level"));               // 返回 Level.unity
-                yield return new WaitUntil(() => inLevel);
+                yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "Level");
             }
         } while (index != -1);
 
         // 解除操作权限
         mask.image.raycastTarget = false;
+
+        // 执行对话结束后的回调函数
+        action_after();
     }
 
     // 实现字符串转数字(未判特殊情况)
