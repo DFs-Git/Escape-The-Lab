@@ -52,4 +52,16 @@ public class InsideButtons : MonoBehaviour
         chatBuilder.BuilderShowDialog(() => { });
         GetComponent<Button>().interactable = true;
     }
+
+    public void ShowTutorial()
+    {
+        GetComponent<Button>().interactable = false;
+        // 执行对话
+        chatBuilder = GameObject.Find("ChatBuilder").GetComponent<ChatBuilder>();
+        chatController = GameObject.Find("ChatController").GetComponent<ChatController>();
+        // 先加载教程的对话
+        chatController.LoadChat("tutorial");
+        chatBuilder.BuilderShowDialog(() => { });
+        GetComponent<Button>().interactable = true;
+    }
 }

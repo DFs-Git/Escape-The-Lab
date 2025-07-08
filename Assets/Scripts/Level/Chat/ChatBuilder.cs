@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -19,6 +20,9 @@ public class ChatBuilder : MonoBehaviour
     public GameObject SpecialDialog;
     public GameObject ChoiceButton;
 
+    public GameObject SkipButton;
+    public GameObject ButtonInstance;
+
     public Transform Choice;
 
     public Mask mask;
@@ -26,6 +30,8 @@ public class ChatBuilder : MonoBehaviour
     public ChoiceCollector Collector;
 
     public string CG_Path;
+
+    public bool dialogStopped = false;
 
     void Awake()
     {
@@ -80,6 +86,9 @@ public class ChatBuilder : MonoBehaviour
 
         if (mask == null)
             mask = GameObject.Find("Mask").GetComponent<Mask>();
+        if (Canvas == null)
+            Canvas = GameObject.Find("Canvas");
+        ButtonInstance = Instantiate(SkipButton, Canvas.transform); // 生成跳过按钮
 
         do
         {
@@ -91,6 +100,9 @@ public class ChatBuilder : MonoBehaviour
                 Canvas = GameObject.Find("Canvas");
             if (mask == null)
                 mask = GameObject.Find("Mask").GetComponent<Mask>();
+
+            if (ButtonInstance == null)
+                ButtonInstance = Instantiate(SkipButton, Canvas.transform); // 重新生成跳过按钮
 
             // 确保对话时不能操作
             mask.image.raycastTarget = true;
@@ -123,7 +135,7 @@ public class ChatBuilder : MonoBehaviour
                 else index = StringToInt(single[3]);
                 Debug.Log("Next " + StringToInt(single[3]).ToString());
 
-                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
+                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return) || dialogStopped);
 
                 // 销毁对话框
                 Destroy(dia);
@@ -157,7 +169,8 @@ public class ChatBuilder : MonoBehaviour
                 Debug.Log("Next " + StringToInt(single[2]).ToString());
 
                 // 没有按下回车键就一直等待
-                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
+                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return) || dialogStopped);
+                if (dialogStopped) break;
 
                 // 销毁对话框
                 Destroy(dia);
@@ -195,7 +208,9 @@ public class ChatBuilder : MonoBehaviour
                 }
                 
                 // 没有点击选项就等待
-                yield return new WaitUntil(() => Collector.ChoiceJump != -1);
+                yield return new WaitUntil(() => Collector.ChoiceJump != -1 || dialogStopped);
+
+                if (dialogStopped) break;
 
                 // 将指针(index)跳转到应该跳转的索引
                 index = Collector.ChoiceJump;
@@ -245,13 +260,60 @@ public class ChatBuilder : MonoBehaviour
                 StartCoroutine(mask.MaskFadeIn("Level"));               // 返回 Level.unity
                 yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "Level");
             }
+
+            if (dialogStopped)
+            {
+                break;
+            }
         } while (index != -1);
+
+        if (Collector == null)
+            Collector = GameObject.Find("Choice").GetComponent<ChoiceCollector>();
+        if (Choice == null)
+            Choice = GameObject.Find("Choice").transform;
+        if (Canvas == null)
+            Canvas = GameObject.Find("Canvas");
+        if (mask == null)
+            mask = GameObject.Find("Mask").GetComponent<Mask>();
+
+        // 删除 Mask 的所有子物体
+        foreach (Transform child in mask.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        // 删除 Choice 的所有子物体
+        foreach (Transform child in Choice)
+        {
+            Destroy(child.gameObject);
+        }
+        // 删除 NormalDialogue
+        foreach (Transform child in Canvas.transform)
+        {
+            if (child.name == "NormalDialogue(Clone)" || child.name == "SpecialDialogue(Clone)")
+            {
+                Destroy(child.gameObject);
+            }
+        }
 
         // 解除操作权限
         mask.image.raycastTarget = false;
+        // mask.fadingIn = false;
+        StartCoroutine(mask.MaskFadeOut());
 
-        // 执行对话结束后的回调函数
-        action_after();
+        if (!dialogStopped)
+            // 执行对话结束后的回调函数
+            action_after();
+
+        dialogStopped = false;
+    }
+
+    public void EndDialog()
+    {
+        dialogStopped = true;                       // 标记对话已停止
+
+        // 删除跳过按钮
+        if (ButtonInstance != null)
+            Destroy(ButtonInstance);
     }
 
     // 实现字符串转数字(未判特殊情况)
