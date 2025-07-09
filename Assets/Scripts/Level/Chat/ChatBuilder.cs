@@ -305,6 +305,10 @@ public class ChatBuilder : MonoBehaviour
             action_after();
 
         dialogStopped = false;
+
+        // 删除跳过按钮
+        if (ButtonInstance != null)
+            Destroy(ButtonInstance);
     }
 
     public void EndDialog()
