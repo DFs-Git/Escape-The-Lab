@@ -88,7 +88,7 @@ public class ChatBuilder : MonoBehaviour
             mask = GameObject.Find("Mask").GetComponent<Mask>();
         if (Canvas == null)
             Canvas = GameObject.Find("Canvas");
-        ButtonInstance = Instantiate(SkipButton, Canvas.transform); // 生成跳过按钮
+        // ButtonInstance = Instantiate(SkipButton, Canvas.transform); // 生成跳过按钮
 
         do
         {
@@ -100,9 +100,6 @@ public class ChatBuilder : MonoBehaviour
                 Canvas = GameObject.Find("Canvas");
             if (mask == null)
                 mask = GameObject.Find("Mask").GetComponent<Mask>();
-
-            if (ButtonInstance == null)
-                ButtonInstance = Instantiate(SkipButton, Canvas.transform); // 重新生成跳过按钮
 
             // 确保对话时不能操作
             mask.image.raycastTarget = true;
@@ -135,7 +132,7 @@ public class ChatBuilder : MonoBehaviour
                 else index = StringToInt(single[3]);
                 Debug.Log("Next " + StringToInt(single[3]).ToString());
 
-                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return) || dialogStopped);
+                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
 
                 // 销毁对话框
                 Destroy(dia);
@@ -146,6 +143,10 @@ public class ChatBuilder : MonoBehaviour
             {
                 if (index == 0)
                     yield return new WaitUntil(() => { return mask.image.color.a <= 0.0F; });
+                else if (Controller.dialog.dialogs[index - 1][0] == "3")
+                    yield return new WaitUntil(() => { return mask.image.color.a <= 0.0F; });
+
+                // Debug.Log("[Mask Debug Log] Wait Finished");
                 StartCoroutine(mask.MaskFadeIn(0.8F));
 
                 // 获取对话内容
@@ -169,7 +170,7 @@ public class ChatBuilder : MonoBehaviour
                 Debug.Log("Next " + StringToInt(single[2]).ToString());
 
                 // 没有按下回车键就一直等待
-                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return) || dialogStopped);
+                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
                 if (dialogStopped) break;
 
                 // 销毁对话框
@@ -185,6 +186,8 @@ public class ChatBuilder : MonoBehaviour
             if (single[0] == "2")
             {
                 if (index == 0)
+                    yield return new WaitUntil(() => { return mask.image.color.a <= 0.0F; });
+                else if (Controller.dialog.dialogs[index - 1][0] == "3")
                     yield return new WaitUntil(() => { return mask.image.color.a <= 0.0F; });
                 StartCoroutine(mask.MaskFadeIn(0.8F));
 
@@ -208,7 +211,7 @@ public class ChatBuilder : MonoBehaviour
                 }
                 
                 // 没有点击选项就等待
-                yield return new WaitUntil(() => Collector.ChoiceJump != -1 || dialogStopped);
+                yield return new WaitUntil(() => Collector.ChoiceJump != -1);
 
                 if (dialogStopped) break;
 
@@ -303,21 +306,6 @@ public class ChatBuilder : MonoBehaviour
         if (!dialogStopped)
             // 执行对话结束后的回调函数
             action_after();
-
-        dialogStopped = false;
-
-        // 删除跳过按钮
-        if (ButtonInstance != null)
-            Destroy(ButtonInstance);
-    }
-
-    public void EndDialog()
-    {
-        dialogStopped = true;                       // 标记对话已停止
-
-        // 删除跳过按钮
-        if (ButtonInstance != null)
-            Destroy(ButtonInstance);
     }
 
     // 实现字符串转数字(未判特殊情况)

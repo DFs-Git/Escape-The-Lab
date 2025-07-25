@@ -32,7 +32,12 @@ public class InsideButtons : MonoBehaviour
             TipsText.text += (TipsGotten + 1).ToString() + ". ";
             TipsText.text += Loader.level.tips[TipsGotten];
             TipsGotten++;
-            if (TipsGotten == Loader.level.tips.Count) TipsText.text += '\n' + "没有更多提示了。";
+            if (TipsGotten == Loader.level.tips.Count)
+            {
+                TipsText.text += '\n' + "<color=grey>>>>由[System]倾情提供。</color>";
+                // 如果提示全部获取完毕，禁用按钮
+                GetComponent<Button>().interactable = false;
+            }
         }
     }
 

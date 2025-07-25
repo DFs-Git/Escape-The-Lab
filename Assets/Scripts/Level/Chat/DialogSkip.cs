@@ -8,7 +8,6 @@ public class DialogSkip : MonoBehaviour
 
     public void SkipDialog()
     {
-        Builder = GameObject.Find("ChatBuilder").GetComponent<ChatBuilder>();
-        Builder.EndDialog();
+        
     }
 }
