@@ -43,7 +43,7 @@ public class InsideButtons : MonoBehaviour
 
     public void Back()
     {
-        StartCoroutine(mask.MaskFadeIn("ChooseLevel"));
+        StartCoroutine(mask.MaskFadeIn("LevelChoose"));
     }
 
     public void ShowDialogs()

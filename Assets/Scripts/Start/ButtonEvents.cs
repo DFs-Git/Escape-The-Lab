@@ -25,7 +25,7 @@ public class ButtonEvents : MonoBehaviour
     public void StartEvent()
     {
          //SceneManager.LoadScene(3);
-        StartCoroutine(mask.MaskFadeIn("ChooseLevel"));
+        StartCoroutine(mask.MaskFadeIn("LevelChoose"));
     }
 
     // 设置按钮

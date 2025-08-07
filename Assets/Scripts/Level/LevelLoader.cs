@@ -153,7 +153,6 @@ public class LevelLoader : MonoBehaviour
     // 加载某个关卡
     public void LoadLevel(int chapter, int topic)
     {
-
         // 读取相关关卡的json文件，并存入
         TextAsset jsonLevel = Resources.Load<TextAsset>("Levels/level" + chapter.ToString() + "-" + topic.ToString());
         var tempLevel = JsonConvert.DeserializeObject<TempLevel>(jsonLevel.text);

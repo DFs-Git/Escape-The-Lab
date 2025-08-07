@@ -51,11 +51,8 @@ public class CommitController : MonoBehaviour
         // 注意：数量可以多，不可以少
         CommitChemicals = GameObject.Find("CommitArea").GetComponent<CommitController>().CommitChemicals;
 
-        Debug.Log("Count Error " + CommitChemicals.Count.ToString());
-        Debug.Log("Count Error " + (Loader.level.commit.Count / 2));
         if (CommitChemicals.Count != (Loader.level.commit.Count / 2))
         {
-            Debug.Log("Count Error");
             Failed();
             return;
         }
@@ -78,7 +75,6 @@ public class CommitController : MonoBehaviour
             
             if (!found)
             {
-                Debug.Log("Kind Error");
                 Failed();
                 return;
             }
@@ -115,7 +111,7 @@ public class CommitController : MonoBehaviour
                     chatBuilder.BuilderShowDialog(() => {
                         if (Loader.mask == null)
                             Loader.mask = GameObject.Find("Mask").GetComponent<Mask>();
-                        StartCoroutine(Loader.mask.MaskFadeIn("ChooseLevel"));
+                        StartCoroutine(Loader.mask.MaskFadeIn("LevelChoose"));
                     });
                 }
                 else
@@ -123,7 +119,7 @@ public class CommitController : MonoBehaviour
                     // 没有特殊对话，直接返回关卡选择界面
                     if (Loader.mask == null)
                         Loader.mask = GameObject.Find("Mask").GetComponent<Mask>();
-                    StartCoroutine(Loader.mask.MaskFadeIn("ChooseLevel"));
+                    StartCoroutine(Loader.mask.MaskFadeIn("LevelChoose"));
                 }
             });
 
