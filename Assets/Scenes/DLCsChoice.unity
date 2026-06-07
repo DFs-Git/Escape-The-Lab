@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 355848011}
   - component: {fileID: 355848010}
   m_Layer: 5
-  m_Name: DLCs
+  m_Name: OrganicChemistry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1029,7 +1029,7 @@ GameObject:
   - component: {fileID: 1065170602}
   - component: {fileID: 1065170601}
   m_Layer: 5
-  m_Name: Image
+  m_Name: OrganicChemistry_Img
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1074,7 +1074,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: fe8a78c15881b95439df56404663beca, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
