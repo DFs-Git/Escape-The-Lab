@@ -474,7 +474,6 @@ public static class EquationLoader
                     if (eqReactant.Chemical.Formula == reqReactant.Chemical.Formula &&
                         reqReactant.MolNum % eqReactant.MolNum == 0)
                     {
-
                         Debug.Log(eqReactant.Chemical.Formula);
                         Debug.Log(eqReactant.MolNum + " " + reqReactant.MolNum);
                         found = true;

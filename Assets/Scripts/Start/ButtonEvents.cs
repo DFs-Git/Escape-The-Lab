@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -38,6 +38,12 @@ public class ButtonEvents : MonoBehaviour
     public void CollectionEvent()
     {
         StartCoroutine(mask.MaskFadeIn("Collections"));
+    }
+
+    // 图鉴按钮
+    public void DLCsEvent()
+    {
+        StartCoroutine(mask.MaskFadeIn("DLCsChoice"));
     }
 
     // 退出按钮

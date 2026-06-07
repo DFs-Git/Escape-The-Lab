@@ -172,11 +172,13 @@ MonoBehaviour:
   SpecialDialog: {fileID: 1059436986816897530, guid: 2e6b1424cab998341bd35d4fea53bed5, type: 3}
   ChoiceButton: {fileID: 836968967047355896, guid: 0e29c6eda6ac73a49bbc9d139ed39276, type: 3}
   SkipButton: {fileID: 166525742409442111, guid: 3bfcda0ebca9a9b429df5ae64f361310, type: 3}
+  ButtonInstance: {fileID: 0}
   Choice: {fileID: 1833752559}
   mask: {fileID: 1829415134}
   Loader: {fileID: 0}
   Collector: {fileID: 1833752562}
   CG_Path: 
+  dialogStopped: 0
 --- !u!1 &59919272
 GameObject:
   m_ObjectHideFlags: 0

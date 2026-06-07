@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelChoose.unity
     guid: c2dc9657b523ceb4d99f66f709d77835
+  - enabled: 1
+    path: Assets/Scenes/DLCsChoice.unity
+    guid: efed99cf6d572df40b3b87f7a9546201
   m_configObjects: {}
