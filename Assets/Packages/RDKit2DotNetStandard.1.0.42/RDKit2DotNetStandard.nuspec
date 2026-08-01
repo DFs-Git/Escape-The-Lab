@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>RDKit2DotNetStandard</id>
+    <version>1.0.42</version>
+    <title>RDKit2DotNetStandard</title>
+    <authors>Priyanku Biswas</authors>
+    <owners>Priyanku Biswas</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <icon>images\icon.png</icon>
+    <readme>docs\Readme.md</readme>
+    <description>RDKit CSharp wrapper for RDKit Release_2025_09_3 Release - Windows x64
+		Compatible with both .Net Framework 4.8 and .Net Core 3.1+
+		RDKit Git Master pull date : Wed 12/17/2025</description>
+    <releaseNotes>Built using bp-kelley/rdkit-csharp</releaseNotes>
+    <copyright>Copyright 2025 Priyanku Biswas</copyright>
+    <tags>Chemistry Toolkit Cheminformatics C# Dotnet rdkit</tags>
+  </metadata>
+</package>
