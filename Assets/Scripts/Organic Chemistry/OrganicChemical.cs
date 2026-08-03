@@ -44,6 +44,8 @@ public class OrganicChemical : MonoBehaviour
         svg.finishDrawing();
         string svgtxt = svg.getDrawingText();
 
+        Debug.Log("成功加载 " + svgtxt);
+
         parentTransform.sizeDelta = new Vector2(svg.width() * scale + padding * 2, svg.height() * scale + padding * 2);
         img.GetComponent<RectTransform>().sizeDelta = new Vector2(svg.width() * scale, svg.height() * scale);
         img.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, padding + svg.height() * scale);
@@ -71,6 +73,8 @@ public class OrganicChemical : MonoBehaviour
         LoadChemicalFromSmiles("P(=O)(O)(O)(O)");
         Display();
         */
+
+        scale = 1.5F;
     }
 
     // Update is called once per frame

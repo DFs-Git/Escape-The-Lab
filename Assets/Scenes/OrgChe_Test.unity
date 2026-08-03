@@ -937,9 +937,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Matters: []
   MatterSmiles:
-  - P(O)(O)(O)(=O)
-  - C(=O)(O)CCC(N)C(=O)O
-  OrganicMatterPrefab: {fileID: 1608655690077168270, guid: 84eefa93479ec2948a68b5f183b9af45, type: 3}
+  - C=C
+  - '[Br][Br]'
+  OrganicMatterPrefab: {fileID: 6979870656335820362, guid: 84eefa93479ec2948a68b5f183b9af45, type: 3}
   ProductContent: {fileID: 1588934645}
   ReactantContent: {fileID: 312559760}
 --- !u!1 &1063832584
