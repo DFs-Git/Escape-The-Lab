@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VectorGraphics;
 using UnityEngine;
-using static Unity.VectorGraphics.SVGParser;
+using UnityEngine.UIElements;
 
-public class RDKitTest : MonoBehaviour
+public class OrganicChemical : MonoBehaviour
 {
     public float scale = 1.5f;
     public float padding = 10f;
@@ -13,36 +13,34 @@ public class RDKitTest : MonoBehaviour
     public SVGImage img;
     public RectTransform parentTransform;
 
-    // Start is called before the first frame update
-    void Start()
+    public GraphMolWrap.RWMol OrgChemical;
+
+    /// <summary>
+    /// 按 SMILES 加载有机物
+    /// </summary>
+    /// <param name="smiles">有机物的 SMILES 序列</param>
+    public void LoadChemicalFromSmiles(string smiles)
     {
-        var che = RWMol.MolFromSmiles("C(O)C(O)C1C(O)=C(O)C(=O)O1");
-        if (che == null) Debug.Log("No!");
+        OrgChemical = RWMol.MolFromSmiles(smiles);
+        if (OrgChemical == null) Debug.LogWarning($"有机物(SMILES) {smiles} 加载失败，请留意。");
+        else Debug.Log($"有机物 {smiles} 加载成功！");
+    }
 
-        // 示例：定义一个酰胺化反应
-        GraphMolWrap.ChemicalReaction rxn = 
-            GraphMolWrap.ChemicalReaction.ReactionFromSmarts("[C:1](=[O:2])[O:3].[O:5]>>[C:1](=[O:2])[O:5]");
-        RWMol reactant1 = RWMol.MolFromSmiles("CC(=O)O"); // 乙酸
-        RWMol reactant2 = RWMol.MolFromSmiles("CCO");     // 甲胺
-        var reactants = new ROMol_Vect(new[] {reactant1, reactant2});
-        var products = rxn.runReactants(reactants);
-
-        // products 是一个列表，每个元素是一个产物的元组
-        foreach (var productTuple in products)
+    /// <summary>
+    /// 把有机物的结构绘制出来
+    /// </summary>
+    public void Display()
+    {
+        if (OrgChemical == null)
         {
-            // 每个productTuple可能包含多个产物分子
-            foreach (var productMol in productTuple)
-            {
-                // 在这里处理你的产物分子，例如转换为SMILES显示
-                string productSmiles = productMol.MolToSmiles();
-                Debug.Log("产物: " + productSmiles);
-            }
+            Debug.LogWarning("有机物未加载，无法绘制，请留意。");
+            return;
         }
 
+        // 生成 SVG，自动设置大小
         GraphMolWrap.MolDraw2DSVG svg = new GraphMolWrap.MolDraw2DSVG(-1, -1);
         svg.setFlexiMode(false);
-        // svg.addMoleculeMetadata(che);
-        svg.drawMolecule(che);
+        svg.drawMolecule(OrgChemical);
         svg.finishDrawing();
         string svgtxt = svg.getDrawingText();
 
@@ -50,8 +48,7 @@ public class RDKitTest : MonoBehaviour
         img.GetComponent<RectTransform>().sizeDelta = new Vector2(svg.width() * scale, svg.height() * scale);
         img.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, padding + svg.height() * scale);
 
-        Debug.Log(svgtxt);
-
+        // 绘制 SVG
         var doc = SVGParser.ImportSVG(new System.IO.StringReader(svgtxt));
         var tessOptions = new VectorUtils.TessellationOptions
         {
@@ -65,6 +62,15 @@ public class RDKitTest : MonoBehaviour
         var sprite = VectorUtils.BuildSprite(geos, 200f, VectorUtils.Alignment.Center, Vector2.zero, 128, false);
 
         img.sprite = sprite;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        /*
+        LoadChemicalFromSmiles("P(=O)(O)(O)(O)");
+        Display();
+        */
     }
 
     // Update is called once per frame
