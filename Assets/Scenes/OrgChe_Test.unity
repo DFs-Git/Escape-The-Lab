@@ -937,7 +937,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Matters: []
   MatterSmiles:
-  - C=C
+  - C=CC=C
   - '[Br][Br]'
   OrganicMatterPrefab: {fileID: 6979870656335820362, guid: 84eefa93479ec2948a68b5f183b9af45, type: 3}
   ProductContent: {fileID: 1588934645}
@@ -1187,7 +1187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 169, y: 0}
+  m_AnchoredPosition: {x: 185, y: -8}
   m_SizeDelta: {x: 290.0128, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1215991793
@@ -1531,7 +1531,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -195.01, y: 0}
+  m_AnchoredPosition: {x: -179.01, y: -8.000002}
   m_SizeDelta: {x: 290.0128, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1640464781
